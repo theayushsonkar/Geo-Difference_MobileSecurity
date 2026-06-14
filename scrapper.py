@@ -1,4 +1,3 @@
-# scrapper.py (full corrected version)
 from gplay_scraper import GPlayScraper
 import pandas as pd
 import time
@@ -63,7 +62,7 @@ OUTPUT_DIR = "output"
 CHECKPOINT_FILE = f"{OUTPUT_DIR}/_checkpoint.csv"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Fields to EXCLUDE (as requested)
+# Fields to EXCLUDE for now (we'll add them later according to usage)
 EXCLUDE_COLUMNS = {
     "region", "summary", "genre_id", "ratings_count", "reviews_count",
     "min_installs", "max_installs", "offers_iap", "iap_price_range",
