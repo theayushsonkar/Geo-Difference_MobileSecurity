@@ -1,7 +1,7 @@
 # Android Manifest Scanner
 ---
 
-# Objectives
+## Objectives
 
 The scanner is designed to answer questions such as:
 
@@ -17,7 +17,7 @@ To support these goals, the scanner extracts facts from AndroidManifest.xml and 
 
 ---
 
-# Project Structure
+## Project Structure
 
 The scanner is implemented as a modular package.
 
@@ -38,7 +38,7 @@ manifest_scanner/
 
 ---
 
-## `constants.py`
+### `constants.py`
 
 Contains:
 
@@ -53,7 +53,7 @@ This file acts as the reference database used during extraction.
 
 ---
 
-## `models.py`
+### `models.py`
 
 Contains data structures used throughout the scanner.
 
@@ -71,7 +71,7 @@ These models provide a consistent representation of extracted data.
 
 ---
 
-## `schema.py`
+### `schema.py`
 
 Defines:
 
@@ -84,7 +84,7 @@ This ensures all output files follow a stable structure.
 
 ---
 
-## `sample_index.py`
+### `sample_index.py`
 
 Loads and validates the input sample index.
 
@@ -97,7 +97,7 @@ Responsible for:
 
 ---
 
-## `extractor.py`
+### `extractor.py`
 
 Core extraction engine.
 
@@ -115,7 +115,7 @@ Most feature extraction logic resides here.
 
 ---
 
-## `output.py`
+### `output.py`
 
 Handles output generation.
 
@@ -129,7 +129,7 @@ Responsible for:
 
 ---
 
-## `runner.py`
+### `runner.py`
 
 Coordinates the overall scanning process.
 
@@ -142,7 +142,7 @@ Responsible for:
 
 ---
 
-## `scan_manifest.py`
+### `scan_manifest.py`
 
 Thin command-line entry point.
 
@@ -150,7 +150,7 @@ Used to start the scanner.
 
 ---
 
-# Input Requirements
+## Input Requirements
 
 The scanner expects a `sample_index.csv` file.
 
@@ -168,7 +168,7 @@ The scanner uses this file as the source of truth for all application metadata.
 
 ---
 
-# Running the Scanner
+## Running the Scanner
 
 Execute the scanner using:
 
@@ -184,11 +184,11 @@ python scan_manifest.py --index dataset/sample_index.csv --output results
 
 ---
 
-# Output Datasets
+## Output Datasets
 
 The scanner generates multiple datasets.
 
-## 1. `manifest_apps.csv`
+### 1. `manifest_apps.csv`
 
 One row per application.
 
@@ -204,7 +204,7 @@ This is the primary dataset used for application-level analysis.
 
 ---
 
-## 2. `manifest_permissions.csv`
+### 2. `manifest_permissions.csv`
 
 One row per permission declaration.
 
@@ -217,7 +217,7 @@ Contains:
 
 ---
 
-## 3. `manifest_components.csv`
+### 3. `manifest_components.csv`
 
 One row per Android component.
 
@@ -233,7 +233,7 @@ Contains:
 
 ---
 
-## 4. `manifest_sdks.csv`
+### 4. `manifest_sdks.csv`
 
 One row per detected SDK.
 
@@ -246,7 +246,7 @@ Contains:
 
 ---
 
-## 5. `manifest_network_domains.csv`
+### 5. `manifest_network_domains.csv`
 
 One row per network security rule.
 
@@ -260,7 +260,7 @@ Contains:
 
 ---
 
-## 6. `manifest_trace.json`
+### 6. `manifest_trace.json`
 
 Detailed trace output.
 
@@ -275,7 +275,7 @@ Used primarily for debugging, auditing, and reproducibility.
 
 ---
 
-# Dataset Relationships
+## Dataset Relationships
 
 All datasets are linked using:
 
@@ -298,7 +298,7 @@ manifest_apps.csv
 
 ---
 
-# What This Stage Covers
+## What This Stage Covers
 
 The manifest scanner extracts:
 
