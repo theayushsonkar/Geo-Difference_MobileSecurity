@@ -1,5 +1,4 @@
 # Android Manifest Scanner
----
 
 ## Objectives
 
@@ -183,12 +182,11 @@ python scan_manifest.py --index dataset/sample_index.csv --output results
 ```
 
 ---
-
 ## Output Datasets
 
 The scanner generates multiple datasets.
 
-### 1. `manifest_apps.csv`
+### 1. [`manifest_apps.csv`](dataset_details/App_Summary_Dataset_Overview.md)
 
 One row per application.
 
@@ -204,7 +202,7 @@ This is the primary dataset used for application-level analysis.
 
 ---
 
-### 2. `manifest_permissions.csv`
+### 2. [`manifest_permissions.csv`](dataset_details/Permission_Dataset_Overview.md)
 
 One row per permission declaration.
 
@@ -217,7 +215,7 @@ Contains:
 
 ---
 
-### 3. `manifest_components.csv`
+### 3. [`manifest_components.csv`](dataset_details/Component_Dataset_Overview.md)
 
 One row per Android component.
 
@@ -233,7 +231,7 @@ Contains:
 
 ---
 
-### 4. `manifest_sdks.csv`
+### 4. [`manifest_sdks.csv`](dataset_details/SDK_Dataset_Overview.md)
 
 One row per detected SDK.
 
@@ -246,7 +244,7 @@ Contains:
 
 ---
 
-### 5. `manifest_network_domains.csv`
+### 5. [`manifest_network_domains.csv`](dataset_details/NSC_Dataset_Overview.md)
 
 One row per network security rule.
 
