@@ -24,7 +24,7 @@ def load_sample_index(path: str) -> Tuple[List[SampleRecord], str]:
     errors = []
     sha_pat = re.compile(r"^[a-fA-F0-9]{64}$")
 
-    with open(path, "r", encoding="utf-8-sig") as f:
+    with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
         reader = csv.DictReader(f)
         for row_num, row in enumerate(reader, start=2):
             sid = row.get("sample_id", "").strip()

@@ -55,9 +55,19 @@ APP_COLUMNS = [
 SDK_COLUMNS = [
     "run_id", "schema_version", "parser_version", "sample_id", "package_name",
     "app_country_code", "app_region_group", "sdk_id", "sdk_name", "sdk_prefix",
-    "sdk_version", "sdk_category", "vendor_country_code", "vendor_region_group",
-    "detected_manifest", "detected_smali", "detected_native", "detected_strings",
-    "detection_source_primary", "evidence_type", "evidence_value", "evidence_count",
+    "sdk_version", "sdk_version_source", "sdk_version_confidence",
+    "sdk_ecosystem", "sdk_identifier", "sdk_category", "vendor_country_code",
+    "vendor_region_group", "detected_manifest", "detected_smali",
+    "detected_native", "detected_strings", "detection_source_primary",
+    "evidence_type", "evidence_value", "evidence_count",
+]
+
+STATIC_CODE_FINDINGS_COLUMNS = [
+    "run_id", "schema_version", "parser_version", "sample_id", "package_name",
+    "app_country_code", "app_region_group", "finding_id", "finding_type",
+    "finding_subtype", "normalized_value", "finding_confidence",
+    "occurrence_count", "source_file_count", "source_layer", "source_file",
+    "evidence_snippet", "finding_metadata",
 ]
 
 COMPONENT_COLUMNS = [
@@ -136,6 +146,7 @@ INT_COLUMNS = {
     "secret_public_id_count", "secret_sensitive_token_count",
     "secret_possible_credential_count", "queries_package_count",
     "queries_intent_count", "queries_provider_count", "evidence_count",
+    "occurrence_count", "source_file_count",
     "intent_filter_count", "action_count", "category_count", "data_count",
     "custom_scheme_count", "http_scheme_count", "https_scheme_count",
     "market_scheme_count", "other_scheme_count", "path_permission_count",
@@ -148,6 +159,14 @@ INT_COLUMNS = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def _default_for_column(col: str):
+    if col == "sdk_version_confidence":
+        return "none"
+    if col == "sdk_ecosystem":
+        return "custom"
+    if col == "finding_confidence":
+        return "low"
+    if col == "finding_metadata":
+        return "{}"
     if col in BOOL_COLUMNS:
         return None
     if col in INT_COLUMNS:
