@@ -1,363 +1,527 @@
-# Knowledge Base: Complete Technical Overview
+# Knowledge Base Module: Technical Overview
 
-This document is the authoritative reference for the `knowledge_base` module. It covers every external dataset used, what data is extracted, how it is imported and merged, how the merged database is searched inside APKs, and why each algorithm was chosen.
-
----
-
-## 1. Module Purpose
-
-The `knowledge_base` module serves two entirely separate responsibilities that must not be confused:
-
-| Phase | When it runs | Purpose |
-|---|---|---|
-| **Build Pipeline** | Offline, once | Parse external academic/security datasets, normalize and merge them into canonical CSVs |
-| **Runtime Engine** | Every APK scan | Load frozen canonical CSVs, enrich them in-memory, and execute high-performance pattern matching on Smali bytecode |
-
-The production runtime **never** touches raw upstream sources. It operates exclusively on the frozen metadata files produced by the build pipeline.
+**Geo-Difference Mobile Security — Static Analysis Research System**
 
 ---
 
-## 2. External Datasets
+## Abstract
 
-### 2.1 Axplorer
-**What it is:** A research dataset mapping Android permission system APIs. It was constructed by statically analyzing the Android Open Source Project (AOSP) framework to exhaustively identify which SDK methods require which permissions.
-
-**What we extract:**
-- Java package name (`android.location`, `android.hardware`, etc.)
-- Class name (`LocationManager`, `SensorManager`, etc.)
-- Method name (`getLastKnownLocation`, `requestUpdates`, etc.)
-- Required Android permission (`android.permission.ACCESS_FINE_LOCATION`, etc.)
-- API type (`method`, `field`, `constructor`)
-- Android API level support range
-
-**How we extract it:** `knowledge_base/importers/import_axplorer.py` reads the raw Axplorer XML configuration files from `knowledge_base/raw/axplorer/`. Each permission mapping entry is parsed and normalized. During normalization, the importer:
-1. Loads the permission-to-privacy-category taxonomy from `metadata/android_permission_groups.csv` and `metadata/group_to_privacy_category.csv`.
-2. Resolves each permission to its standardized privacy category (e.g., `ACCESS_FINE_LOCATION` → `Location → GPS`).
-3. Produces typed `PrivacyAPIRecord` objects and writes them to `build_outputs/axplorer_import.csv`.
-
-**Why Axplorer:** It provides the highest-fidelity, exhaustively complete mapping of Android's permission surface. Unlike documentation scraping, Axplorer's mappings were derived by static analysis of the actual AOSP bytecode.
+The `knowledge_base` module is the detection intelligence layer of a large-scale Android static analysis system designed to identify privacy-sensitive API usage, hardcoded secrets, and indirect geo-inference logic across thousands of APKs. The module is architecturally divided into two strictly non-overlapping phases: an **offline build pipeline** that ingests, normalizes, and consolidates three heterogeneous academic and industry datasets into a single canonical database; and a **runtime detection engine** that applies high-performance pattern matching against decompiled Smali bytecode during live APK scanning. This document describes both phases in full technical detail, covering dataset provenance, parsing mechanics, deduplication strategy, in-memory enrichment, and the algorithmic rationale for each matcher.
 
 ---
 
-### 2.2 PScout
-**What it is:** An alternative Android permission dataset built using a Datalog-based static analysis of AOSP. PScout and Axplorer were developed independently and use different analysis methodologies, making their intersection highly trustworthy.
+## 1. Architectural Overview
 
-**What we extract:** Same schema as Axplorer — package, class, method, permission, API level range.
+The module enforces a strict data flow boundary:
 
-**How we extract it:** `knowledge_base/importers/import_pscout.py` reads PScout's raw output from `knowledge_base/raw/pscout/config/`. PScout records are normalized through the same permission-taxonomy resolution pipeline as Axplorer. Output is written to `build_outputs/pscout_import.csv`.
+```
+┌───────────────────────────────────┐
+│         OFFLINE BUILD PHASE       │
+│                                   │
+│  Axplorer ──┐                     │
+│  PScout  ───┼──► Merge ──► privacy_apis.csv
+│  GMS     ──┘                     │
+│                                   │
+│  TruffleHog ──► secret_patterns.csv
+│  FlowDroid  ──► geo_logic.csv    │
+└───────────────────────────────────┘
+                    │
+             Frozen Metadata
+                    │
+┌───────────────────▼───────────────┐
+│          RUNTIME ENGINE           │
+│                                   │
+│  KnowledgeEnrichmentEngine        │
+│    └─► PrivacyMatcher (Aho-Corasick)
+│    └─► SecretMatcher (Regex)     │
+│    └─► GeoMatcher (Rule-based)   │
+│                                   │
+│  Input: Smali bytecode            │
+│  Output: BaseFinding objects      │
+└───────────────────────────────────┘
+```
 
-**Why PScout alongside Axplorer:** Having two independent analyses of the same AOSP permission surface enables provenance tracking. APIs confirmed by both Axplorer and PScout receive stronger confidence scores. Exclusive APIs from each dataset are still retained to maximize coverage.
-
----
-
-### 2.3 Google Play Services (GMS)
-**What it is:** The Google Mobile Services SDK provides APIs beyond AOSP — specifically the Google Location APIs, Maps SDK, Fused Location Provider, and other proprietary Google services heavily used by commercial Android apps.
-
-**What we extract:**
-- Class and method signatures from GMS SDK JARs
-- Privacy-sensitive groupings (Fused Location, Activity Recognition, Awareness API, etc.)
-
-**How we extract it:** `knowledge_base/importers/import_gms.py` uses the `jawa` library to decompile GMS JARs into classfiles and inspect their method signatures. The importer reads a curated metadata index (`metadata/gms_artifacts.csv`) listing which GMS artifacts to import. For each artifact, it:
-1. Decompiles the JAR using `jawa.cf.ClassFile`.
-2. Extracts all public method signatures.
-3. Maps them to privacy categories using the GMS artifact groupings.
-4. Emits typed `PrivacyAPIRecord` objects to `build_outputs/gms_import.csv`.
-
-**Why GMS separately:** GMS APIs are closed-source and not present in AOSP. Apps frequently use `com.google.android.gms.location.*` instead of the standard `android.location.*` APIs. Without GMS coverage, the scanner would miss most location detection in commercial apps.
-
----
-
-### 2.4 TruffleHog
-**What it is:** An open-source secrets-scanning engine that ships an exhaustive library of 931 regex rules for detecting hardcoded API keys, OAuth tokens, private keys, and service credentials. Each rule targets a specific provider (e.g., AWS, Stripe, Twilio, Firebase).
-
-**What we extract:**
-- Pattern ID (`pattern_id`)
-- Provider name (e.g., `aws_access_key`)
-- Secret type description
-- Raw regex string (Google RE2 dialect)
-- Severity level
-
-**How we extract it:** `knowledge_base/pipeline/importers/import_trufflehog.py` reads the TruffleHog rule files, normalizes each rule into a `SecretPattern` record, and writes them to `metadata/secret_patterns.csv`. During import, patterns that use RE2 syntax unsupported by Python's `re` engine (e.g., `\z` anchors, inline `(?i)` modifiers mid-pattern) are flagged as `supported=False` but retained in the database for traceability.
-
-**Why TruffleHog:** It is the industry standard for secrets detection with the broadest provider coverage and a publicly auditable rule set. Building an equivalent rule library from scratch would be infeasible for this research scope.
+The runtime engine **never** reads raw upstream sources. All detection operates exclusively on the frozen metadata produced during the build phase, ensuring reproducibility and scan consistency across all APKs.
 
 ---
 
-### 2.5 FlowDroid Geo-Logic Rules
-**What it is:** FlowDroid is a precise static taint analysis framework for Android. Its configuration ships rule files identifying geo-inference API call chains — sequences of method calls that can be used to infer a device's physical location even without explicit GPS permission (e.g., by combining SSID scanning, cell tower data, or barometric pressure readings).
+## 2. The Canonical Data Model
 
-**What we extract:**
-- Rule ID
-- API call pattern (Java method signature or regex)
-- Privacy category (`Location`, `Sensor`, etc.)
-- Subcategory (`Cell Tower`, `WiFi SSID`, `Barometric`, etc.)
-- Confidence level
+All privacy API records across all three datasets are normalized into a single shared dataclass defined in `schemas/privacy_api_schema.py`:
 
-**How we extract it:** `knowledge_base/pipeline/importers/import_flowdroid_geo.py` reads FlowDroid rule files and transpiles Java-style method patterns into Python-compatible regex patterns. Output is written to `metadata/geo_logic.csv`.
+```python
+@dataclass
+class PrivacyAPIRecord:
+    record_id:                str        # UUID-5 seeded from canonical identity
+    category:                 str        # e.g., "Location", "Contacts"
+    subcategory:              str        # e.g., "GPS", "Phone"
+    framework:                str        # "Android Framework" | GMS artifact name
+    package_name:             str        # e.g., "android.location"
+    class_name:               str        # e.g., "LocationManager"
+    method_name:              str        # e.g., "getLastKnownLocation"
+    api_name:                 str        # Same as method_name
+    api_type:                 str        # "method" | "field" | "constructor"
+    permission:               str        # e.g., "android.permission.ACCESS_FINE_LOCATION"
+    sources:                  List[str]  # ["Axplorer", "PScout"]
+    source_versions:          List[str]  # ["API-23", "API-25"]
+    supported_android_versions: List[int]
+    min_android_api:          Optional[int]
+    max_android_api:          Optional[int]
+    confidence:               str        # "MEDIUM" | "HIGH" | "VERY_HIGH"
+    deprecated:               bool
+    documentation_url:        str
+    notes:                    str
+```
 
-**Why FlowDroid:** Standard permission analysis cannot detect apps that use indirect geo-inference. An app reading barometric pressure and cell signal strength without `ACCESS_FINE_LOCATION` can still triangulate location. FlowDroid's rules encode this attack surface explicitly.
+The `record_id` is a **deterministic UUID-5** seeded from the canonical identity string:
+```
+privacy-api://{framework}/{package_name}/{class_name}/{method_name}/{api_type}
+```
+This ensures the same API always receives the same identifier regardless of import order.
 
 ---
 
-## 3. The Merge Pipeline
+## 3. Dataset Sources and Import Pipeline
 
-After the five source importers have generated their intermediate CSVs, all privacy API data is consolidated into a single canonical database.
+### 3.1 Axplorer
 
-### 3.1 Database Merger (`merge_database.py`)
+**Origin:** Axplorer [Backes et al., CCS 2016] is a static analysis tool that systematically maps the Android Open Source Project (AOSP) permission system by analyzing inter-component communication graphs in the Android framework itself. It produces exhaustive `framework-map-*.txt` files organized per Android API level.
+
+**Format:**
+```
+android.location.LocationManager.getLastKnownLocation(java.lang.String) :: android.permission.ACCESS_FINE_LOCATION
+```
+Each line encodes `<fully-qualified-signature> :: <permission>` using `::` as a separator.
+
+**Importer:** `importers/import_axplorer.py` — `AxplorerImporter`
+
+**Parsing mechanics:**
+1. **Discovery:** Recursively finds all `framework-map-*.txt` files under `raw/axplorer/`. The parent directory name (e.g., `api-23`) is parsed to extract the minimum Android API level.
+2. **Signature extraction:** For each line, the `::` separator splits the API signature from the permission. The signature is further parsed by locating the opening parenthesis `(` to isolate `package.class.method`. The last `.` before `(` separates method from class; the preceding `.` separates class from package.
+3. **Permission taxonomy resolution:** The permission string is looked up in two chained maps loaded from `metadata/android_permission_groups.csv` and `metadata/group_to_privacy_category.csv`:
+   ```
+   ACCESS_FINE_LOCATION → LOCATION (group) → Location (category)
+   ```
+   Permissions that cannot be resolved produce `category = "Unknown"`, retained for traceability.
+4. **API-level deduplication:** The same method may appear across multiple API-level files. Within the importer, records are deduplicated on the key `(framework, package, class, method, permission)`, merging their `supported_android_versions` lists and computing `min_android_api` / `max_android_api`.
+5. **Output:** `build_outputs/axplorer_import.csv`
+
+---
+
+### 3.2 PScout
+
+**Origin:** PScout [Au et al., CCS 2012] is an alternative Android permission mapping produced via a Datalog-based call-graph analysis of AOSP. Because PScout and Axplorer use independent methodologies (Datalog reachability vs. static call-graph traversal), APIs confirmed by both carry stronger evidential weight.
+
+**Formats:** PScout ships in two formats:
+- **XML** (`perm-def-API-23.xml`, `perm-def-API-25.xml`, `perm-def-manual.xml`, `javadoc-perm-def-API-23.xml`): Structured `<permissionDef>` elements with `className`, `target`, `targetKind`, and nested `<permission>` nodes.
+- **TXT** (`perm-def-default.txt`): Jimple-style entries:
+  ```
+  <android.location.LocationManager: android.location.Location getLastKnownLocation(java.lang.String)> -> ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
+  ```
+
+**Importer:** `importers/import_pscout.py` — `PScoutImporter`
+
+**Parsing mechanics:**
+- **XML path:** Parsed with `xml.etree.ElementTree`. For each `permissionDef`, the `className` attribute provides the fully qualified class, and `target`+`targetKind` provides the method or field. If a `permissionDef` has multiple `<permission>` children, each generates a separate record.
+- **TXT path:** Lines are split on `->`. The left side is a Jimple signature wrapped in `<>`. The colon `:` inside separates the class from the method signature. `targetKind` is heuristically inferred: if `(` appears in the target string, it is a method; otherwise a field. Multiple permissions on the right side (comma-separated) each generate a separate record. Permissions lacking the `android.permission.` prefix are normalized automatically.
+- **Permission taxonomy resolution:** Identical two-step chain as Axplorer.
+- **Deduplication key:** `(framework, package, class, method, permission)` — same as Axplorer, enabling cross-dataset merging.
+- **Output:** `build_outputs/pscout_import.csv`
+
+---
+
+### 3.3 Google Play Services (GMS)
+
+**Origin:** Google Mobile Services provides proprietary APIs beyond AOSP — including the Fused Location Provider, Activity Recognition API, Places API, and Google Maps SDK. These APIs are the dominant mechanism for location access in commercial Android apps yet are entirely absent from both Axplorer and PScout.
+
+**Format:** GMS ships as Android Archive (`.aar`) files. Each AAR contains a `classes.jar` with compiled Java bytecode (`.class` files).
+
+**Importer:** `importers/import_gms.py` — `GMSImporter`
+
+**Parsing mechanics:**
+1. **Artifact manifest:** `metadata/gms_artifacts.csv` lists each AAR file with its artifact ID, version, framework label, and `enabled` flag. Only enabled artifacts are processed.
+2. **JAR extraction:** For each enabled AAR, the importer extracts `classes.jar` using Python's `zipfile` module.
+3. **Bytecode inspection:** The `jawa` library (`jawa.cf.ClassFile`) is used to parse each `.class` file. Only `public` classes are processed. For each public class:
+   - All `public` methods are enumerated and emitted as `api_type="method"` records.
+   - All `public` fields are enumerated and emitted as `api_type="field"` records.
+4. **Category assignment:** GMS records are created with `category="Unknown"` at import time. Semantic categorization is deferred entirely to the Knowledge Enrichment Engine at runtime, which applies `classification_rules.csv` against GMS class and package names.
+5. **Deduplication key:** `(package_name, class_name, method_name)` — omits framework to collapse version duplicates.
+6. **Output:** `build_outputs/gms_import.csv`
+
+**Justification:** Commercial Android apps overwhelmingly prefer `com.google.android.gms.location.FusedLocationProviderClient` over `android.location.LocationManager`. A scanner that covers only AOSP APIs misses the dominant location access pattern in production apps.
+
+---
+
+### 3.4 TruffleHog Secret Patterns
+
+**Origin:** TruffleHog [Trufflesecurity, 2023] is an industry-standard secrets scanning engine containing 931 curated regex detectors targeting hardcoded API keys, OAuth tokens, private keys, and service credentials across hundreds of providers (AWS, GCP, Stripe, Twilio, Firebase, etc.).
+
+**Format:** Each rule provides: `pattern_id`, `provider`, `secret_type`, raw regex string (Google RE2 dialect), `severity`.
+
+**Importer:** `pipeline/importers/import_trufflehog.py`
+
+**Key technical detail — RE2 vs Python `re`:** TruffleHog rules are authored for Google's RE2 engine. Python's `re` module does not support certain RE2 constructs (`\z` anchor, possessive quantifiers, mid-pattern inline modifiers). During import and at runtime initialization, each pattern is attempted with `re.compile()`. Patterns that fail are flagged `supported=False` and retained in `metadata/secret_patterns.csv` for traceability but excluded from live matching. This fault-tolerant design prevents a single incompatible regex from crashing the scanner.
+
+**Output:** `metadata/secret_patterns.csv`
+
+---
+
+### 3.5 FlowDroid Geo-Logic Rules
+
+**Origin:** FlowDroid [Arzt et al., PLDI 2014] is a precise static taint analysis framework. Its source/sink configuration encodes indirect geo-inference API call chains — sequences of method calls that reveal physical location without `ACCESS_FINE_LOCATION` (e.g., reading cell tower signal strength via `TelephonyManager`, WiFi SSID via `WifiManager`, or barometric pressure via `SensorManager`).
+
+**Importer:** `pipeline/importers/import_flowdroid_geo.py`
+
+**Rule loading at runtime:** `pipeline/geo_rule_loader.py` — `GeoRuleLoader` reads `metadata/geo_logic.csv`. For each rule, a Python regex is compiled from the class/method name:
+- If the method name is all-uppercase (a constant field), a strict anchored pattern is generated: `(?i)\bClassName\.METHOD\b`
+- Otherwise, an optional-class pattern is generated: `(?i)(?:ClassName[;.])?methodName\b` — this handles both Java dot-notation and Smali semicolon-notation in the same rule.
+
+Rules are cached as an **immutable tuple** after first load (`cls._cache`), preventing re-parsing on subsequent calls within the same process.
+
+**Output:** `metadata/geo_logic.csv`
+
+---
+
+## 4. Database Merge Pipeline
+
+### 4.1 DatabaseMerger (`pipeline/merge_database.py`)
+
+After the three importers complete, `DatabaseMerger` consolidates `axplorer_import.csv`, `pscout_import.csv`, and `gms_import.csv` into the canonical `processed/privacy_apis.csv`.
+
+**Deduplication key:**
+```python
+key = (framework, package_name, class_name, method_name, api_type)
+```
+
+**Merge algorithm (per record):**
+```
+if key not in merged_records:
+    Generate record_id = UUID5(NAMESPACE_URL, canonical_string)
+    Initialize record with first-seen metadata
+    Initialize meta dict: sources={}, permissions={}, android_versions={}
+
+else (duplicate):
+    meta["sources"].update(new_sources)
+    meta["permissions"].update(new_permissions)
+    meta["android_versions"].update(new_versions)
+
+    # Category conflict resolution:
+    if existing_category == "Unknown" and new_category != "Unknown":
+        adopt new_category
+    elif both are known and disagree:
+        log WARNING, increment conflict counter, retain existing
+```
+
+**Confidence scoring** is assigned after all sources have been merged, based on multi-source corroboration:
+
+| Sources Contributing | Confidence |
+|---|---|
+| 3 or more | `VERY_HIGH` |
+| 2 | `HIGH` |
+| 1 | `MEDIUM` |
+
+This means APIs confirmed independently by both Axplorer and PScout receive `HIGH` confidence, while APIs appearing in all three datasets receive `VERY_HIGH`.
+
+**Final sort:** Records are sorted by key tuple before writing, ensuring a deterministic CSV output regardless of processing order.
+
+**Output:** `processed/privacy_apis.csv` — **9,336 canonical records**.
+
+---
+
+## 5. Runtime Detection Engine
+
+### 5.1 MatcherFactory and CacheManager
+
+`pipeline/matcher_factory.py` implements a **Singleton factory** using `__new__` override. `initialize()` is guarded by `CacheManager.has("matchers_initialized")`, ensuring all three matchers are constructed and warmed exactly once per process regardless of how many APKs are scanned.
+
+```python
+# First call: full initialization
+MatcherFactory.initialize()
+  → PrivacyMatcher().initialize()   # builds Aho-Corasick automaton
+  → SecretMatcher().initialize()    # compiles 931 regex patterns
+  → GeoMatcher().initialize()       # loads 24 geo-inference rules
+  → CacheManager.set("matchers_initialized", True)
+
+# All subsequent calls: no-op (cache hit)
+MatcherFactory.initialize()  # returns immediately
+```
+
+`CacheManager` is a plain module-level dict (`_store = {}`), providing O(1) get/set/has operations. Its simplicity is intentional: it stores only three objects per process lifecycle.
+
+---
+
+### 5.2 Knowledge Enrichment Engine (`pipeline/knowledge_enrichment.py`)
+
+Before the Privacy Matcher can be built, the canonical database requires semantic augmentation. Many records arrive from the importers with `category = "Unknown"` because their Android permission could not be resolved to a privacy category (e.g., GMS records, or AOSP APIs with non-standard permissions). The `KnowledgeEnrichmentEngine` resolves this entirely in memory.
 
 **Input files:**
-- `build_outputs/axplorer_import.csv`
-- `build_outputs/pscout_import.csv`
-- `build_outputs/gms_import.csv`
+- `processed/privacy_apis.csv` — read as immutable input; never modified.
+- `metadata/classification_rules.csv` — 90 hand-curated rules.
 
-**Output file:**
-- `processed/privacy_apis.csv` ← The Single Source of Truth
+**Rule schema:**
 
-**Merge algorithm:**
+| Column | Values |
+|---|---|
+| `level` | `method`, `class`, `package`, `keyword` |
+| `pattern` | Exact string or regex depending on level |
+| `category` | Target privacy category |
+| `subcategory` | Target privacy subcategory |
+| `confidence` | `VERY_HIGH`, `HIGH`, `MEDIUM`, `LOW` |
+| `notes` | Research justification |
 
+**Rule organization:** Rules are loaded into four separate lookup structures:
+```python
+method_rules:  Dict[str, List[rule]]  # key = "pkg.Class.method"
+class_rules:   Dict[str, List[rule]]  # key = "pkg.Class"
+package_rules: Dict[str, List[rule]]  # key = "pkg"
+keyword_rules: List[(compiled_regex, rule)]
 ```
-1. Load all three source CSVs as PrivacyAPIRecord lists.
-2. For each record, generate a canonical deduplication key:
-     key = (package_name, class_name, method_name, api_type)
-3. If the key already exists:
-     a. Merge the `sources` list (tracking which datasets contributed).
-     b. Merge `source_versions` lists.
-     c. Resolve confidence: if multi-source, boost to the higher confidence.
-     d. Resolve category: if sources agree → keep. If they disagree → retain Axplorer value, log conflict.
-4. If the key is new: generate a UUID record_id and store.
-5. Write final de-duplicated records to privacy_apis.csv.
-6. Write merge_statistics.csv to processed/ (row counts, overlap counts).
+
+**Enrichment algorithm (per record):**
+```
+rec = shallow_copy(api_record)   # canonical fields never mutated
+
+full_method = f"{pkg}.{cls}.{method}"
+full_class  = f"{pkg}.{cls}"
+
+1. Check method_rules[full_method]  → if match, apply and continue
+2. Check class_rules[full_class]    → if match, apply and continue
+3. Check package_rules[pkg]         → if match, apply and continue
+4. Scan keyword_rules for regex     → collect all matching rules
+
+Priority: Method > Class > Package > Keyword (specificity cascade)
 ```
 
-The merge is **deterministic** — given the same input CSVs, the same `privacy_apis.csv` is produced every time. UUID generation is seeded from the canonical deduplication key, not from random state.
+**Conflict resolution:** If multiple rules at the same level produce conflicting categories, the engine appends a `CONFLICT: {categories}` annotation to the record's `notes` field and does not overwrite the existing category. This prevents incorrect enrichment from being silently applied.
 
-**Result:** 9,336 canonical privacy API records covering AOSP permissions, GMS proprietary APIs, and cross-validated overlap entries.
+**Output:** List of enriched `PrivacyAPIRecord` objects **in memory only**. The canonical CSV is never rewritten. This enforces the single-source-of-truth property: `privacy_apis.csv` remains the permanent ground truth; enrichment is always derived on demand.
 
 ---
 
-## 4. The Runtime Engine
+### 5.3 Privacy Matcher — Aho-Corasick (`pipeline/aho_matcher.py`)
 
-When `scan_manifest.py` is executed, the runtime engine loads, enriches, and activates three specialized matchers. No raw data sources are read at runtime — only the frozen canonical CSVs.
+**Detection target:** Calls to privacy-sensitive APIs in Smali bytecode.
 
-### 4.1 Knowledge Enrichment Engine (`knowledge_enrichment.py`)
+**Algorithm:** The Aho-Corasick multi-pattern string search algorithm [Aho & Corasick, CACM 1975].
 
-The canonical `privacy_apis.csv` database intentionally stores raw provenance data without inferring semantic meaning. Many records arrive from Axplorer with `category = "Unknown"` because their Android permission could not be resolved to a single privacy category. The Enrichment Engine resolves this before the matchers activate.
+#### Why Aho-Corasick?
 
-**Input files:**
-- `processed/privacy_apis.csv` (read-only, immutable)
-- `metadata/classification_rules.csv` (90 hand-curated rules)
+A naïve approach would construct a regex alternation of all 9,336 patterns: `getLastKnownLocation|requestLocationUpdates|...`. Python's `re` engine evaluates alternations sequentially with backtracking, yielding O(N × P) worst-case complexity where N is the text length and P is the pattern count. At 9,336 patterns over Smali files averaging tens of thousands of lines, this approach is computationally infeasible at scale.
 
-**How it works:**
+Aho-Corasick builds a **finite automaton** with **failure links** (suffix links) that allow the automaton to transition to the longest proper suffix state on a mismatch without restarting. This guarantees:
+- **Build:** O(Σ|pattern|) — one-time cost proportional to total pattern character count.
+- **Search:** O(|text| + |matches|) — strictly linear in text length, independent of pattern count.
 
+#### Token generation
+
+For each enriched `PrivacyAPIRecord`, a search token is derived:
+```python
+if class_name and method_name:
+    if method_name == "<init>":
+        token = class_name           # Constructor: match class name
+    else:
+        token = f"{class_name}.{method_name}"  # Standard method
+elif class_name:
+    token = class_name
+elif package_name:
+    token = package_name.split('.')[-1]  # Last package segment
 ```
-1. Load classification_rules.csv. Parse into four rule dictionaries:
-   - method_rules:  { "pkg.Class.method" → [rules] }
-   - class_rules:   { "pkg.Class"        → [rules] }
-   - package_rules: { "pkg"              → [rules] }
-   - keyword_rules: [ (compiled_regex, rule), ... ]
+All tokens are **lowercased** before insertion. This enables case-insensitive matching without a case-insensitive automaton, keeping the automaton alphabet small.
 
-2. For each API record:
-   a. Apply method rule → if match, enrich category/subcategory/confidence.
-   b. Else apply class rule.
-   c. Else apply package rule.
-   d. Else apply keyword regex search over full method signature.
-   e. No matching rule → record retains its existing canonical values.
+Records with `category = "Unknown"` after enrichment are skipped — they would produce false positives by matching generic class names without semantic meaning.
 
-3. Conflict resolution (if multiple rules at the same level match):
-   - If all rules agree on category/subcategory → apply.
-   - If rules disagree → do NOT enrich, append CONFLICT annotation to notes.
+#### Automaton construction
 
-4. Return enriched PrivacyAPIRecord objects IN MEMORY ONLY.
-   The canonical privacy_apis.csv file is never modified.
+```python
+mapping: Dict[str, List[{category, subcategory, confidence}]]
+
+for each enriched record:
+    token = generate_token(record).lower()
+    mapping[token].append({
+        "category":    record.category,
+        "subcategory": record.subcategory,
+        "confidence":  normalize_confidence(record.confidence)
+    })
+
+# Deduplicate (category, subcategory) pairs per token
+for key, values in mapping.items():
+    unique_vals = deduplicate_by_category_subcategory(values)
+    automaton.add_word(key, unique_vals)
+
+automaton.make_automaton()   # Compiles failure links
 ```
 
-**Rule priority (specificity cascade):**
-`Method > Class > Package > Keyword`
+**Result:** 1,266 unique lowercased tokens in the automaton (de-duplicated from 9,336 records because many APIs share the same class name or method name prefix).
 
-An exact method-level match always overrides a broader package-level rule. This prevents false positive enrichment from overly broad package rules.
+#### Search phase
 
-**Why in-memory only:** Persisting an "enriched" database would violate the single-source-of-truth principle. The enriched database would diverge from the canonical one every time `classification_rules.csv` is updated, requiring a re-run with a fresh copy. The in-memory approach makes enrichment instantaneous and the canonical database truly immutable.
+```python
+text_lower = text.lower()
+seen = set()
+
+for end_idx, values in automaton.iter(text_lower):
+    for v in values:
+        tup = (v["category"], v["subcategory"], v["token"])
+        if tup not in seen:
+            seen.add(tup)
+            findings.append(PrivacyFinding(
+                category=v["category"],
+                subcategory=v["subcategory"],
+                confidence=v["confidence"],
+                matched_text=v["token"],
+                offset_start=end_idx - len(v["token"]) + 1,
+                offset_end=end_idx,
+                source="privacy_api",
+                api_signature=v["token"]
+            ))
+
+findings.sort(key=lambda x: (x.category, x.subcategory, x.matched_text))
+```
+
+The de-duplication set prevents the same (category, subcategory, token) triple from generating multiple findings within a single file, handling the case where a short token appears as a substring of a longer one.
 
 ---
 
-### 4.2 Privacy Matcher — Aho-Corasick (`aho_matcher.py`)
+### 5.4 Secret Matcher — Compiled Regex (`pipeline/secret_matcher.py`)
 
-**What it detects:** Privacy API usage in Smali bytecode (e.g., calls to `LocationManager.getLastKnownLocation`, `SensorManager.registerListener`).
+**Detection target:** Hardcoded API keys, OAuth tokens, private keys, and service credentials in Smali string literals.
 
-**Algorithm: Aho-Corasick multi-pattern string search**
+**Algorithm:** Pre-compiled regex set from `metadata/secret_patterns.csv`.
 
-The Aho-Corasick algorithm builds a finite-state automaton from a dictionary of N pattern strings. After a one-time O(total pattern length) build step, every search runs in O(text length + number of matches) time — independent of N. This is critical because the dictionary contains 1,266 unique patterns and the scanner processes thousands of Smali files per APK.
+Unlike the Privacy Matcher which targets structured method signatures, secrets are unstructured strings that vary dramatically in format across providers. Aho-Corasick cannot be applied because secret patterns are not fixed strings — they are complex character classes and quantifiers.
 
 **Build phase:**
-```
-1. For each enriched PrivacyAPIRecord:
-   a. Skip records with category = "Unknown" (unclassified).
-   b. Generate a search token:
-      - If has class + method: "ClassName.methodName"
-      - If <init>:             "ClassName"
-      - If class only:         "ClassName"
-      - If package only:       last package segment
-   c. Normalize token to lowercase.
-   d. Add token → (category, subcategory, confidence) to automaton.
-2. De-duplicate: if the same token maps to multiple (category, subcategory) pairs,
-   retain all unique pairs.
-3. Call automaton.make_automaton() to compile failure links.
-Result: 1,266 unique lowercased tokens in the automaton.
-```
+```python
+for row in csv_reader:
+    raw_regex = row["regex"]
+    try:
+        compiled = re.compile(raw_regex)
+        supported = True
+    except re.error:
+        supported = False    # RE2-only syntax rejected by Python re
 
-**Search phase (per Smali file):**
-```
-1. Lowercase the input text.
-2. Stream through the automaton using iter() — O(N) in text length.
-3. For each match position, record all associated (category, subcategory) pairs.
-4. De-duplicate findings by (category, subcategory, token) to avoid repeated matches.
-5. Sort deterministically by (category, subcategory, matched_text).
-6. Return list of PrivacyFinding objects.
-```
-
-**Why Aho-Corasick over regex alternation:** A naive regex alternation (`pattern1|pattern2|...|pattern1266`) requires backtracking and degrades to O(N × P) in the worst case. Aho-Corasick guarantees O(N) regardless of pattern count and is therefore the only viable choice for scanning large Smali corpora at research scale.
-
----
-
-### 4.3 Secret Matcher — Regex Engine (`secret_matcher.py`)
-
-**What it detects:** Hardcoded API keys, OAuth tokens, private keys, and service credentials embedded in Smali string literals.
-
-**Algorithm: Pre-compiled regex set**
-
-Unlike the Privacy Matcher which looks for structured API signatures, secrets are unstructured and highly variable. They must be detected via regular expressions provided by TruffleHog.
-
-**Build phase:**
-```
-1. Load metadata/secret_patterns.csv.
-2. For each pattern:
-   a. Attempt to compile the raw regex with Python's re module.
-   b. If compilation succeeds: mark pattern as supported=True.
-   c. If compilation fails (RE2 syntax not supported by Python re):
-      mark pattern as supported=False, retain in database.
-3. Log compile statistics. Write unsupported patterns to processed/.
-Result: 931 patterns loaded, subset compiled successfully.
-```
-
-**Search phase (per file):**
-```
-1. For each supported compiled pattern:
-   a. Call compiled_regex.finditer(text).
-   b. For each match: emit SecretFinding with provider, secret_type, severity,
-      matched_text, and offset.
-2. Return all findings.
-```
-
-**Note on RE2 vs Python `re`:** TruffleHog's rules were authored for Google's RE2 engine which supports `\z` (absolute end-of-string), possessive quantifiers, and inline modifiers mid-pattern. Python's `re` engine does not support these constructs. Patterns using them are stored in the canonical database but excluded from runtime matching via the `supported` flag. This fault-tolerant design prevents a single incompatible rule from crashing the scanner.
-
----
-
-### 4.4 Geo Matcher — Compiled Rule Set (`geo_matcher.py`)
-
-**What it detects:** Calls to indirect geo-inference APIs — methods that can reveal physical location without `ACCESS_FINE_LOCATION` (e.g., cell tower signal, WiFi SSID scanning, barometric pressure, accelerometer patterns).
-
-**Algorithm: Rule-based regex scan**
-
-**Build phase:**
-```
-1. GeoRuleLoader.load_rules() reads metadata/geo_logic.csv.
-2. For each rule, compile the pattern string into a Python regex.
-3. Unsupported patterns (invalid regex) are flagged with supported=False.
-Result: 24 active geo-inference rules.
+pattern = SecretPattern(
+    pattern_id=row["pattern_id"],
+    provider=row["provider"],
+    secret_type=row["secret_type"],
+    raw_regex=raw_regex,
+    compiled_regex=compiled,
+    severity=row["severity"],
+    supported=supported
+)
 ```
 
 **Search phase:**
-```
-1. For each supported rule, run compiled_pattern.finditer(text).
-2. For each match: emit GeoFinding with rule_id, category, subcategory, confidence.
-3. Return all findings.
+```python
+for pat in self.patterns:
+    if not pat.supported or pat.compiled_regex is None:
+        continue
+    for match in pat.compiled_regex.finditer(text):
+        findings.append(SecretFinding(
+            subcategory=pat.secret_type,
+            confidence=pat.severity.lower(),
+            matched_text=match.group(0),
+            rule_id=pat.pattern_id
+        ))
 ```
 
-**Why a separate matcher:** Geo-inference is categorically distinct from permission API usage. It requires pattern rules derived from FlowDroid's taint configuration rather than AOSP permission mappings. Keeping it separate allows researchers to independently update geo-logic rules without touching the privacy API database.
+**`generate_reports` flag:** When `SecretMatcher` is constructed with `generate_reports=True` (default in the factory), it writes `processed/unsupported_secret_patterns.csv` and `processed/secret_loader_statistics.csv` during initialization. This provides a record of which TruffleHog patterns were incompatible with Python's regex engine.
 
 ---
 
-### 4.5 Matcher Factory and Cache Manager
+### 5.5 Geo Matcher — Rule-Based Regex (`pipeline/geo_matcher.py`)
 
-**`MatcherFactory`** is the entry point for the entire detection engine. It is called once by `ManifestFeatureExtractor` during scanner startup.
+**Detection target:** Indirect geo-inference API calls that reveal physical location without explicit GPS permission.
 
-**`CacheManager`** is a module-level singleton dictionary that ensures each matcher (Privacy, Secret, Geo) is constructed, initialized, and stored exactly once per process. Subsequent calls to the factory return the cached instance with zero overhead.
+**Examples of detected patterns:**
+- `TelephonyManager.getCellLocation()` — cell tower triangulation
+- `WifiManager.getScanResults()` — WiFi SSID positioning
+- `SensorManager.registerListener()` for `TYPE_PRESSURE` — barometric altitude
 
-**Initialization flow:**
-```
-MatcherFactory.initialize()
-    → CacheManager.get("privacy_matcher")  → None (first time)
-    → Construct PrivacyMatcher()
-    → PrivacyMatcher.initialize()
-        → KnowledgeEnrichmentEngine().enrich() → 9336 enriched records
-        → build automaton → 1266 tokens
-    → CacheManager.set("privacy_matcher", matcher)
+**Algorithm:** `GeoRuleLoader` compiles each entry in `metadata/geo_logic.csv` into a Python regex pattern using the following logic:
 
-    → CacheManager.get("secret_matcher")  → None (first time)
-    → Construct SecretMatcher()
-    → SecretMatcher.initialize()
-        → load secret_patterns.csv → 931 patterns
-    → CacheManager.set("secret_matcher", matcher)
-
-    → CacheManager.get("geo_matcher")  → None (first time)
-    → Construct GeoMatcher()
-    → GeoMatcher.initialize()
-        → GeoRuleLoader.load_rules() → 24 geo rules
-    → CacheManager.set("geo_matcher", matcher)
+```python
+if cls_name and method:
+    if method.isupper():
+        # Constant field — require class name prefix
+        regex = rf"(?i)\b{re.escape(cls_name)}\.{re.escape(method)}\b"
+    else:
+        # Method — class name optional (handles Smali notation)
+        regex = rf"(?i)(?:{re.escape(cls_name)}[;.])?{re.escape(method)}\b"
+else:
+    regex = rf"(?i)\b{re.escape(method)}\b"
 ```
 
-All three matchers implement `BaseMatcher` which enforces:
-- `initialize()`: idempotent (safe to call multiple times)
-- `search(text) → List[BaseFinding]`: O(N) evaluation
-- `statistics() → dict`: introspection for benchmarking
-- `close()`: resource teardown
+The optional class prefix pattern `(?:ClassName[;.])?` handles both Java-style `ClassName.method` and Smali-style `LClassName;->method` without requiring two separate rules per API.
+
+**Caching:** `GeoRuleLoader._cache` stores the compiled rule set as an **immutable tuple** after first load, preventing redundant file I/O and regex compilation across multiple APK scans.
+
+**Output:** 24 active geo-inference rules covering Location, Sensor, Telephony, and WiFi categories.
 
 ---
 
-## 5. End-to-End Production Flow
+## 6. Schema Layer (`schemas/`)
 
-```mermaid
-flowchart TD
-    A[scan_manifest.py] --> B[ManifestFeatureExtractor]
-    B --> C[MatcherFactory.initialize]
-    C --> D[KnowledgeEnrichmentEngine]
-    D --> E["privacy_apis.csv\n9336 records"]
-    D --> F["classification_rules.csv\n90 rules"]
-    D --> G[Enriched Records in Memory]
-    G --> H[PrivacyMatcher\nAho-Corasick, 1266 tokens]
-    C --> I["SecretMatcher\nRegex, 931 patterns"]
-    C --> J["GeoMatcher\n24 geo rules"]
-    B --> K[Smali File Content]
-    K --> H
-    K --> I
-    K --> J
-    H --> L[PrivacyFinding objects]
-    I --> M[SecretFinding objects]
-    J --> N[GeoFinding objects]
-    L --> O[Aggregator]
-    M --> O
-    N --> O
-    O --> P["CSV Output\nstatic_code_findings.csv"]
-```
+All findings implement `BaseFinding` and are returned as strictly typed dataclass instances:
+
+| Schema | Matcher | Key Fields |
+|---|---|---|
+| `PrivacyFinding` | `PrivacyMatcher` | `category`, `subcategory`, `confidence`, `api_signature` |
+| `SecretFinding` | `SecretMatcher` | `subcategory` (secret type), `confidence` (severity), `rule_id` |
+| `GeoFinding` | `GeoMatcher` | `category`, `subcategory`, `confidence`, `rule_id` |
+
+All three inherit `BaseFinding` which provides: `matcher`, `category`, `subcategory`, `confidence`, `matched_text`, `offset_start`, `offset_end`, `source`.
 
 ---
 
-## 6. Canonical Database Summary
+## 7. Canonical Database Summary
 
-| File | Location | Built By | Read By | Records |
+| File | Location | Produced By | Consumed By | Records |
 |---|---|---|---|---|
 | `privacy_apis.csv` | `processed/` | `merge_database.py` | `knowledge_enrichment.py` | 9,336 |
 | `secret_patterns.csv` | `metadata/` | `import_trufflehog.py` | `secret_matcher.py` | 931 |
 | `geo_logic.csv` | `metadata/` | `import_flowdroid_geo.py` | `geo_rule_loader.py` | 24 |
-| `classification_rules.csv` | `metadata/` | Manually curated | `knowledge_enrichment.py` | 90 |
-| `sdk_metadata.csv` | `metadata/` | Manual | `sdk_detection/metadata_loader.py` | — |
+| `classification_rules.csv` | `metadata/` | Hand-curated | `knowledge_enrichment.py` | 90 |
+| `android_permission_groups.csv` | `metadata/` | AOSP documentation | `import_axplorer.py`, `import_pscout.py` | — |
+| `group_to_privacy_category.csv` | `metadata/` | Hand-curated | `import_axplorer.py`, `import_pscout.py` | — |
 
 ---
 
-## 7. Remaining Documentation
+## 8. End-to-End Runtime Flow
 
-| File | Purpose |
-|---|---|
-| `docs/cleanup_audit.md` | Engineering audit report: facts, proven deletions, metrics |
-| `docs/knowledge_enrichment_design.md` | Detailed design spec for the in-memory enrichment system |
-| `docs/matcher_architecture.md` | Mermaid diagram of the unified matcher framework |
+```
+scan_manifest.py
+    └─► ManifestFeatureExtractor
+            └─► MatcherFactory.initialize()   [called once per process]
+                    ├─► KnowledgeEnrichmentEngine.enrich()
+                    │       ├── load classification_rules.csv  (90 rules)
+                    │       ├── load privacy_apis.csv          (9,336 records)
+                    │       └── enrich in-memory → 9,336 enriched records
+                    │
+                    ├─► PrivacyMatcher.build(enriched_records)
+                    │       └── Aho-Corasick automaton, 1,266 tokens
+                    │
+                    ├─► SecretMatcher.initialize()
+                    │       └── 931 compiled regex patterns
+                    │
+                    └─► GeoMatcher.initialize()
+                            └── 24 geo-inference rules
+
+    For each decoded APK:
+        For each Smali file:
+            ├─► PrivacyMatcher.search(text) → List[PrivacyFinding]
+            ├─► SecretMatcher.search(text)  → List[SecretFinding]
+            └─► GeoMatcher.search(text)     → List[GeoFinding]
+
+        Aggregate findings → static_code_findings.csv
+```
+
+---
+
+## 9. References
+
+- Aho, A. V., & Corasick, M. J. (1975). Efficient string matching: an aid to bibliographic search. *Communications of the ACM*, 18(6), 333–340.
+- Arzt, S., et al. (2014). FlowDroid: Precise context, flow, field, object-sensitive and lifecycle-aware taint analysis for Android apps. *ACM SIGPLAN Notices*, 49(6), 259–269.
+- Au, K. W. Y., et al. (2012). PScout: Analyzing the Android permission specification. *Proceedings of CCS 2012*.
+- Backes, M., et al. (2016). Demystifying the Semantics of Personal Data. *Proceedings of CCS 2016* (Axplorer).
+- Trufflesecurity. (2023). TruffleHog: Find leaked credentials. https://github.com/trufflesecurity/trufflehog
