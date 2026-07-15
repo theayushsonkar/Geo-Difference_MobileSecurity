@@ -1,0 +1,7 @@
+artifact,file,version,framework,enabled
+play-services-location,play-services-location-21.3.0.aar,21.3.0,Google Play Services,true
+play-services-ads-identifier,play-services-ads-identifier-18.2.0.aar,18.2.0,Google Play Services,true
+play-services-nearby,play-services-nearby-19.3.0.aar,19.3.0,Google Play Services,true
+play-services-auth,play-services-auth-21.4.0.aar,21.4.0,Google Play Services,true
+play-services-fitness,play-services-fitness-21.3.0.aar,21.3.0,Google Play Services,true
+play-services-code-scanner,play-services-code-scanner-16.1.0.aar,16.1.0,Google Play Services,true

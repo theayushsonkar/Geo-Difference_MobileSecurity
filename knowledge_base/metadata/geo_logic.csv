@@ -1,0 +1,25 @@
+rule_id,package_name,class_name,method_name,category,subcategory,confidence,source,notes
+country_detection_1,com.android.internal.telephony,MccTable,countryCodeForMcc,Country Detection,MCC,VERY_HIGH,Manual,Internal MCC to Country mapping.
+country_detection_2,android.telephony,TelephonyManager,getNetworkCountryIso,Country Detection,Network Country,VERY_HIGH,Manual,Explicit network country detection missing in some FlowDroid base configurations.
+country_detection_3,android.telephony,SubscriptionInfo,getCountryIso,Country Detection,SIM Country,VERY_HIGH,Manual,"Country ISO from Subscription. Added in later Android versions, occasionally missing in old FlowDroid lists."
+country_detection_4,android.telephony,TelephonyManager,getSimCountryIso,Country Detection,SIM Country,VERY_HIGH,Manual,Explicit SIM country detection commonly missed in basic sink lists.
+language_1,java.util,Locale,getLanguage,Language,Language,VERY_HIGH,Manual,Language code from Locale. Not universally seen as a critical privacy leak by basic tools.
+locale_1,android.content.res,Configuration,getLocales,Locale,Locale,VERY_HIGH,Manual,Fetch device locales via Configuration. Often overlooked by data-flow analysis.
+locale_2,java.util,Locale,getDefault,Locale,Locale,VERY_HIGH,Manual,Global default locale fetch. Basic API not always flagged by FlowDroid as a sensitive source.
+locale_3,java.util,Locale,getCountry,Locale,Region,HIGH,FlowDroid,Imported from AndroidSources.txt
+location_1,android.location,Location,getLatitude,Location,GPS,HIGH,FlowDroid,Imported from AndroidSources.txt
+location_2,android.location,Location,getLongitude,Location,GPS,HIGH,FlowDroid,Imported from AndroidSources.txt
+location_3,android.location,LocationManager,getLastKnownLocation,Location,GPS,HIGH,FlowDroid,Imported from AndroidSources.txt
+region_detection_1,android.os,Build,MODEL,Region Detection,Provider,VERY_HIGH,Manual,Model can sometimes imply region (e.g. Chinese variants).
+region_detection_2,android.os,SystemProperties,get,Region Detection,Provider,VERY_HIGH,Manual,System.getProperty can fetch user.country or user.language. Often missed by static source detection.
+region_detection_3,java.lang,System,getProperty,Region Detection,Provider,VERY_HIGH,Manual,user.country or user.language via System properties.
+telephony_1,android.telephony.gsm,GsmCellLocation,getCid,Telephony,Country,HIGH,FlowDroid,Imported from AndroidSources.txt
+telephony_2,android.telephony.gsm,GsmCellLocation,getLac,Telephony,Country,HIGH,FlowDroid,Imported from AndroidSources.txt
+telephony_3,android.telephony,ServiceState,getOperatorNumeric,Telephony,MCC,VERY_HIGH,Manual,MCC/MNC from operator numeric.
+telephony_4,android.telephony,SubscriptionInfo,getMcc,Telephony,MCC,VERY_HIGH,Manual,MCC from Subscription.
+telephony_5,android.telephony,SubscriptionInfo,getMnc,Telephony,MNC,VERY_HIGH,Manual,MNC from Subscription.
+telephony_6,android.os,Build,getRadioVersion,Telephony,Provider,VERY_HIGH,Manual,Extracts radio version which can hint at region. FlowDroid focuses on standard sources rather than reflection or specific Build properties.
+telephony_7,android.telephony,ServiceState,getOperatorAlphaLong,Telephony,Provider,VERY_HIGH,Manual,Operator name can leak country. Not always flagged as a strict source.
+telephony_8,android.telephony,TelephonyManager,getSimSerialNumber,Telephony,SIM Country,HIGH,FlowDroid,Imported from AndroidSources.txt
+timezone_1,java.util,TimeZone,getDefault,Timezone,Timezone,VERY_HIGH,Manual,Global default timezone.
+timezone_2,java.util,TimeZone,getID,Timezone,Timezone,VERY_HIGH,Manual,Timezone ID. Java utility class sometimes ignored in Android-focused datasets.

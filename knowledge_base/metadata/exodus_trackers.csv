@@ -1,0 +1,589 @@
+tracker_name,package_prefix,categories,network_signature,website,source,code_signature
+360Dialog,com.threesixtydialog.sdk,Location|Advertisement|Identification|Profiling|Analytics,,https://www.360dialog.com,exodus,com.threesixtydialog.sdk.
+ABTasty,com.abtasty,Analytics,abtasty\.com,https://www.abtasty.com,exodus,com.abtasty
+ACRA,ch.acra,Crash reporting,,https://www.acra.ch/,exodus,org.acra.|ch.acra.
+ACRA,org.acra,Crash reporting,,https://www.acra.ch/,exodus,org.acra.|ch.acra.
+ACRCloud,com.acrcloud,Analytics,acrcloud.com|hb-minify-juc1ugur1qwqqqo4.stackpathdns.com,https://acrcloud.com/,exodus,com.acrcloud
+AD(X),com.adxcorp.ads,Advertisement,,https://adxcorp.kr/,exodus,com.adxcorp.ads|com.adxcorp.nativead
+AD(X),com.adxcorp.nativead,Advertisement,,https://adxcorp.kr/,exodus,com.adxcorp.ads|com.adxcorp.nativead
+ADLIB,com.mocoplex.adlib,,adlibr\.com,https://adlibr.com,exodus,com.mocoplex.adlib.
+AMoAd,com.amoad,,,https://www.amoad.com,exodus,com.amoad.
+ATInternet,com.atinternet,Analytics,ati-host\.net,https://www.atinternet.com/en/,exodus,com.atinternet.
+Aarki,com.aarki,Advertisement|Identification|Profiling|Analytics,,https://www.aarki.com,exodus,com.aarki
+AccountKit,com.facebook.accountkit,Identification,graph\.accountkit\.com,https://www.accountkit.com/,exodus,com.facebook.accountkit
+Actv8me,me.actv8,Location|Advertisement|Identification|Profiling,actv8technologies\.com,https://www.actv8me.com/,exodus,me.actv8
+Acuant,com.acuant.acuantcamera,Profiling,frm\.acuant\.net|medicscan\.acuant\.net|services\.assureid\.net,https://www.acuantcorp.com,exodus,com.acuant.acuantcamera
+Ad Generation,com.socdm.d.adgeneration,Advertisement,,https://supership.jp/business/adgeneration/,exodus,com.socdm.d.adgeneration.
+Ad4Screen,com.ad4screen.sdk,Advertisement,a4\.tl|accengage\.com|ad4push\.com|ad4screen\.com,http://www.ad4screen.com,exodus,com.ad4screen.sdk
+AdAdapted,com.adadapted.android.sdk,Advertisement|Analytics,ads\.adadapted\.com,https://www.adadapted.com,exodus,com.adadapted.android.sdk.
+AdBuddiz,com.purplebrain.adbuddiz.sdk,Advertisement,sdk\.adbuddiz\.com,http://www.adbuddiz.com/abuse?hl=fr,exodus,com.purplebrain.adbuddiz.sdk.
+AdColony,com.adcolony,Advertisement,adc3-launch\.adcolony\.com|adcolony\.com|ads30\.adcolony\.com|androidads20\.adcolony\.com|androidads21\.adcolony\.com|androidads23\.adcolony\.com|events3alt\.adcolony\.com|wd\.adcolony\.com,http://adcolony.com/,exodus,com.adcolony.|com.jirbo.adcolony.
+AdColony,com.jirbo.adcolony,Advertisement,adc3-launch\.adcolony\.com|adcolony\.com|ads30\.adcolony\.com|androidads20\.adcolony\.com|androidads21\.adcolony\.com|androidads23\.adcolony\.com|events3alt\.adcolony\.com|wd\.adcolony\.com,http://adcolony.com/,exodus,com.adcolony.|com.jirbo.adcolony.
+AdFalcon,com.noqoush.adfalcon.android.sdk,Advertisement,,http://adfalcon.com,exodus,com.noqoush.adfalcon.android.sdk
+AdFit (Daum),com.kakao.adfit,,analytics\.ad\.daum\.net|statistics\.videofarm\.daum\.net,https://www.daum.net,exodus,com.kakao.adfit.
+AdGateMedia,com.adgatemedia,Advertisement,,https://adgatemedia.com/,exodus,com.adgatemedia.
+AdGem,com.adgem.android,Advertisement,,https://adgem.com/,exodus,com.adgem.android.
+AdLocus,com.adlocus,Location|Advertisement|Identification|Profiling,,https://adlocus.com,exodus,com.adlocus.
+AdMarvel,com.admarvel,Advertisement,,https://www.crunchbase.com/organization/admarvel,exodus,com.admarvel.
+AdMuing,com.admuing.danmaku,Advertisement,,https://github.com/admuing,exodus,com.admuing.danmaku.
+AdTiming,com.adtiming,Advertisement,,https://www.adtiming.com/,exodus,com.aiming.mdt.|com.adtiming.
+AdTiming,com.aiming.mdt,Advertisement,,https://www.adtiming.com/,exodus,com.aiming.mdt.|com.adtiming.
+AdTrial,com.adtrial.sdk,Advertisement,,https://adtrial.com/,exodus,com.adtrial.sdk.
+Adbrix,com.igaworks.adbrix,Profiling|Analytics,ad-brix\.com,http://ad-brix.com/,exodus,com.igaworks.adbrix
+Adcash,com.adcash.mobileads,Advertisement,,https://adcash.com,exodus,com.adcash.mobileads.
+Adcenix,com.adcenix,Advertisement,,http://adcenix.com,exodus,com.adcenix.
+Add Apt Tr,com.intentsoftware.addapptr,,aatkit\.com,https://www.addapptr.com,exodus,com.intentsoftware.addapptr.
+Adform,com.adform.sdk,,adform\.com|adformdsp\.net|adx\.adform\.net|files\.adform\.net|track\.adform\.net,https://site.adform.com,exodus,com.adform.sdk.
+Adfurikun,com.glossomads.sdk,Advertisement,adfurikun\.jp|ginf\.adfurikun\.jp,https://adfurikun.jp/adfurikun/,exodus,jp.tjkapp.adfurikunsdk.|com.glossomads.sdk.
+Adfurikun,jp.tjkapp.adfurikunsdk,Advertisement,adfurikun\.jp|ginf\.adfurikun\.jp,https://adfurikun.jp/adfurikun/,exodus,jp.tjkapp.adfurikunsdk.|com.glossomads.sdk.
+Adincube,com.adincube.sdk,,sdk\.adincube\.com,https://www.adincube.com/,exodus,com.adincube.sdk.
+Adjoe,io.adjoe.protection,Advertisement,,https://adjoe.io/,exodus,io.adjoe.sdk.|io.adjoe.protection.
+Adjoe,io.adjoe.sdk,Advertisement,,https://adjoe.io/,exodus,io.adjoe.sdk.|io.adjoe.protection.
+Adjust,com.adjust.android.sdk,Analytics,adj\.st|adjust\.com|go\.link,https://www.adjust.com/,exodus,com.adjust.sdk.|com.adjust.android.sdk.
+Adjust,com.adjust.sdk,Analytics,adj\.st|adjust\.com|go\.link,https://www.adjust.com/,exodus,com.adjust.sdk.|com.adjust.android.sdk.
+Adjust Unbotify,com.unbotify.mobile.sdk,Analytics,,https://www.adjust.com/product/unbotify/,exodus,com.unbotify.mobile.sdk.
+Admitad,ru.tachos.admitadstatisticsdk,Advertisement,.*\.admitad.com,https://www.admitad.com,exodus,ru.tachos.admitadstatisticsdk
+Admixer,com.admixer,Advertisement,admixer\.co\.kr|admixer\.net,http://admixer.co.kr/,exodus,com.admixer|net.admixer.sdk
+Admixer,net.admixer.sdk,Advertisement,admixer\.co\.kr|admixer\.net,http://admixer.co.kr/,exodus,com.admixer|net.admixer.sdk
+Admost,admost.adserver,Advertisement,cdn\-api\.admost\.com|go\.admost\.com|med\-api\.admost\.com,https://admost.com/,exodus,admost.sdk.|admost.adserver.
+Admost,admost.sdk,Advertisement,cdn\-api\.admost\.com|go\.admost\.com|med\-api\.admost\.com,https://admost.com/,exodus,admost.sdk.|admost.adserver.
+Adobe Experience Cloud,com.adobe.marketing.mobile,,,https://www.adobe.com/experience-cloud.html,exodus,com.adobe.marketing.mobile
+Adot,com.adotmob,,sdk\.adotmob\.com|sync\.adotmob\.com|tracker\.adotmob\.com,https://we-are-adot.com/,exodus,com.adotmob
+AdsWizz,.adswizz,,adswizz\.com|cdn\.adswizz.com\.edgesuite\.net,http://www.adswizz.com/,exodus,.adswizz.
+AerServ,com.aerserv.sdk,Advertisement,ads\.aerserv\.com|debug\.aerserv\.com,https://www.aerserv.com/,exodus,com.aerserv.sdk.
+Airpush,com.airpush,Advertisement,api\.airpush\.com|apidm\.airpush\.com|apistaging\.airpush\.com|apportal\.airpush\.com|appwall\.api\.airpush\.com|beta\.airpush\.com|cdnap\.airpush\.com|m\.airpush\.com,https://airpush.com/,exodus,com.airpush.
+Akamai MAP,com.akamai.android.sdk.akamap,Analytics,,https://www.akamai.com/,exodus,com.akamai.android.sdk.AkaMap
+Alimama (formerly AdsMogo),com.adsmogo,Advertisement,\.alimama\.|\.adsmogo\.,https://www.alimama.com/,exodus,com.adsmogo.|com.alimama.
+Alimama (formerly AdsMogo),com.alimama,Advertisement,\.alimama\.|\.adsmogo\.,https://www.alimama.com/,exodus,com.adsmogo.|com.alimama.
+Alohalytics,org.alohalytics,Analytics,,https://github.com/biodranik/Alohalytics,exodus,org.alohalytics.
+Alooma,com.github.aloomaio.androidsdk,Analytics,inputs\.alooma\.com,https://www.alooma.com,exodus,com.github.aloomaio.androidsdk
+Alphonso,tv.alphonso.service,Analytics,api\.alphonso\.tv|prov\.alphonso\.tv,http://alphonso.tv,exodus,tv.alphonso.service
+AltBeacon,com.altbeacon.beacon,,data.\altbeacon\.org,https://altbeacon.org,exodus,org.altbeacon.beacon.|com.altbeacon.beacon.|org.altbeacon.bluetooth.
+AltBeacon,org.altbeacon.beacon,,data.\altbeacon\.org,https://altbeacon.org,exodus,org.altbeacon.beacon.|com.altbeacon.beacon.|org.altbeacon.bluetooth.
+AltBeacon,org.altbeacon.bluetooth,,data.\altbeacon\.org,https://altbeacon.org,exodus,org.altbeacon.beacon.|com.altbeacon.beacon.|org.altbeacon.bluetooth.
+Altamob,com.altamob.sdk,Advertisement,api\.altamob\.com,https://www.altamob.com/en/index.html,exodus,com.altamob.sdk
+Amazon Advertisement,com.amazon.device.ads,,,https://developer.amazon.com/public/apis/earn/mobile-ads/docs/quick-start,exodus,com.amazon.device.ads
+Amazon Analytics (Amazon insights),com.amazon.insights,Analytics,mobileanalytics\.us-east-1\.amazonaws\.com,https://developer.amazon.com/docs/apps-and-games/sdk-downloads.html,exodus,com.amazon.insights|com.amazonaws.mobileconnectors.pinpoint.analytics.|com.amazonaws.mobileconnectors.amazonmobileanalytics
+Amazon Analytics (Amazon insights),com.amazonaws.mobileconnectors.amazonmobileanalytics,Analytics,mobileanalytics\.us-east-1\.amazonaws\.com,https://developer.amazon.com/docs/apps-and-games/sdk-downloads.html,exodus,com.amazon.insights|com.amazonaws.mobileconnectors.pinpoint.analytics.|com.amazonaws.mobileconnectors.amazonmobileanalytics
+Amazon Analytics (Amazon insights),com.amazonaws.mobileconnectors.pinpoint.analytics,Analytics,mobileanalytics\.us-east-1\.amazonaws\.com,https://developer.amazon.com/docs/apps-and-games/sdk-downloads.html,exodus,com.amazon.insights|com.amazonaws.mobileconnectors.pinpoint.analytics.|com.amazonaws.mobileconnectors.amazonmobileanalytics
+Amazon Mobile Analytics (Amplify),com.amplifyframework.analytics,Analytics,,https://aws.amazon.com/amplify/,exodus,com.amplifyframework.analytics.
+Amazon Mobile Associates,com.amazon.device.associates,,,https://developer.amazon.com/mobile-associates,exodus,com.amazon.device.associates
+Amobee,com.amobee,,amobee\.com,https://amobee.com,exodus,com.amobee.
+Amplitude,com.amplitude,Profiling|Analytics,amplitude\.com|api\.amplitude\.com,http://www.amplitude.com,exodus,com.amplitude.
+Anagog,com.anagog.jedai,Location|Analytics,,https://anagog.com,exodus,com.anagog.jedai
+Analytics by NPAW (Youbora Suite),com.npaw.youbora,Location|Profiling|Analytics,,https://nicepeopleatwork.com/,exodus,com.npaw.youbora.
+Anvato (A Google Company),com.anvato.androidsdk,Location|Advertisement|Identification|Profiling|Analytics,.*\.anvato\.net,https://cloud.google.com/solutions/media-entertainment/?a=2,exodus,com.anvato.androidsdk.
+AnySDK,com.anysdk.framework.adswrapper,Advertisement|Analytics,,http://www.anysdk.com/,exodus,com.anysdk.framework.AnalyticsWrapper|com.anysdk.framework.AdsWrapper
+AnySDK,com.anysdk.framework.analyticswrapper,Advertisement|Analytics,,http://www.anysdk.com/,exodus,com.anysdk.framework.AnalyticsWrapper|com.anysdk.framework.AdsWrapper
+AppAnalytics,io.appanalytics.sdk,Analytics,,http://appanalytics.io/,exodus,io.appanalytics.sdk
+AppBrain,com.appbrain,,sdk\.appbrain\.com,https://www.appbrain.com/info/help/sdk/index.html,exodus,com.appbrain.
+AppLovin (MAX and SparkLabs),com.applovin,Advertisement|Identification|Profiling|Analytics,applovin\.com|applvn\.com,https://www.applovin.com/,exodus,com.applovin
+AppMetrica,com.yandex.metrica,,analytics\.mobile\.yandex\.net|appmetrica\.yandex\.com|banners-slb\.mobile\.yandex\.net|banners\.mobile\.yandex\.net|mc\.yandex\.ru|report\.appmetrica\.yandex\.net|startup\.mobile\.yandex\.net,https://tech.yandex.com/metrica-mobile-sdk/,exodus,com.yandex.metrica.
+AppMonet,com.monet,,,http://appmonet.com,exodus,com.monet.
+AppNexus,com.appnexus.opensdk,,247realmedia\.com|adnxs\.com|appnexus\.com|appnexus\.net,https://www.appnexus.com/,exodus,com.appnexus.opensdk.
+AppSee,com.appsee,Identification|Profiling|Analytics,api\.appsee\.com,https://www.appsee.com/,exodus,com.appsee.
+AppVador,com.appvador.ads,Advertisement,,http://www.appvador.com/,exodus,com.appvador.ads.
+Appcelerator Analytics,com.appcelerator.aps,Analytics,appcelerator\.com|appcelerator\.net,https://www.appcelerator.com,exodus,com.appcelerator.aps.|org.appcelerator.titanium.analytics
+Appcelerator Analytics,org.appcelerator.titanium.analytics,Analytics,appcelerator\.com|appcelerator\.net,https://www.appcelerator.com,exodus,com.appcelerator.aps.|org.appcelerator.titanium.analytics
+Appdynamics,com.appdynamics,Profiling|Analytics,eum-appdynamics\.com|appdynamics\.com,https://www.appdynamics.com/,exodus,com.appdynamics.
+Applause,com.applause.android,Analytics|Crash reporting,,http://www.applause.com,exodus,com.applause.android.
+Appnext,com.appnext.sdk,,appnext.com,https://www.appnext.com/,exodus,com.appnext.sdk
+Appodeal,com.appodeal.ads,,appodeal\.com|appodealx\.com,https://www.appodeal.com,exodus,com.appodeal.ads.|com.appodealx.
+Appodeal,com.appodealx,,appodeal\.com|appodealx\.com,https://www.appodeal.com,exodus,com.appodeal.ads.|com.appodealx.
+Appodeal Stack,com.explorestack,Advertisement|Analytics,,https://appodealstack.com/about/,exodus,com.explorestack.
+AppsFlyer,com.appsflyer,Analytics,appsflyer\.com,http://AppsFlyer.com,exodus,com.appsflyer.
+AppsGeyser,com.appsgeyser.multitabapp.videoplayeractivity,Advertisement,,https://appsgeyser.com/,exodus,com.appsgeyser.sdk|com.appsgeyser.multiTabApp.VideoPlayerActivity
+AppsGeyser,com.appsgeyser.sdk,Advertisement,,https://appsgeyser.com/,exodus,com.appsgeyser.sdk|com.appsgeyser.multiTabApp.VideoPlayerActivity
+Apptentive,com.apptentive,Analytics,api\.apptentive\.com,https://www.apptentive.com/,exodus,com.apptentive.
+Apptimize,com.apptimize,Analytics,brahe\.apptimize\.com|md-a-c\.apptimize\.com|md-a-s\.apptimize\.com,http://www.apptimize.com,exodus,com.apptimize.
+Apsalar,com.apsalar.sdk,Advertisement|Profiling|Analytics,e-ssl\.apsalar\.com|e\.apsalar\.com,https://singular.net,exodus,com.apsalar.sdk.
+Apteligent by VMWare (formerly Crittercism),com.crittercism.app.crittercism,,api\.crittercism\.com|appload\.ingest\.crittercism\.com|txn\.ingest\.crittercism\.com,http://www.apteligent.com,exodus,com.crittercism.app.Crittercism
+Areametrics,com.areametrics.areametricssdk,Analytics,areametrics\.com,https://areametrics.com/,exodus,com.areametrics.areametricssdk|com.areametrics.nosdkandroid
+Areametrics,com.areametrics.nosdkandroid,Analytics,areametrics\.com,https://areametrics.com/,exodus,com.areametrics.areametricssdk|com.areametrics.nosdkandroid
+Audience Studio (Krux),com.krux.androidsdk,Profiling|Analytics,krxd\.net,https://www.salesforce.com/products/marketing-cloud/data-management/?mc=DMP,exodus,com.krux.androidsdk
+Auditude,com.auditude.ads,,auditude\.com,https://www.adobe.com/privacy/policies/auditude.html,exodus,com.auditude.ads
+AutoNavi / Amap,com.amap.api,Location,grid\.amap\.com|tm\.amap\.com|mst[0-9]*\.is\.autonavi\.com|mt[0-9]*\.google\.cn|abroad\.apilocate\.amap\.com|apilocate\.amap\.com|restapi\.amap\.com|yuntuapi\.amap\.com|m5\.amap\.com|wb\.amap\.com|wb\.amap\.com|wb\.amap\.com|wb\.amap\.com|apiinit\.amap\.com|restapi\.amap\.com|logs\.amap\.com|cgicol\.amap\.com|lbs\.amap\.com|wap\.amap\.com,https://mobile.amap.com/,exodus,com.amap.api
+Axonix,com.axonix.android.sdk,,ads\.mobclix\.com|axonix\.com|data\.mobclix\.com|mobclix\.com|s\.mobclix\.com,http://axonix.com/,exodus,com.axonix.android.sdk|com.mobclix.android.sdk
+Axonix,com.mobclix.android.sdk,,ads\.mobclix\.com|axonix\.com|data\.mobclix\.com|mobclix\.com|s\.mobclix\.com,http://axonix.com/,exodus,com.axonix.android.sdk|com.mobclix.android.sdk
+Backelite,com.backelite.android,Analytics,backelite\.com,https://www.backelite.com/,exodus,com.backelite.android.|com.backelite.bkdroid.
+Backelite,com.backelite.bkdroid,Analytics,backelite\.com,https://www.backelite.com/,exodus,com.backelite.android.|com.backelite.bkdroid.
+Backtrace,backtraceio.library,Crash reporting,backtrace\.io,https://backtrace.io,exodus,com.github.backtrace-labs.|backtraceio.library.
+Backtrace,com.github.backtrace-labs,Crash reporting,backtrace\.io,https://backtrace.io,exodus,com.github.backtrace-labs.|backtraceio.library.
+Baidu APPX,com.baidu.appx,,,https://app.baidu.com/,exodus,com.baidu.appx
+Baidu Location,com.baidu.location,,,https://developer.baidu.com/,exodus,com.baidu.location
+Baidu Map,com.baidu.mapapi,,,http://lbsyun.baidu.com/,exodus,com.baidu.mapapi
+Baidu Maps,com.baidu.baidumap,,map\.baidu\.com,https://map.baidu.com,exodus,com.baidu.BaiduMap
+Baidu Mobile Ads,com.baidu.mobads,,,https://developer.baidu.com/,exodus,com.baidu.mobads
+Baidu Mobile Stat,com.baidu.mobstat,Analytics,,https://developer.baidu.com/,exodus,com.baidu.mobstat
+Baidu Navigation,com.baidu.navi,,,http://lbsyun.baidu.com/index.php?title=android-navsdk,exodus,com.baidu.navi
+Batch,com.batch.android,Profiling|Analytics,batch\.com,https://batch.com,exodus,com.batch.android.
+Bazaarvoice,com.bazaarvoice.bvandroidsdk,Location|Analytics,,https://www.bazaarvoice.com/,exodus,com.bazaarvoice.bvandroidsdk
+BeaconsInSpace (Fysical),com.beaconsinspace.android.beacon.detector,Location,,https://beaconsinspace.com,exodus,com.beaconsinspace.android.beacon.detector.
+Beintoo,com.beintoo.nucleon,Location|Advertisement|Profiling|Analytics,,https://beintoo.com/,exodus,com.beintoo.nucleon
+BidMachine,io.bidmachine,Advertisement,,https://bidmachine.io/,exodus,io.bidmachine.
+Bitly,com.bitly.bitly,,,https://bitly.com/,exodus,com.bitly.Bitly
+Blesh,com.blesh.sdk,Location,,https://www.blesh.com/,exodus,com.blesh.sdk.
+BlueConic,com.blueconic,Analytics,,https://www.blueconic.com,exodus,com.blueconic
+BlueKai (acquired by Oracle),com.bluekai.sdk,Analytics,stags\.bluekai\.com|tags\.bluekai\.com,http://bluekai.com/registry/,exodus,com.bluekai.sdk.
+Bluecats,com.bluecats.sdk,Location,,https://www.bluecats.com/,exodus,com.bluecats.sdk
+Bolts,com.parse.bolts,Analytics,,https://github.com/BoltsFramework/Bolts-Android,exodus,com.parse.bolts
+Branch,io.branch,Analytics,api\.branch\.io,https://branch.io/,exodus,io.branch.
+Braze (formerly Appboy),com.appboy,Location|Advertisement|Analytics,appboy\.com,https://www.braze.com,exodus,com.appboy
+Brightcove,com.brightcove,,metrics\.brightcove\.com,https://www.brightcove.com,exodus,com.brightcove
+BugSense,com.bugsense.trace,Crash reporting,,http://www.bugsense.com/,exodus,com.bugsense.trace.
+Bugfender,com.bugfender.sdk,Analytics|Crash reporting,,https://bugfender.com/,exodus,com.bugfender.sdk.
+Bugly,com.tencent.bugly,,bugly\.qq\.com,https://bugly.qq.com/v2/,exodus,com.tencent.bugly.
+Bugsee,com.bugsee.library.bugsee,Crash reporting,,https://www.bugsee.com/,exodus,com.bugsee.library.Bugsee
+Bugsnag,com.bugsnag,Crash reporting,,https://www.bugsnag.com/,exodus,com.bugsnag.
+Button,com.usebutton.sdk,Identification|Profiling|Analytics,\.usebutton.com,https://www.usebutton.com,exodus,com.usebutton.sdk.
+BuzzAd Benefit,com.buzzvil,Advertisement,,https://buzzvil.atlassian.net/wiki/spaces/BDG/pages/486834313/BuzzAd-Benefit+Android+SDK,exodus,com.buzzvil.
+CallDorado,com.calldorado.android,Advertisement,,http://calldorado.com,exodus,com.calldorado.android
+Carnival,com.carnival.sdk,Analytics,devices\.carnivalmobile\.com,http://carnival.io/,exodus,com.carnival.sdk|com.carnivalmobile
+Carnival,com.carnivalmobile,Analytics,devices\.carnivalmobile\.com,http://carnival.io/,exodus,com.carnival.sdk|com.carnivalmobile
+Carto (formerly Nutiteq),com.carto,Location|Advertisement,,https://carto.com,exodus,com.nutiteq|com.carto
+Carto (formerly Nutiteq),com.nutiteq,Location|Advertisement,,https://carto.com,exodus,com.nutiteq|com.carto
+Cauly,com.cauly.android.ad,Advertisement,ad\.cauly\.co\.kr,https://www.cauly.net,exodus,com.fsn.cauly|com.trid.tridad|com.cauly.android.ad.
+Cauly,com.fsn.cauly,Advertisement,ad\.cauly\.co\.kr,https://www.cauly.net,exodus,com.fsn.cauly|com.trid.tridad|com.cauly.android.ad.
+Cauly,com.trid.tridad,Advertisement,ad\.cauly\.co\.kr,https://www.cauly.net,exodus,com.fsn.cauly|com.trid.tridad|com.cauly.android.ad.
+Cedexis Radar,com.cedexis,Location,cedexis\-radar\.net|cedexis\.com|radar\.cedexis\.com,https://www.cedexis.com/,exodus,com.cedexis
+ChartBoost,com.chartboost.sdk,,\.chartboost\.com,https://answers.chartboost.com/en-us/,exodus,com.chartboost.sdk.
+Chartbeat,com.chartbeat.androidsdk,Analytics,.chartbeat\.com|.chartbeat\.net,https://chartbeat.com/,exodus,com.chartbeat.androidsdk
+Cheetah Ads,com.cmcm,,cmcm\.com,https://www.cmcm.com/,exodus,com.cmcm.
+Cifrasoft,com.cifrasoft,Location|Advertisement|Identification,\.tele\.fm,http://cifrasoft.com,exodus,com.cifrasoft.
+CleverTap,com.clevertap,Location|Profiling|Analytics,wzrkt\.com,https://clevertap.com/,exodus,com.clevertap.
+Cloudmobi,com.cloudtech,,api\.cloudmobi\.net|cloudmobi\.net|logger\.cloudmobi\.net|vast\.cloudmobi\.net,http://www.cloudmobi.net/,exodus,com.cloudtech.
+Colocator,net.crowdconnected.androidcolocator,Analytics,colocator\.net,https://developers.colocator.net,exodus,net.crowdconnected.androidcolocator
+ComScore,com.comscore,Advertisement|Analytics,comscore\.com,https://comscore.com/,exodus,com.comscore.
+Conversant,com.conversantmedia,,conversantmedia\.com,https://www.conversantmedia.com,exodus,com.conversantmedia|com.greystripe.android.
+Conversant,com.greystripe.android,,conversantmedia\.com,https://www.conversantmedia.com,exodus,com.conversantmedia|com.greystripe.android.
+Conviva,com.conviva,,cws\.conviva\.com,https://www.conviva.com/,exodus,com.conviva.
+CoolaData,com.cooladata.android,Profiling|Analytics,,https://www.cooladata.com/,exodus,com.cooladata.android.
+Coulus Coelib,coelib.c.couluslibrary,Advertisement,,https://measurementsys.com/index.php#appdev,exodus,coelib.c.couluslibrary
+Countly,ly.count.android,Profiling|Analytics,,https://count.ly/,exodus,ly.count.android.
+Criteo,com.criteo,,criteo\.com,https://www.criteo.com/,exodus,com.criteo.
+Cuebiq,com.cuebiq.cuebiqsdk.model.collector,Location|Analytics,cuebiq\.com,http://www.cuebiq.com/,exodus,com.cuebiq.cuebiqsdk.model.Collector|com.cuebiq.cuebiqsdk.receiver.CoverageReceiver
+Cuebiq,com.cuebiq.cuebiqsdk.receiver.coveragereceiver,Location|Analytics,cuebiq\.com,http://www.cuebiq.com/,exodus,com.cuebiq.cuebiqsdk.model.Collector|com.cuebiq.cuebiqsdk.receiver.CoverageReceiver
+DOV-E,com.dv.dvsdk,Advertisement,\.dov-e\.com,https://www.dov-e.com/,exodus,com.dv.DVSDK
+Demdex,com.adobe.mobile.analytics,Analytics,demdex\.net,https://www.adobe.com/data-analytics-cloud/audience-manager.html,exodus,com.adobe.mobile.Analytics|com.adobe.mobile.Config.
+Demdex,com.adobe.mobile.config,Analytics,demdex\.net,https://www.adobe.com/data-analytics-cloud/audience-manager.html,exodus,com.adobe.mobile.Analytics|com.adobe.mobile.Config.
+Didomi,io.didomi.sdk,Analytics,,https://www.didomi.io/,exodus,io.didomi.sdk.
+Display,io.display,,display.io,https://www.display.io/en/,exodus,io.display.
+Duapps,com.duapps,,duapps\.com,http://ad.duapps.com/,exodus,com.duapps.
+Dynamic Yield,com.dynamicyield,Analytics,adm\.dynamicyield\.com|api\.dynamicyield\.com|cdn\.dynamicyield\.com|px\.dynamicyield\.com|st\.dynamicyield\.com,https://www.dynamicyield.com,exodus,com.dynamicyield.
+Dynatrace,com.dynatrace.agent,Analytics,\.dynatrace\.com,https://www.dynatrace.com,exodus,com.dynatrace.android.app|com.dynatrace.agent|com.dynatrace.tools
+Dynatrace,com.dynatrace.android.app,Analytics,\.dynatrace\.com,https://www.dynatrace.com,exodus,com.dynatrace.android.app|com.dynatrace.agent|com.dynatrace.tools
+Dynatrace,com.dynatrace.tools,Analytics,\.dynatrace\.com,https://www.dynatrace.com,exodus,com.dynatrace.android.app|com.dynatrace.agent|com.dynatrace.tools
+Emarsys Predict,com.emarsys.predict,,recommender\.scarabresearch\.com,https://help.emarsys.com/hc/categories/115000670425-Predict,exodus,com.emarsys.predict
+Enhance,co.enhance.enhance,,app-config\.enhance\.co|data-location\.enhance\.co,https://enhance.co,exodus,co.enhance.Enhance
+Ensighten,com.ensighten,Analytics,nexus\.ensighten\.com,https://www.ensighten.com,exodus,com.ensighten.
+Esri ArcGIS,com.esri.arcgisruntime,Location,,https://www.arcgis.com/,exodus,com.esri.arcgisruntime.
+Estimote,com.estimote,Location|Analytics,.*\.estimote\.com,https://estimote.com/,exodus,com.estimote.
+Eulerian,com.eulerian.android.sdk,Analytics,eulerian\.com,https://www.eulerian.com/en/,exodus,com.eulerian.android.sdk
+ExactTarget,com.exacttarget,Analytics,\.exacttarget\.,http://help.exacttarget.com/en/technical_library/API_Overview/,exodus,com.exacttarget.
+Exponea,com.exponea.sdk,Analytics,api.infinario.com|sygic-api.infinario.com,https://exponea.com,exodus,com.infinario.android.infinariosdk.|com.exponea.sdk|com.sygic.aura.
+Exponea,com.infinario.android.infinariosdk,Analytics,api.infinario.com|sygic-api.infinario.com,https://exponea.com,exodus,com.infinario.android.infinariosdk.|com.exponea.sdk|com.sygic.aura.
+Exponea,com.sygic.aura,Analytics,api.infinario.com|sygic-api.infinario.com,https://exponea.com,exodus,com.infinario.android.infinariosdk.|com.exponea.sdk|com.sygic.aura.
+FLUZO,com.fluzo.sdk,Analytics,,https://www.fluzo.com/,exodus,com.fluzo.sdk.
+Facebook Ads,com.facebook.ads,Advertisement,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.ads
+Facebook Analytics,com.facebook.appevents,Analytics,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.appevents|com.facebook.marketing.|com.facebook.CampaignTrackingReceiver
+Facebook Analytics,com.facebook.campaigntrackingreceiver,Analytics,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.appevents|com.facebook.marketing.|com.facebook.CampaignTrackingReceiver
+Facebook Analytics,com.facebook.marketing,Analytics,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.appevents|com.facebook.marketing.|com.facebook.CampaignTrackingReceiver
+Facebook Audience,com.facebook.audiencenetwork,Analytics,\.facebook\.com,https://developers.facebook.com/docs/android/,exodus,com.facebook.audiencenetwork
+Facebook Flipper,com.facebook.flipper,Analytics,,https://fbflipper.com,exodus,com.facebook.flipper
+Facebook Login,com.facebook.login,Identification,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.login
+Facebook Notifications,com.facebook.notifications,,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.notifications
+Facebook Places,com.facebook.places,,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.places
+Facebook Share,com.facebook.share,,\.facebook\.com,https://developers.facebook.com/docs/android,exodus,com.facebook.share
+Factual,com.factual.engine,,api.factual.com,https://www.factual.com,exodus,com.factual.engine|com.factual.Factual
+Factual,com.factual.factual,,api.factual.com,https://www.factual.com,exodus,com.factual.engine|com.factual.Factual
+FidZup,com.fidzup,Analytics,fidzup,https://www.fidzup.com,exodus,com.fidzup.
+Fiksu,com.fiksu.asotracking,,a\.fiksu\.com|sdk\.fiksu\.com,https://fiksu.com,exodus,com.fiksu.asotracking
+Flowsense,com.flowsense.flowsensesdk,Location|Profiling|Analytics,,https://flowsense.com.br/,exodus,com.flowsense.flowsensesdk.
+Flurry,com.flurry,Analytics|Advertisement,flurry\.com,http://www.flurry.com,exodus,com.flurry.
+FollowAnalytics,com.followanalytics,,sdk\.follow-apps\.com,https://www.followanalytics.com,exodus,com.followanalytics.
+Footmarks,com.footmarks.footmarkssdkm2,Location,,https://www.footmarks.com,exodus,com.footmarks.footmarkssdkm2
+Foresee,com.foresee.sdk.foresee,Analytics,4seeresults\.com|analytics\.foresee\.com|foresee\.com|foreseeresults\.com|i\.4see\.mobi|rec\.replay\.answerscloud\.com,https://www.foresee.com,exodus,com.foresee.sdk.ForeSee
+FreeWheel,tv.freewheel.ad,Advertisement,fwmrm\.net,http://freewheel.tv/,exodus,tv.freewheel.ad.
+Fyber,com.fyber,Advertisement,adproxy\.fyber\.com|appengage-video\.fyber\.com|banner\.fyber\.com|engine\.fyber\.com|interstitial\.fyber\.com|mbe-cdn\.fyber\.com|offer\.fyber\.com|service\.fyber\.com|tracker\.fyber\.com|video-interstitial-assets-cdn\.fyber\.com|video\.fyber\.com,https://www.fyber.com/,exodus,com.fyber.
+Fyber SponsorPay,com.sponsorpay,,appengage-video\.sponsorpay\.com|cdn1\.sponsorpay\.com|cdn2\.sponsorpay\.com|cdn3\.sponsorpay\.com|cdn4\.sponsorpay\.com|engine\.sponsorpay\.com,http://www.sponsorpay.com,exodus,com.sponsorpay
+GIPHY Analytics,com.giphy.sdk.analytics,Analytics,api\.giphy\.com|pingback\.giphy\.com,https://giphy.com/,exodus,com.giphy.sdk.analytics|com.giphy.sdk.tracking
+GIPHY Analytics,com.giphy.sdk.tracking,Analytics,api\.giphy\.com|pingback\.giphy\.com,https://giphy.com/,exodus,com.giphy.sdk.analytics|com.giphy.sdk.tracking
+GOM Factory AdPie,com.gomfactory.adpie,Advertisement,,http://www.gomfactory.com,exodus,com.gomfactory.adpie.
+GPShopper,com.gpshopper,Analytics,sdk\.gpshopper\.com|sypi\.gpshopper\.com,https://www.crunchbase.com/organization/gpshopper,exodus,com.gpshopper
+GameAnalytics,com.gameanalytics.sdk,Profiling|Analytics,,https://gameanalytics.com/features,exodus,com.gameanalytics.sdk
+Gemius HeatMap,com.gemius.sdk,,gemius\.pl,https://heatmap.gemius.com,exodus,com.gemius.sdk
+Geniee,jp.co.geniee.gnadsdk,Advertisement,,https://geniee.co.jp/,exodus,jp.co.geniee.gnadsdk.
+Gimbal,com.gimbal.android,,analytics-server\.gimbal\.com|api\.gimbal\.com|registration\.gimbal\.com|sdk-info\.gimbal\.com,https://gimbal.com/,exodus,com.gimbal.android
+Glispa Connect (Formerly Avocarrot),com.avocarrot.sdk,,\.avocarrot\.com|ads\.glispa\.com|exp\.glispa\.com|rtb\.platform\.glispa\.com|templates\.glispaconnect\.com|trk\.glispa\.com,https://www.glispa.com,exodus,com.avocarrot.sdk
+Glympse,com.glympse.android,Location,\.glympse\.com,https://glympse.com,exodus,com.glympse.android.
+Google AdMob,com.google.ads,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.ads,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.admob,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.ads.adactivity,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.ads.adrequest,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.ads.adview,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.ads.doubleclick,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.android.gms.ads.mediation,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.firebase.firebase_ads,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google AdMob,com.google.unity.ads,Advertisement,2mdn\.net|dmtry\.com|doubleclick\.com|doubleclick\.net|mng-ads\.com|mobileads\.google\.com|ads\.google\.com|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adservice\.google\..*|adservice\.g\.cn,https://admob.google.com,exodus,com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.
+Google Analytics,com.google.analytics,Analytics,google-analytics\.com,http://www.google.com/analytics/,exodus,com.google.android.apps.analytics.|com.google.android.gms.analytics.|com.google.analytics.
+Google Analytics,com.google.android.apps.analytics,Analytics,google-analytics\.com,http://www.google.com/analytics/,exodus,com.google.android.apps.analytics.|com.google.android.gms.analytics.|com.google.analytics.
+Google Analytics,com.google.android.gms.analytics,Analytics,google-analytics\.com,http://www.google.com/analytics/,exodus,com.google.android.apps.analytics.|com.google.android.gms.analytics.|com.google.analytics.
+Google Analytics Plugin (Cordova),com.danielcwilson.plugins.analytics,Analytics,,https://analytics.withgoogle.com/,exodus,com.danielcwilson.plugins.analytics
+Google CrashLytics,com.crashlytics,Crash reporting,crashlytics\.com,http://crashlytics.com,exodus,io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.
+Google CrashLytics,com.google.firebase.crash,Crash reporting,crashlytics\.com,http://crashlytics.com,exodus,io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.
+Google CrashLytics,com.google.firebase.crashlytics,Crash reporting,crashlytics\.com,http://crashlytics.com,exodus,io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.
+Google CrashLytics,io.fabric,Crash reporting,crashlytics\.com,http://crashlytics.com,exodus,io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.
+Google CrashLytics,io.invertase.firebase.crashlytics,Crash reporting,crashlytics\.com,http://crashlytics.com,exodus,io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.
+Google Firebase Analytics,com.google.android.gms.measurement,Analytics,firebase\.com|firebaselogging-pa\.googleapis\.com,https://firebase.google.com/,exodus,com.google.firebase.analytics.FirebaseAnalytics|com.google.android.gms.measurement.|com.google.firebase.firebase_analytics
+Google Firebase Analytics,com.google.firebase.analytics.firebaseanalytics,Analytics,firebase\.com|firebaselogging-pa\.googleapis\.com,https://firebase.google.com/,exodus,com.google.firebase.analytics.FirebaseAnalytics|com.google.android.gms.measurement.|com.google.firebase.firebase_analytics
+Google Firebase Analytics,com.google.firebase.firebase_analytics,Analytics,firebase\.com|firebaselogging-pa\.googleapis\.com,https://firebase.google.com/,exodus,com.google.firebase.analytics.FirebaseAnalytics|com.google.android.gms.measurement.|com.google.firebase.firebase_analytics
+Google Tag Manager,com.google.android.gms.tagmanager,Analytics,www\.googletagmanager\.com|www\.googletagservices\.com|www-googletagmanager\.l\.google\.com,https://www.google.com/analytics/tag-manager/,exodus,com.google.tagmanager|com.google.android.gms.tagmanager
+Google Tag Manager,com.google.tagmanager,Analytics,www\.googletagmanager\.com|www\.googletagservices\.com|www-googletagmanager\.l\.google\.com,https://www.google.com/analytics/tag-manager/,exodus,com.google.tagmanager|com.google.android.gms.tagmanager
+Heap,com.heapanalytics,Analytics,heapanalytics.com,https://heap.io/,exodus,com.heapanalytics
+HelpShift,com.helpshift,,helpshift\.com,https://www.helpshift.com,exodus,com.helpshift
+Herow,com.connecthings.herow,Location|Profiling|Analytics,,https://herow.io/,exodus,com.connecthings.herow
+Heyzap (bought by Fyber),com.heyzap.mediation,,ads\.heyzap\.com|fyc\.heyzap\.com|img-cloudflare-2\.haizap\.com|img-cloudflare\.haizap\.com|med\.heyzap\.com|x\.heyzap\.com,https://www.heyzap.com,exodus,com.heyzap.sdk.ads.|com.heyzap.mediation.
+Heyzap (bought by Fyber),com.heyzap.sdk.ads,,ads\.heyzap\.com|fyc\.heyzap\.com|img-cloudflare-2\.haizap\.com|img-cloudflare\.haizap\.com|med\.heyzap\.com|x\.heyzap\.com,https://www.heyzap.com,exodus,com.heyzap.sdk.ads.|com.heyzap.mediation.
+HockeyApp,net.hockeyapp,Crash reporting,hockeyapp\.net,http://hockeyapp.net,exodus,net.hockeyapp.
+Houndify,com.hound,Location|Identification,houndify\.com,https://www.houndify.com/,exodus,com.hound
+Huawei Mobile Services (HMS) Core,com.huawei.agconnect,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.analytics,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.flutter.analytics,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.location,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.plugin.ads,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.plugin.analytics,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.hms.support.api.push,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huawei Mobile Services (HMS) Core,com.huawei.updatesdk,Location|Advertisement|Analytics,hicloud\.com|dbankcloud\.ru|dbankcloud\.cn|dbankcloud\.com,https://developer.huawei.com/consumer/en/hms,exodus,com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.
+Huq Sourcekit,io.huq.sourcekit,Location|Analytics,,https://huq.io/,exodus,io.huq.sourcekit.
+HyperTrack,com.hypertrack,Location,api\.hypertrack\.com|hypertrack\.amazonaws\.com|trck\.at,http://hypertrack.com,exodus,com.hypertrack|com.hypertracklive.|io.hypertrack
+HyperTrack,com.hypertracklive,Location,api\.hypertrack\.com|hypertrack\.amazonaws\.com|trck\.at,http://hypertrack.com,exodus,com.hypertrack|com.hypertracklive.|io.hypertrack
+HyperTrack,io.hypertrack,Location,api\.hypertrack\.com|hypertrack\.amazonaws\.com|trck\.at,http://hypertrack.com,exodus,com.hypertrack|com.hypertracklive.|io.hypertrack
+HyprMX,com.hyprmx.android.sdk,Advertisement,hyprmx\.com,https://www.hyprmx.com,exodus,com.hyprmx.android.sdk.
+IAB Open Measurement,com.iab.omid.library,Advertisement|Identification,,https://iabtechlab.com/,exodus,com.iab.omid.library|com.prime31.util.IabHelperImpl|com.prime31.IAB.
+IAB Open Measurement,com.prime31.iab,Advertisement|Identification,,https://iabtechlab.com/,exodus,com.iab.omid.library|com.prime31.util.IabHelperImpl|com.prime31.IAB.
+IAB Open Measurement,com.prime31.util.iabhelperimpl,Advertisement|Identification,,https://iabtechlab.com/,exodus,com.iab.omid.library|com.prime31.util.IabHelperImpl|com.prime31.IAB.
+IBM Digital Analytics,com.digitalanalytics,Analytics,data\.de\.coremetrics\.com,https://www.ibm.com/customer-engagement/coremetrics-software,exodus,com.digitalanalytics.
+IBM Mobile Marketing (Acoustic),co.acoustic.mobile.push.sdk,Advertisement|Analytics,sdk6\.ibm\.xtify\.com,https://acoustic.co/,exodus,com.ibm.mce.sdk.|co.acoustic.mobile.push.sdk.|com.xtify.mce.sdk.|com.xtify.android.sdk.
+IBM Mobile Marketing (Acoustic),com.ibm.mce.sdk,Advertisement|Analytics,sdk6\.ibm\.xtify\.com,https://acoustic.co/,exodus,com.ibm.mce.sdk.|co.acoustic.mobile.push.sdk.|com.xtify.mce.sdk.|com.xtify.android.sdk.
+IBM Mobile Marketing (Acoustic),com.xtify.android.sdk,Advertisement|Analytics,sdk6\.ibm\.xtify\.com,https://acoustic.co/,exodus,com.ibm.mce.sdk.|co.acoustic.mobile.push.sdk.|com.xtify.mce.sdk.|com.xtify.android.sdk.
+IBM Mobile Marketing (Acoustic),com.xtify.mce.sdk,Advertisement|Analytics,sdk6\.ibm\.xtify\.com,https://acoustic.co/,exodus,com.ibm.mce.sdk.|co.acoustic.mobile.push.sdk.|com.xtify.mce.sdk.|com.xtify.android.sdk.
+INFOnline,de.infonline,,de\.ioam\.de,https://www.infonline.de,exodus,de.infonline.
+IPQualityScore,com.ipqualityscore,Location|Profiling,ipqualityscore\.com,https://www.ipqualityscore.com,exodus,com.ipqualityscore.
+IQzone,com.iqzone,Advertisement,,https://iqzone.com,exodus,com.iqzone
+In Loco,com.inlocomedia.android,,inlocomedia\.com,https://inloco.com.br,exodus,com.inlocomedia.android
+InMarket,com.inmarket,,m2m-api\.inmarket\.com,https://inmarket.com/,exodus,com.inmarket
+IndoorAtlas,com.indooratlas.android.sdk,Location|Analytics,ipsws\.indooratlas\.com,http://www.indooratlas.com/,exodus,com.indooratlas.android.sdk
+Inmobi,com.inmobi,,c\.w\.inmobi\.com|china\.inmobi\.com|config-ltvp\.inmobi\.com|config\.inmobi\.com|et\.w\.inmobi\.com|i\.l\.inmobicdn\.net|i\.w\.inmobi\.com|inmobi\.cn|inmobi\.com|inmobi\.info|inmobi\.net|inmobi\.us|inmobicdn\.com|inmobicdn\.net|inmobisdk\-a\.akamaihd\.net|japan\.inmobi\.com|r\.w\.inmobi\.com|sdkm\.w\.inmobi\.com|sdktm\.w\.inmobi\.com|w\.inmobi\.com,http://inmobi.com,exodus,com.inmobi|in.inmobi.
+Inmobi,in.inmobi,,c\.w\.inmobi\.com|china\.inmobi\.com|config-ltvp\.inmobi\.com|config\.inmobi\.com|et\.w\.inmobi\.com|i\.l\.inmobicdn\.net|i\.w\.inmobi\.com|inmobi\.cn|inmobi\.com|inmobi\.info|inmobi\.net|inmobi\.us|inmobicdn\.com|inmobicdn\.net|inmobisdk\-a\.akamaihd\.net|japan\.inmobi\.com|r\.w\.inmobi\.com|sdkm\.w\.inmobi\.com|sdktm\.w\.inmobi\.com|w\.inmobi\.com,http://inmobi.com,exodus,com.inmobi|in.inmobi.
+Inneractive,com.inneractive.api.ads,Advertisement,,https://www.crunchbase.com/organization/inneractive,exodus,com.inneractive.api.ads
+Inrix,com.inrix.sdk,,inrix\.com|inrix\.io,http://inrix.com/,exodus,com.inrix.sdk
+Insider,com.useinsider.insider,Analytics,,https://useinsider.com/,exodus,com.useinsider.insider
+Instabug,com.instabug,Crash reporting,,https://instabug.com/crash-reporting,exodus,com.instabug.
+Instreamatic (Adman),com.instreamatic,Advertisement|Analytics,instreamatic\.com,http://instreamatic.com/,exodus,com.instreamatic
+Integral Ad Science,com.integralads.avid.library,,adsafeprotected\.com|iasds01\.com|integralads\.com,https://integralads.com,exodus,com.integralads.avid.library
+JW Player,com.longtailvideo.jwplayer,,g\.jwpsrv\.com|jwpltx\.com|p\.jwpcdn\.com,https://jwplayer.com,exodus,com.longtailvideo.jwplayer.
+Janrain,com.janrain.android,Identification,,https://en.wikipedia.org/wiki/Janrain,exodus,com.janrain.android|com.janrain.android.engage|com.janrain.android.capture
+Janrain,com.janrain.android.capture,Identification,,https://en.wikipedia.org/wiki/Janrain,exodus,com.janrain.android|com.janrain.android.engage|com.janrain.android.capture
+Janrain,com.janrain.android.engage,Identification,,https://en.wikipedia.org/wiki/Janrain,exodus,com.janrain.android|com.janrain.android.engage|com.janrain.android.capture
+JiGuang Aurora Mobile JPush,cn.jpush.android,Analytics,.*\.jiguang\.cn,https://ir.jiguang.cn/corporate-profile,exodus,cn.jpush.android
+Jumio,com.jumio.mobilesdk,Identification,mobile-sdk-resources.jumio.com|nv-sdk.jumio.com,https://www.jumio.com/,exodus,com.jumio.MobileSDK
+JumpTap,com.jumptap.adtag,Advertisement,,http://www.millennialmedia.com,exodus,com.jumptap.adtag.
+KIDOZ,com.kidoz.sdk,Advertisement,,https://kidoz.net/kidoz-sdk/,exodus,com.kidoz.sdk
+Keen,io.keen.client,Analytics,api\.keen\.io,https://keen.io,exodus,io.keen.client.
+Kiip,me.kiip.sdk,Advertisement,kiip\.me,https://www.ninthdecimal.com/,exodus,me.kiip.sdk
+Kissmetrics,com.kissmetrics,Analytics,,https://www.kissmetricshq.com/,exodus,com.kissmetrics
+Kochava,.kochavaccpa,Advertisement|Profiling|Analytics,control\.kochava\.com|kvinit\-prod\.api\.kochava\.com,https://www.kochava.com/,exodus,com.kochava.base.|com.kochava.android.tracker.|.kochavaccpa.
+Kochava,com.kochava.android.tracker,Advertisement|Profiling|Analytics,control\.kochava\.com|kvinit\-prod\.api\.kochava\.com,https://www.kochava.com/,exodus,com.kochava.base.|com.kochava.android.tracker.|.kochavaccpa.
+Kochava,com.kochava.base,Advertisement|Profiling|Analytics,control\.kochava\.com|kvinit\-prod\.api\.kochava\.com,https://www.kochava.com/,exodus,com.kochava.base.|com.kochava.android.tracker.|.kochavaccpa.
+Kontakt,com.kontakt.sdk.android,Analytics,kontakt\.io,https://kontakt.io/,exodus,com.kontakt.sdk.android.
+LeanPlum,com.leanplum,Location|Profiling|Analytics,leanplum\.com,https://www.leanplum.com/,exodus,com.leanplum.
+Lenddo,com.lenddo.mobile,Location|Identification|Analytics,\.partner-service\.link,https://www.lenddo.com/,exodus,com.lenddo.mobile
+Ligatus,.ligatusmanager,,ligatus\.com,http://ligatus.com,exodus,.LigatusManager|.LigatusViewClient|com.ligatus.android.adframework
+Ligatus,.ligatusviewclient,,ligatus\.com,http://ligatus.com,exodus,.LigatusManager|.LigatusViewClient|com.ligatus.android.adframework
+Ligatus,com.ligatus.android.adframework,,ligatus\.com,http://ligatus.com,exodus,.LigatusManager|.LigatusViewClient|com.ligatus.android.adframework
+Lisnr,com.lisnr,Analytics,lisnr\.com,http://lisnr.com,exodus,com.lisnr.
+Localytics,com.localytics.android,Profiling|Analytics,analytics\.localytics\.com|manifest\.localytics\.com|profile\.localytics\.com|sdk-assets\.localytics\.com,http://localytics.com,exodus,com.localytics.android.|com.localytics.androidx|com.localytics.react.
+Localytics,com.localytics.androidx,Profiling|Analytics,analytics\.localytics\.com|manifest\.localytics\.com|profile\.localytics\.com|sdk-assets\.localytics\.com,http://localytics.com,exodus,com.localytics.android.|com.localytics.androidx|com.localytics.react.
+Localytics,com.localytics.react,Profiling|Analytics,analytics\.localytics\.com|manifest\.localytics\.com|profile\.localytics\.com|sdk-assets\.localytics\.com,http://localytics.com,exodus,com.localytics.android.|com.localytics.androidx|com.localytics.react.
+Locuslabs,com.locuslabs.sdk,,locuslabs\.com,http://locuslabs.com,exodus,com.locuslabs.sdk
+Loggly,com.github.tony19.loggly,Analytics,loggly\.com,http://loggly.com/,exodus,com.github.tony19.timber.loggly|com.github.tony19.loggly|com.visiware.sync2ad.logger.loggly.
+Loggly,com.github.tony19.timber.loggly,Analytics,loggly\.com,http://loggly.com/,exodus,com.github.tony19.timber.loggly|com.github.tony19.loggly|com.visiware.sync2ad.logger.loggly.
+Loggly,com.visiware.sync2ad.logger.loggly,Analytics,loggly\.com,http://loggly.com/,exodus,com.github.tony19.timber.loggly|com.github.tony19.loggly|com.visiware.sync2ad.logger.loggly.
+LoopMe,com.loopme,Advertisement,,https://loopme.com/,exodus,com.loopme.
+LotaData,com.lotadata.moments,Location|Profiling|Analytics,,http://lotadata.com,exodus,com.lotadata.moments.
+Lotame,com.lotame.android,,ad\.crwdcntrl\.net,https://www.lotame.com/,exodus,com.lotame.android
+MAdvertise,com.mngads,,dispatcher\.mng\-ads\.com|mobile\.mng\-ads\.com,http://madvertise.com,exodus,com.mngads.sdk|com.mngads.views|com.mngads.
+MAdvertise,com.mngads.sdk,,dispatcher\.mng\-ads\.com|mobile\.mng\-ads\.com,http://madvertise.com,exodus,com.mngads.sdk|com.mngads.views|com.mngads.
+MAdvertise,com.mngads.views,,dispatcher\.mng\-ads\.com|mobile\.mng\-ads\.com,http://madvertise.com,exodus,com.mngads.sdk|com.mngads.views|com.mngads.
+MDOTM,com.mdotm.android,Advertisement,ads\.mdotm\.com,http://mdotm.com/,exodus,com.mdotm.android
+MOCA,com.innoquant.moca,Location|Profiling|Analytics,api-device\.mocaplatform\.com,https://www.mocaplatform.com/,exodus,com.innoquant.moca
+Mail.ru,ru.mail.mrgservice.advertising,,,http://mail.ru,exodus,ru.mail.mrgservice.advertising|ru.mail.mrgservice.analytics
+Mail.ru,ru.mail.mrgservice.analytics,,,http://mail.ru,exodus,ru.mail.mrgservice.advertising|ru.mail.mrgservice.analytics
+Mapbox,com.mapbox.android.telemetry,,a\.tiles\.mapbox\.com|api\.tiles\.mapbox\.com,https://www.mapbox.com/,exodus,com.mapbox.mapboxsdk.module.telemetry|com.mapbox.mapboxsdk.maps.TelemetryDefinition|com.mapbox.android.telemetry.
+Mapbox,com.mapbox.mapboxsdk.maps.telemetrydefinition,,a\.tiles\.mapbox\.com|api\.tiles\.mapbox\.com,https://www.mapbox.com/,exodus,com.mapbox.mapboxsdk.module.telemetry|com.mapbox.mapboxsdk.maps.TelemetryDefinition|com.mapbox.android.telemetry.
+Mapbox,com.mapbox.mapboxsdk.module.telemetry,,a\.tiles\.mapbox\.com|api\.tiles\.mapbox\.com,https://www.mapbox.com/,exodus,com.mapbox.mapboxsdk.module.telemetry|com.mapbox.mapboxsdk.maps.TelemetryDefinition|com.mapbox.android.telemetry.
+Marketo (an Adobe Company),com.marketo,Analytics,marketo\.com|marketo\.net|mktoedge\.com|mktossl\.com|\.mktorest\.com,https://marketo.com,exodus,com.marketo.
+Matomo (Piwik),org.matomo,Analytics,matomo\.org,https://matomo.org/mobile,exodus,org.piwik|org.piwik.mobile|org.matomo
+Matomo (Piwik),org.piwik,Analytics,matomo\.org,https://matomo.org/mobile,exodus,org.piwik|org.piwik.mobile|org.matomo
+Matomo (Piwik),org.piwik.mobile,Analytics,matomo\.org,https://matomo.org/mobile,exodus,org.piwik|org.piwik.mobile|org.matomo
+Metaps,com.metaps,Advertisement,,http://www.metaps.com,exodus,com.metaps
+Metrics,com.codahale.metrics,Analytics,,https://metrics.dropwizard.io,exodus,com.codahale.metrics
+Microsoft Visual Studio App Center Analytics,com.microsoft.appcenter.analytics,Analytics,,https://appcenter.ms/,exodus,com.microsoft.appcenter.analytics|com.microsoft.azure.mobile.analytics
+Microsoft Visual Studio App Center Analytics,com.microsoft.azure.mobile.analytics,Analytics,,https://appcenter.ms/,exodus,com.microsoft.appcenter.analytics|com.microsoft.azure.mobile.analytics
+Microsoft Visual Studio App Center Crashes,com.microsoft.appcenter.crashes,Crash reporting,,https://appcenter.ms/,exodus,com.microsoft.appcenter.crashes
+Millennial Media,com.millennialmedia,,adtech\.de|contextual\.media\.net|media\.net|millennialmedia\.com,https://www.millennialmedia.com/,exodus,com.millennialmedia.
+Mintegral,com.mbridge.msdk,Advertisement|Analytics,analytics\.rayjump\.com|cdn-adn\.rayjump\.com|de01\.rayjump\.com|de\.rayjump\.com|detect\.rayjump\.com|fk-mtrack\.rayjump\.com|hybird\.rayjump\.com|jssdk\.rayjump\.com|net\.rayjump\.com|online\.rayjump\.com|rayjump\.com|setting\.rayjump\.com|sg-mtrack\.rayjump\.com|sg01\.rayjump\.com|sg\.rayjump\.com|tknet\.rayjump\.com|us01\.rayjump\.com,https://www.mintegral.com/en/,exodus,com.mintegral.|com.mbridge.msdk.
+Mintegral,com.mintegral,Advertisement|Analytics,analytics\.rayjump\.com|cdn-adn\.rayjump\.com|de01\.rayjump\.com|de\.rayjump\.com|detect\.rayjump\.com|fk-mtrack\.rayjump\.com|hybird\.rayjump\.com|jssdk\.rayjump\.com|net\.rayjump\.com|online\.rayjump\.com|rayjump\.com|setting\.rayjump\.com|sg-mtrack\.rayjump\.com|sg01\.rayjump\.com|sg\.rayjump\.com|tknet\.rayjump\.com|us01\.rayjump\.com,https://www.mintegral.com/en/,exodus,com.mintegral.|com.mbridge.msdk.
+MixPanel,com.mixpanel,Analytics,api\.mixpanel\.com|decide\.mixpanel\.com|mixpanel\.com|switchboard\.mixpanel\.com,https://mixpanel.com/,exodus,com.mixpanel.
+MoEngage,com.moengage,Analytics,apiv2\.moengage\.com,https://www.moengage.com/,exodus,com.moengage.
+Moat,com.moat.analytics.mobile,Advertisement|Analytics,apx\.moatads\.com|geo\.moatads\.com|js\.moatads\.com|mb\.moatads\.com|moat\.com|pixel\.moatads\.com|px\.moatads\.com|sejs\.moatads\.com|yt\.moatads\.com|yts\.moatads\.com|z\.moatads\.com,https://moat.com/analytics,exodus,com.moat.analytics.mobile.
+MobFox,com.adsdk.sdk,Advertisement|Profiling|Analytics,,https://www.mobfox.com/,exodus,com.mobfox.|com.adsdk.sdk.
+MobFox,com.mobfox,Advertisement|Profiling|Analytics,,https://www.mobfox.com/,exodus,com.mobfox.|com.adsdk.sdk.
+MobPower,com.mobpower,Advertisement,api\.mobpowertech\.com|log\.mobpowertech\.com|mobpowertech\.com|scheme\.mobpowertech\.com,https://home.mobpowertech.com/,exodus,com.mobpower.
+Mobile Engagement,com.microsoft.azure.engagement,Analytics,login\.microsoftonline\.com|management\.azure\.com,https://docs.microsoft.com/en-us/azure/mobile-engagement/mobile-engagement-android-sdk-overview,exodus,com.ubikod.capptain.|com.microsoft.azure.engagement.
+Mobile Engagement,com.ubikod.capptain,Analytics,login\.microsoftonline\.com|management\.azure\.com,https://docs.microsoft.com/en-us/azure/mobile-engagement/mobile-engagement-android-sdk-overview,exodus,com.ubikod.capptain.|com.microsoft.azure.engagement.
+Mobvista,com.mobvista,Profiling|Analytics,mobvista\.com,https://www.mobvista.com/,exodus,com.mobvista.
+Moodmedia,com.moodmedia,Location|Advertisement,moodpresence\.com,https://us.moodmedia.com/,exodus,com.moodmedia
+Mopinion,com.mopinion.mopinionsdk,Profiling|Analytics,,https://mopinion.com,exodus,com.mopinion.mopinionsdk
+Mozilla Telemetry,mozilla.telemetry.glean,,,https://wiki.mozilla.org/Telemetry,exodus,org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics
+Mozilla Telemetry,org.mozilla.fenix.components.metrics,,,https://wiki.mozilla.org/Telemetry,exodus,org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics
+Mozilla Telemetry,org.mozilla.fenix.gleanmetrics,,,https://wiki.mozilla.org/Telemetry,exodus,org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics
+Mozilla Telemetry,org.mozilla.gecko.telemetry,,,https://wiki.mozilla.org/Telemetry,exodus,org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics
+Mozilla Telemetry,org.mozilla.telemetry,,,https://wiki.mozilla.org/Telemetry,exodus,org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics
+NativeX,com.nativex,,nativex\.com,http://www.nativex.com/,exodus,com.nativex
+New Relic,com.newrelic.agent,Analytics,js-agent\.newrelic\.com|mobile-collector\.newrelic\.com|newrelic\.com|nr-data\.net,http://www.newrelic.com,exodus,com.newrelic.agent.|com.newrelic.mobile.
+New Relic,com.newrelic.mobile,Analytics,js-agent\.newrelic\.com|mobile-collector\.newrelic\.com|newrelic\.com|nr-data\.net,http://www.newrelic.com,exodus,com.newrelic.agent.|com.newrelic.mobile.
+Nexage,com.nexage.android,,nexage\.com,http://nexage.com/,exodus,com.nexage.android.|org.nexage.
+Nexage,org.nexage,,nexage\.com,http://nexage.com/,exodus,com.nexage.android.|org.nexage.
+Nielsen,com.nielsen.app,Analytics,,https://www.nielsen.com,exodus,com.nielsen.app
+OfferToro,com.offertoro.sdk,Advertisement,,http://www.offertoro.com/,exodus,com.offertoro.sdk.
+Ogury Presage,io.presage,,presage\.io,http://www.presage.io/,exodus,io.presage.
+Omniture,com.adobe.adms.measurement,Profiling|Analytics,omniture\.com|omtrdc\.net,https://www.adobe.com/analytics/adobe-analytics-features.html,exodus,com.omniture.|com.adobe.adms.measurement.
+Omniture,com.omniture,Profiling|Analytics,omniture\.com|omtrdc\.net,https://www.adobe.com/analytics/adobe-analytics-features.html,exodus,com.omniture.|com.adobe.adms.measurement.
+OneAudience,com.oneaudience.sdk,Profiling|Analytics,,http://www.oneaudience.com/,exodus,com.oneaudience.sdk.
+OneSignal,com.onesignal,,onesignal\.com,https://onesignal.com/,exodus,com.onesignal.
+Ooyala,com.ooyala,Advertisement,ooyala\.com,https://www.ooyala.com/,exodus,com.ooyala
+OpenBack,com.openback,,,https://www.openback.com,exodus,com.openback
+OpenLocate,com.openlocate,Location,api\.safegraph\.com,https://www.safegraph.com/,exodus,com.safegraph.|com.openlocate
+OpenLocate,com.safegraph,Location,api\.safegraph\.com,https://www.safegraph.com/,exodus,com.safegraph.|com.openlocate
+"OpenTelemetry (OpenCensus, OpenTracing)",io.opencensus,Analytics,,https://opentelemetry.io/,exodus,io.opencensus|io.opentelemetry
+"OpenTelemetry (OpenCensus, OpenTracing)",io.opentelemetry,Analytics,,https://opentelemetry.io/,exodus,io.opencensus|io.opentelemetry
+OpenX,com.openx.android_sdk_openx,Location|Advertisement|Analytics,openx\.com|openx\.net|openx\.org|us-ads\.openx\.net,https://www.openx.com/,exodus,com.openx.view.plugplay|com.openx.android_sdk_openx
+OpenX,com.openx.view.plugplay,Location|Advertisement|Analytics,openx\.com|openx\.net|openx\.org|us-ads\.openx\.net,https://www.openx.com/,exodus,com.openx.view.plugplay|com.openx.android_sdk_openx
+Opensignal,com.opensignal.datacollection,Location|Analytics,,https://www.opensignal.com,exodus,com.opensignal.datacollection.
+Optimizely,com.optimizely,Analytics,optimizely\.com|optimizelyapis\.com,https://www.optimizely.com/,exodus,com.optimizely.
+OtherLevels,com.otherlevels,,api\.otherlevels\.com|geodata\.otherlevels\.com|mdn\.otherlevels\.com|rich\.otherlevels\.com|tags\.otherlevels\.com|ws\.otherlevels\.com,https://www.otherlevels.com/,exodus,com.otherlevels.
+OutBrain,com.outbrain,,outbrain\.com,http://www.outbrain.com/,exodus,com.outbrain.
+OzTAM,au.com.oztam,Analytics,deliver.oztam.com.au,https://oztam.com.au/,exodus,au.com.oztam.
+POKKT,com.pokkt.sdk,Advertisement,,https://www.pokkt.com,exodus,com.pokkt.sdk.
+Pangle,com.bytedance,Advertisement,,https://www.pangleglobal.com,exodus,com.bytedance|com.pgl|com.pangle.global
+Pangle,com.pangle.global,Advertisement,,https://www.pangleglobal.com,exodus,com.bytedance|com.pgl|com.pangle.global
+Pangle,com.pgl,Advertisement,,https://www.pangleglobal.com,exodus,com.bytedance|com.pgl|com.pangle.global
+Parse.ly,com.parsely.parselyandroid,Analytics,,https://www.parse.ly/,exodus,com.parsely.parselyandroid
+Pendo,sdk.insert.io,Analytics,,https://www.pendo.io,exodus,sdk.insert.io.|sdk.pendo.io.
+Pendo,sdk.pendo.io,Analytics,,https://www.pendo.io,exodus,sdk.insert.io.|sdk.pendo.io.
+Persona.ly,ly.persona.sdk,,dev-api\.persona\.ly|dev\.dsp\.persona\.ly|dev\.persona\.ly|dsp\.persona\.ly|persona\.ly|rtb\.persona\.ly|sdk\.persona\.ly,http://persona.ly/,exodus,ly.persona.sdk
+Pilgrim by Foursquare,com.foursquare.pilgrim,Location,sdk\.foursquare\.com,https://enterprise.foursquare.com/products/pilgrim,exodus,com.foursquare.pilgrim|com.foursquare.pilgrimsdk.android
+Pilgrim by Foursquare,com.foursquare.pilgrimsdk.android,Location,sdk\.foursquare\.com,https://enterprise.foursquare.com/products/pilgrim,exodus,com.foursquare.pilgrim|com.foursquare.pilgrimsdk.android
+Pincrux,com.pincrux,Advertisement,,https://www.pincrux.com/,exodus,com.pincrux.
+PingStart,com.pingstart.adsdk,Advertisement,api\.pingstart\.com,http://pingstart.com,exodus,com.pingstart.adsdk.
+Placed,com.placed.client,,,http://placed.com/,exodus,com.placed.client
+Placer,com.placer.client.placer,Location|Profiling|Analytics,,https://placer.io/,exodus,com.placer.client.Placer
+PlaytestCloud Event Tracking,com.playtestcloud.analytics,Analytics,,https://www.playtestcloud.com,exodus,com.playtestcloud.Analytics
+Plexure,co.vmob.sdk,Analytics,,https://www.plexure.com/,exodus,co.vmob.sdk
+Point Inside,com.pointinside,Location|Analytics,,https://www.pointinside.com/,exodus,com.pointinside
+Pollfish,com.pollfish,Profiling,,https://www.pollfish.com,exodus,com.pollfish
+Prebid Mobile,org.prebid.mobile,Advertisement,.prebid.org,https://prebid.org,exodus,org.prebid.mobile
+PredicIO,com.telescope.android,Advertisement|Analytics|Location|Identification,sdk\.predic\.io,https://www.predic.io/,exodus,com.telescope.android|io.predic.tracker
+PredicIO,io.predic.tracker,Advertisement|Analytics|Location|Identification,sdk\.predic\.io,https://www.predic.io/,exodus,com.telescope.android|io.predic.tracker
+Proximi.io,io.proximi.proximiiolibrary,Location|Analytics,api\.proximi\.fi,https://proximi.io/,exodus,io.proximi.proximiiolibrary
+PubMatic,com.pubmatic.sdk,Advertisement,ads\.pubmatic\.com|aktrack\.pubmatic\.com|gads\.pubmatic\.com|image2\.pubmatic\.com|simage2\.pubmatic\.com,https://pubmatic.com/,exodus,com.pubmatic.sdk
+PubNative,net.pubnative,Advertisement,pubnative\.net,https://pubnative.net/,exodus,net.pubnative
+PushSpring,com.pushspring.sdk.pushspring,,api\.pushspring\.com,http://www.pushspring.com/,exodus,com.pushspring.sdk.PushSpring
+Pusher,com.pusher.client,,,https://pusher.com/,exodus,com.pusher.client.
+Pushwoosh,com.pushwoosh,,pushwoosh\.com,https://www.pushwoosh.com/,exodus,com.pushwoosh
+Pyze,com.pyze,Analytics,pyze\.com,https://pyze.com/,exodus,com.pyze.
+Qualtrics,com.qualtrics.digital,,qualtrics\.com,http://www.qualtrics.com/,exodus,com.qualtrics.digital.
+Quantcast,com.quantcast.measurement.service,Profiling|Analytics,quantcast\.com|quantcast\.net,http://www.quantcast.com,exodus,com.quantcast.measurement.service.
+Radar,io.radar.sdk.radar,,,https://radar.io/,exodus,io.radar.sdk.Radar
+Radius Networks,com.radiusnetworks,Analytics,proximitykit\.radiusnetworks\.com,https://www.radiusnetworks.com/,exodus,com.radiusnetworks
+Raygun,com.mindscapehq.android.raygun4android,Analytics|Crash reporting,,https://raygun.com,exodus,com.mindscapehq.android.raygun4android
+Receptiv (formerly Mediabrix),com.mediabrix.android,Advertisement,,https://www.receptiv.com/,exodus,com.mediabrix.android
+Repro,io.repro.android,Analytics,,https://repro.io/,exodus,io.repro.android.
+Retency,com.retency.sdk.android,Analytics,,http://retency.com,exodus,com.retency.sdk.android
+Reveal Mobile,com.stepleaderdigital.reveal,Location|Analytics,,https://revealmobile.com/,exodus,com.stepleaderdigital.reveal
+Revmob,com.revmob.ads,Advertisement,,https://www.crunchbase.com/organization/revmob,exodus,com.revmob.ads.
+RjFun,com.rjfun.cordova.ad,Advertisement,,https://rjfun.github.io/,exodus,com.rjfun.cordova.ad|com.rjfun.cordova.admob
+RjFun,com.rjfun.cordova.admob,Advertisement,,https://rjfun.github.io/,exodus,com.rjfun.cordova.ad|com.rjfun.cordova.admob
+Rollbar,com.rollbar.android,Crash reporting,,https://rollbar.com,exodus,com.rollbar.android.
+Roximity,com.roximity.sdk,Location,app\.roximity\.com,http://roximity.com/,exodus,com.roximity.sdk.
+Rubicon Project,com.rfm.sdk,Analytics,ads\.rubiconproject\.com|fastlane\.rubiconproject\.com|optimized-by\.rubiconproject\.com|pixel\.rubiconproject\.com|stats\.aws\.rubiconproject\.com|tap2-cdn\.rubiconproject\.com|video-ads\.rubiconproject\.com,https://rubiconproject.com,exodus,com.rfm.sdk
+S4M,.s4manalytic,Analytics,s4m\.io|sam4m\.com,http://www.s4m.io/,exodus,com.sam4mobile.|.S4MAnalytic
+S4M,com.sam4mobile,Analytics,s4m\.io|sam4m\.com,http://www.s4m.io/,exodus,com.sam4mobile.|.S4MAnalytic
+SAP CDC (Gigya),com.gigya,Analytics,cdn1\.gigya\.com|cdn2\.gigya\.com|cdn3\.gigya\.com|cdn\.gigya\.com|cdns\.us1\.gigya\.com|david\.gigya-cs\.com,https://www.sap.com/products/crm/customer-data-management.html,exodus,com.gigya.
+SK planet Tad,com.skplanet.tad,Advertisement,,https://www.skplanet.com/eng,exodus,com.skplanet.tad
+Salesforce Marketing Cloud,com.salesforce.marketingcloud,,,https://www.salesforce.com/products/marketing-cloud/,exodus,com.salesforce.marketingcloud
+Scandit,com.scandit,Analytics,scandit\.com,https://scandit.com,exodus,com.scandit.
+Schibsted,.schibsted,,schibsted\.com|schibsted\.io,http://www.schibsted.com/en/ir/,exodus,.schibsted.
+ScoreLoop,com.scoreloop.client.android,,,https://www.scoreloop.com,exodus,com.scoreloop.client.android
+Segment,com.segment.analytics,Profiling|Analytics,api\.segment\.io|segment\.com,https://segment.com/,exodus,com.segment.analytics.
+Sense360,com.sense360.android,Location|Analytics,android-quinoa-config-prod\.sense360eng\.com|incoming-data-sense360\.s3\.amazonaws\.com|quinoa-personal-identify-prod\.sense360eng\.com,https://sense360.com/,exodus,com.sense360.android.
+Sensoro,com.sensoro.beacon.kit,,,https://www.sensoro.com/,exodus,com.sensoro.beacon.kit.|com.sensoro.cloud
+Sensoro,com.sensoro.cloud,,,https://www.sensoro.com/,exodus,com.sensoro.beacon.kit.|com.sensoro.cloud
+Sensors Analytics,com.sensorsdata.analytics.android.sdk,Analytics,,https://www.sensorsdata.cn,exodus,com.sensorsdata.analytics.android.sdk
+Sentiance,com.sentiance.sdk,,api\.sentiance\.com,https://www.sentiance.com/,exodus,com.sentiance.sdk.
+Sentry,com.joshdholtz.sentry,Crash reporting,,https://sentry.io/,exodus,io.sentry.|com.joshdholtz.sentry
+Sentry,io.sentry,Crash reporting,,https://sentry.io/,exodus,io.sentry.|com.joshdholtz.sentry
+ShallWeAD,com.co.shallwead.sdk,,,http://www.shallwead.com,exodus,com.jm.co.shallwead.sdk.|com.co.shallwead.sdk.
+ShallWeAD,com.jm.co.shallwead.sdk,,,http://www.shallwead.com,exodus,com.jm.co.shallwead.sdk.|com.co.shallwead.sdk.
+Shopkick,com.shopkick.fetchers,Analytics,sdk\.shopkick\.com|shopkick\.com|shopkick\.de,https://shopkick.com,exodus,com.shopkick.sdk.api.|com.shopkick.fetchers.
+Shopkick,com.shopkick.sdk.api,Analytics,sdk\.shopkick\.com|shopkick\.com|shopkick\.de,https://shopkick.com,exodus,com.shopkick.sdk.api.|com.shopkick.fetchers.
+Signal360,com.rnsignal360,Analytics,signal360\.com|sonicnotify\.com,http://www.signal360.com,exodus,com.signal360.sdk.core.|com.sonicnotify.sdk.core.|com.rnsignal360
+Signal360,com.signal360.sdk.core,Analytics,signal360\.com|sonicnotify\.com,http://www.signal360.com,exodus,com.signal360.sdk.core.|com.sonicnotify.sdk.core.|com.rnsignal360
+Signal360,com.sonicnotify.sdk.core,Analytics,signal360\.com|sonicnotify\.com,http://www.signal360.com,exodus,com.signal360.sdk.core.|com.sonicnotify.sdk.core.|com.rnsignal360
+SignalFrame,com.wirelessregistry.observersdk,Location,,https://signalframe.com/,exodus,com.wirelessregistry.observersdk.
+SilverPush,com.silverpush,Analytics,54\.243\.73\.253:8080/SilverPush/|silverpush\.co|silverpush\.com,http://silverpush.co,exodus,com.silverpush.
+Singlespot,com.sptproximitykit,Analytics,singlespot\.com,https://www.singlespot.com/,exodus,com.sptproximitykit.
+Singular,com.singular.sdk,Analytics,,https://singular.net/,exodus,com.singular.sdk
+Sizmek,.sizmek,Analytics,serving-sys\.com,https://www.sizmek.com,exodus,.sizmek.
+Smaato,com.smaato,,smaato\.net|soma\.smaato\.net,https://smaato.com,exodus,com.smaato.
+Smart,com.smartadserver,,adsrvr\.org|akamai\.smartadserver\.com|cdn1\.smartadserver\.com|diff2\.smartadserver\.com|diff3\.smartadserver\.com|diff\.smartadserver\.com|eqx\.smartadserver\.com|gallery\.smartadserver\.com|im2\.smartadserver\.com|insight\.adsrvr\.org|itx5-publicidad\.smartadserver\.com|itx5\.smartadserver\.com|js\.adsrvr\.org|match\.adsrvr\.org|preview\.smartadserver\.com|rtb-csync\.smartadserver\.com|saspreview\.com|smartadserver\.com|smartadserver\.ru|tmk\.smartadserver\.com|usw\-lax\.adsrvr\.org,http://smartadserver.com/,exodus,com.smartadserver.
+SmartLook,com.smartlook.sdk.smartlook,Location|Profiling,smartlook\.com,https://www.smartlook.com/,exodus,com.smartlook.sdk.smartlook.
+Snap Ad Kit,com.snap.adkit,Advertisement,,https://kit.snapchat.com/docs/ad-kit,exodus,com.snap.adkit|com.snap.appadskit
+Snap Ad Kit,com.snap.appadskit,Advertisement,,https://kit.snapchat.com/docs/ad-kit,exodus,com.snap.adkit|com.snap.appadskit
+Snapchat Login Kit,com.snapchat.kit.sdk.snaplogin,Identification,,https://kit.snapchat.com/docs/login-kit,exodus,com.snapchat.kit.sdk.SnapLogin
+Snowplow,com.snowplowanalytics,Analytics,,https://snowplowanalytics.com/,exodus,com.snowplowanalytics.
+Solar2D (Corona),com.ansca.corona,Advertisement|Analytics,,https://solar2d.com/,exodus,com.ansca.corona
+Soomla,com.soomla,,soom\.la,https://soomla.com/,exodus,com.soomla.
+Split,io.split.android,Analytics,event.split.io|sdk.split.io,https://www.split.io/,exodus,io.split.android.
+Splunk MINT,com.splunk.mint,Analytics,,https://mint.splunk.com/,exodus,com.splunk.mint
+Square Metrics,com.beaconinside.proximitysdk.proximityservice,,api\.beaconinside\.com,https://www.squaremetrics.com,exodus,com.beaconinside.proximitysdk.ProximityService
+Startapp,com.startapp,Advertisement|Analytics,c2i\.startappnetwork\.com|c2s\.startappnetwork\.com|click\.startappservice\.com|dts\.startappservice\.com|events\.startappservice\.com|images\.startappservice\.com|imp\.startappservice\.com|info\.static\.startappservice\.com|init\.startappservice\.com|req\.startappservice\.com|soda\.startappservice\.com|startappservice\.com|va\.origin\.startappservice\.com,https://www.startapp.com,exodus,com.startapp.
+SuperAwesome,tv.superawesome.lib,Advertisement,,https://www.superawesome.com/,exodus,tv.superawesome.sdk|tv.superawesome.lib.
+SuperAwesome,tv.superawesome.sdk,Advertisement,,https://www.superawesome.com/,exodus,tv.superawesome.sdk|tv.superawesome.lib.
+Supersonic Ads,com.supersonic.adapters.supersonicads,,click-haproxy\.supersonicads\.com|cx\.ssacdn\.com|init\.supersonicads\.com|logs\.supersonic\.com|outcome\.supersonicads\.com|ow-gateway\.supersonicads\.com|pixel-tracking\.sonic-us\.supersonicads\.com|rv-gateway\.supersonicads\.com|static\.ssacdn\.com|supersonic\.com|supersonicads-a\.akamaihd\.net|tag\-mediation.supersonic.com|ua\.supersonicads\.com|v\.ssacdn\.com|www\.supersonicads\.com,https://www.supersonic.com/,exodus,com.supersonic.adapters.supersonicads|com.supersonicads.sdk
+Supersonic Ads,com.supersonicads.sdk,,click-haproxy\.supersonicads\.com|cx\.ssacdn\.com|init\.supersonicads\.com|logs\.supersonic\.com|outcome\.supersonicads\.com|ow-gateway\.supersonicads\.com|pixel-tracking\.sonic-us\.supersonicads\.com|rv-gateway\.supersonicads\.com|static\.ssacdn\.com|supersonic\.com|supersonicads-a\.akamaihd\.net|tag\-mediation.supersonic.com|ua\.supersonicads\.com|v\.ssacdn\.com|www\.supersonicads\.com,https://www.supersonic.com/,exodus,com.supersonic.adapters.supersonicads|com.supersonicads.sdk
+Swirl,com.swirl,,cdn-api\.swirl\.com,http://swirl.com/,exodus,com.swirl
+Swrve,com.swrve.sdk,Location|Profiling|Analytics,api\.swrve\.com|content\.swrve\.com,https://www.swrve.com/,exodus,com.swrve.sdk
+Sync2Ad,com.visiware.sync2ad.dmp,Analytics,sync2ad\.com,https://www.sync2ad.com/,exodus,com.visiware.sync2ad.dmp.
+Synerise,com.synerise.sdk,Advertisement|Identification|Profiling,synerise\.com,https://synerise.com,exodus,com.synerise.sdk
+TNK Factory,com.tnkfactory.ad,Advertisement,,http://www.tnkfactory.com,exodus,com.tnkfactory.ad
+Taboola,com.taboola,,taboola\.com,https://www.taboola.com/,exodus,com.taboola.
+TagCommander (Commanders Act.),com.tagcommander,Analytics,\.commander1\.com|\.tagcommander.com,https://www.commandersact.com/,exodus,com.tagcommander.
+TalkingData,com.apptalkingdata.push,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.gametalkingdata.push,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.talkingdata.adtracking,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.talkingdata.appanalytics,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.talkingdata.sdk,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.tendcloud.appcpa,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+TalkingData,com.tendcloud.tenddata,Advertisement|Analytics,account\.talkingdata\.com|av1\.xdrig\.com|cloud\.xdrig\.com|m\.talkingdata\.com|push\.xdrig\.com,https://www.talkingdata.com/,exodus,com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.
+Tamoco,com.tamoco.sdk,Analytics|Location,evt\.tamoco\.com,https://www.tamoco.com/,exodus,com.tamoco.sdk
+TapResearch,com.tapr.helpers,Profiling|Analytics,,https://www.tapresearch.com/,exodus,com.tapr.sdk.|com.tapr.internal.|com.tapr.helpers.
+TapResearch,com.tapr.internal,Profiling|Analytics,,https://www.tapresearch.com/,exodus,com.tapr.sdk.|com.tapr.internal.|com.tapr.helpers.
+TapResearch,com.tapr.sdk,Profiling|Analytics,,https://www.tapresearch.com/,exodus,com.tapr.sdk.|com.tapr.internal.|com.tapr.helpers.
+Tapdaq,com.tapdaq.adapters,Advertisement,ads\.tapdaq\.com,https://www.tapdaq.com/,exodus,com.tapdaq.sdk.|com.tapdaq.adapters.
+Tapdaq,com.tapdaq.sdk,Advertisement,ads\.tapdaq\.com,https://www.tapdaq.com/,exodus,com.tapdaq.sdk.|com.tapdaq.adapters.
+Tapjoy,com.tapjoy,,tapjoy\.com|tapjoyads\.com|www\.5rocks\.io,https://www.tapjoy.com/,exodus,com.tapjoy.
+Taplytics,com.taplytics.sdk,Advertisement|Analytics,api\.taplytics\.com|ping\.tapylitics\.com,https://taplytics.com,exodus,com.taplytics.sdk
+Tappx,com.tappx.sdk.android,Advertisement,,https://www.tappx.com/,exodus,com.tappx.sdk.android
+Tapstream,com.tapstream.sdk,Analytics,,https://www.tapstream.com/,exodus,com.tapstream.sdk
+Teads,teads.tv,Advertisement,teads\.tv,https://www.teads.tv,exodus,tv.teads.|teads.tv.
+Teads,tv.teads,Advertisement,teads\.tv,https://www.teads.tv,exodus,tv.teads.|teads.tv.
+Tealeaf,com.tl.uic.tealeaf,Analytics,,https://acoustic.co/products/experience-analytics/,exodus,com.tl.uic.Tealeaf
+Tealium,.tealium,Analytics,tealiumiq\.com|tiqcdn\.com,https://tealium.com/,exodus,.tealium.
+Teemo,com.databerries,Analytics,databerries\.com,https://www.teemo.co,exodus,com.databerries.|com.geolocstation.
+Teemo,com.geolocstation,Analytics,databerries\.com,https://www.teemo.co,exodus,com.databerries.|com.geolocstation.
+TeleQuid,com.telequid,,mars\.telequid\.com,http://www.telequid.com/,exodus,com.telequid.
+Tencent MTA,com.tencent.mta,Analytics,,https://mta.qq.com/,exodus,com.tencent.mta
+Tencent Map LBS,com.tencent.lbs,,,https://lbs.qq.com/,exodus,com.tencent.lbs
+Tencent MobWin,com.tencent.mobwin,,,https://www.tencent.com/en-us/,exodus,com.tencent.mobwin
+Tencent Stats,com.tencent.stat,Analytics,,http://stat.qq.com/,exodus,com.tencent.stat|com.tencent.wxop.stat
+Tencent Stats,com.tencent.wxop.stat,Analytics,,http://stat.qq.com/,exodus,com.tencent.stat|com.tencent.wxop.stat
+Tencent Weiyun,com.tencent.weiyun,,,https://www.weiyun.com,exodus,com.tencent.weiyun
+Tenjin,com.tenjin.android,Analytics,,https://www.tenjin.com/,exodus,com.tenjin.android.
+ThinkingData Analytics,cn.thinkingdata,Identification|Analytics,,http://www.thinkingdata.cn/,exodus,cn.thinkingdata.
+Tinder Analytics,com.tinder.ads,Analytics,etl\.tindersparks\.com,http://tinder.com,exodus,com.tinder.analytics|com.tinder.ads
+Tinder Analytics,com.tinder.analytics,Analytics,etl\.tindersparks\.com,http://tinder.com,exodus,com.tinder.analytics|com.tinder.ads
+Treasure Data,com.treasuredata,Profiling|Analytics,,https://www.treasuredata.com/product/,exodus,com.treasuredata
+Tune,com.mobileapptracker,Analytics,mobileapptracking\.com,https://www.tune.com,exodus,com.tune|com.mobileapptracker
+Tune,com.tune,Analytics,mobileapptracking\.com,https://www.tune.com,exodus,com.tune|com.mobileapptracker
+Tutela,com.tutelatechnologies.sdk,,,https://www.tutela.com/,exodus,com.tutelatechnologies.sdk
+Tutucloud,org.lasque.tusdk.core,,tusdk\.com,https://tutucloud.com,exodus,org.lasque.tusdk.core|org.lasque.tusdkpulse.core
+Tutucloud,org.lasque.tusdkpulse.core,,tusdk\.com,https://tutucloud.com,exodus,org.lasque.tusdk.core|org.lasque.tusdkpulse.core
+Twine Data,com.twine.sdk,,,https://www.truedata.co/,exodus,com.twine.sdk
+Twitter MoPub,com.mopub,Advertisement|Analytics,mopub\.com,https://www.mopub.com/,exodus,com.mopub.
+UXCam,com.uxcam,Profiling|Analytics,verify.uxcam.com,https://uxcam.com/,exodus,com.uxcam.
+Uber Analytics,com.ubercab.analytics,Analytics,events\.uber\.com,https://uber.com,exodus,com.ubercab.analytics.|com.ubercab.library.metrics.analytics.|com.ubercab.client.core.analytics.
+Uber Analytics,com.ubercab.client.core.analytics,Analytics,events\.uber\.com,https://uber.com,exodus,com.ubercab.analytics.|com.ubercab.library.metrics.analytics.|com.ubercab.client.core.analytics.
+Uber Analytics,com.ubercab.library.metrics.analytics,Analytics,events\.uber\.com,https://uber.com,exodus,com.ubercab.analytics.|com.ubercab.library.metrics.analytics.|com.ubercab.client.core.analytics.
+Umeng Analytics,com.umeng.analytics,,alog\.umeng\.com|alogs\.umeng\.com|ar\.umeng\.com|oc\.umeng\.com|umeng\.com|uop\.umeng\.com,https://www.umeng.com/analytics,exodus,com.umeng.analytics
+Umeng Feedback,com.umeng.fb,,alog\.umeng\.com|alogs\.umeng\.com|ar\.umeng\.com|oc\.umeng\.com|umeng\.com|uop\.umeng\.com,http://dev.umeng.com/feedback,exodus,com.umeng.fb
+Unacast Pure,com.pure.internal,Location,,https://www.unacast.com/,exodus,com.pure.internal.|com.pure.sdk.
+Unacast Pure,com.pure.sdk,Location,,https://www.unacast.com/,exodus,com.pure.internal.|com.pure.sdk.
+Unity3d Ads,com.unity3d.ads,Advertisement,adserver\.unityads\.unity3d\.com|analytics\.social\.unity\.com|api\.uca\.cloud\.unity3d\.com|auction\.unityads\.unity3d\.com|cdn-highwinds\.unityads\.unity3d\.com|cdn\.unityads\.unity3d\.com|config\.uca\.cloud\.unity3d\.com|config\.unityads\.unity3d\.com|stats\.unity3d\.com|webview\.unityads\.unity3d\.com,https://unity3d.com/,exodus,com.unity3d.services|com.unity3d.ads
+Unity3d Ads,com.unity3d.services,Advertisement,adserver\.unityads\.unity3d\.com|analytics\.social\.unity\.com|api\.uca\.cloud\.unity3d\.com|auction\.unityads\.unity3d\.com|cdn-highwinds\.unityads\.unity3d\.com|cdn\.unityads\.unity3d\.com|config\.uca\.cloud\.unity3d\.com|config\.unityads\.unity3d\.com|stats\.unity3d\.com|webview\.unityads\.unity3d\.com,https://unity3d.com/,exodus,com.unity3d.services|com.unity3d.ads
+Upsight,com.upsight.android,Advertisement|Profiling|Analytics,,https://www.upsight.com/,exodus,com.upsight.android
+Urbanairship,com.urbanairship,,device-api\.urbanairship\.com|urbanairship\.com|device-api\.asnapieu\.com,https://www.urbanairship.com/,exodus,com.urbanairship
+UserExperior,com.userexperior,Location|Profiling|Analytics|Crash reporting,,https://www.userexperior.com/,exodus,com.userexperior
+VKontakte SDK,com.vk.api.sdk,Identification,,https://vksdk.github.io/vk-sdk-android/,exodus,com.vk.sdk.|com.vk.api.sdk.
+VKontakte SDK,com.vk.sdk,Identification,,https://vksdk.github.io/vk-sdk-android/,exodus,com.vk.sdk.|com.vk.api.sdk.
+Vdopia,com.vdopia.ads,Advertisement,,https://chocolateplatform.com/,exodus,com.vdopia.client.android.|com.vdopia.ads.
+Vdopia,com.vdopia.client.android,Advertisement,,https://chocolateplatform.com/,exodus,com.vdopia.client.android.|com.vdopia.ads.
+Vectaury,io.vectaury,Location|Profiling|Analytics,vectaury\.io,http://vectaury.io/,exodus,io.vectaury.
+Veloxity,net.veloxity,Advertisement,,http://www.veloxity.net/,exodus,net.veloxity.
+Verizon Ads,com.oath.mobile,Location|Advertisement|Identification|Profiling|Analytics,,https://www.verizonmedia.com/,exodus,com.verizon.ads|com.verizondigitalmedia.mobile.|com.oath.mobile.
+Verizon Ads,com.verizon.ads,Location|Advertisement|Identification|Profiling|Analytics,,https://www.verizonmedia.com/,exodus,com.verizon.ads|com.verizondigitalmedia.mobile.|com.oath.mobile.
+Verizon Ads,com.verizondigitalmedia.mobile,Location|Advertisement|Identification|Profiling|Analytics,,https://www.verizonmedia.com/,exodus,com.verizon.ads|com.verizondigitalmedia.mobile.|com.oath.mobile.
+Verve,com.vervewireless.advert,Advertisement,,https://www.verve.com,exodus,com.vervewireless.advert.
+Virgo Mobile,com.virgo.ads,Advertisement,,http://virgomobile.com/,exodus,com.virgo.ads.
+Vpon,com.vpadn.ads,Advertisement|Profiling|Analytics,,https://www.vpon.com/,exodus,com.vpon.ads|com.vpadn.analytics|com.vpadn.ads.|com.vpadn.widget.
+Vpon,com.vpadn.analytics,Advertisement|Profiling|Analytics,,https://www.vpon.com/,exodus,com.vpon.ads|com.vpadn.analytics|com.vpadn.ads.|com.vpadn.widget.
+Vpon,com.vpadn.widget,Advertisement|Profiling|Analytics,,https://www.vpon.com/,exodus,com.vpon.ads|com.vpadn.analytics|com.vpadn.ads.|com.vpadn.widget.
+Vpon,com.vpon.ads,Advertisement|Profiling|Analytics,,https://www.vpon.com/,exodus,com.vpon.ads|com.vpadn.analytics|com.vpadn.ads.|com.vpadn.widget.
+Vungle,com.vungle.publisher,Advertisement,ads\.api\.vungle\.com|akamai\.vungle\-cdn\.vungle\.com|api\.vungle\.akadns\.net|api\.vungle\.com|bd\.vungle\.com|billboard\.vungle\.com|cdn\-lb\.vungle\.com|ci\.vungle\.com|data\.vungle\.com|ingest\.vungle\.com|jaeger\.vungle\.com|ltv\-data\-api\.kube\-prod\.vungle\.com|monitoring\.vungle\.com|ssl\.vungle\.com|v\.vungle\.com,https://vungle.com,exodus,com.vungle.publisher.|com.vungle.warren.
+Vungle,com.vungle.warren,Advertisement,ads\.api\.vungle\.com|akamai\.vungle\-cdn\.vungle\.com|api\.vungle\.akadns\.net|api\.vungle\.com|bd\.vungle\.com|billboard\.vungle\.com|cdn\-lb\.vungle\.com|ci\.vungle\.com|data\.vungle\.com|ingest\.vungle\.com|jaeger\.vungle\.com|ltv\-data\-api\.kube\-prod\.vungle\.com|monitoring\.vungle\.com|ssl\.vungle\.com|v\.vungle\.com,https://vungle.com,exodus,com.vungle.publisher.|com.vungle.warren.
+WeChat Location,com.tencent.map.geolocation,,map\.qq\.com,https://wechat.com,exodus,com.tencent.map.geolocation|com.tencent.mm.plugin.location.|com.tencent.mm.plugin.location_soso.|com.tencent.mm.plugin.location_google
+WeChat Location,com.tencent.mm.plugin.location,,map\.qq\.com,https://wechat.com,exodus,com.tencent.map.geolocation|com.tencent.mm.plugin.location.|com.tencent.mm.plugin.location_soso.|com.tencent.mm.plugin.location_google
+WeChat Location,com.tencent.mm.plugin.location_google,,map\.qq\.com,https://wechat.com,exodus,com.tencent.map.geolocation|com.tencent.mm.plugin.location.|com.tencent.mm.plugin.location_soso.|com.tencent.mm.plugin.location_google
+WeChat Location,com.tencent.mm.plugin.location_soso,,map\.qq\.com,https://wechat.com,exodus,com.tencent.map.geolocation|com.tencent.mm.plugin.location.|com.tencent.mm.plugin.location_soso.|com.tencent.mm.plugin.location_google
+Weborama,com.weborama,Analytics,weborama\.fr|weborama\.net,https://www.weborama.com,exodus,com.weborama.
+Webtrekk,com.webtrekk.webtrekksdk,Analytics,,https://www.webtrekk.com/,exodus,com.webtrekk.webtrekksdk
+Webtrends,com.webtrends.mobile.analytics,Analytics,dc\.webtrends\.com|webtrends\.com,https://www.webtrends.com/,exodus,com.webtrends.mobile.analytics.|com.webtrends.mobile.android
+Webtrends,com.webtrends.mobile.android,Analytics,dc\.webtrends\.com|webtrends\.com,https://www.webtrends.com/,exodus,com.webtrends.mobile.analytics.|com.webtrends.mobile.android
+Widespace,com.widespace,,widespace\.com,http://widespace.com,exodus,com.widespace.
+Wootric,com.wootric.androidsdk,Analytics,.wootric\.com\.herokudns\.com|wootric\.com,http://wootric.com,exodus,com.wootric.androidsdk.
+X-Mode,io.mysdk,Location|Analytics,api\.myendpoint\.io|bin5y4muil\.execute-api\.us-east-1\.amazonaws\.com|api\.smartechmetrics\.com,https://xmode.io/,exodus,io.xmode.BcnConfig|io.xmode.locationsdk|io.mysdk.
+X-Mode,io.xmode.bcnconfig,Location|Analytics,api\.myendpoint\.io|bin5y4muil\.execute-api\.us-east-1\.amazonaws\.com|api\.smartechmetrics\.com,https://xmode.io/,exodus,io.xmode.BcnConfig|io.xmode.locationsdk|io.mysdk.
+X-Mode,io.xmode.locationsdk,Location|Analytics,api\.myendpoint\.io|bin5y4muil\.execute-api\.us-east-1\.amazonaws\.com|api\.smartechmetrics\.com,https://xmode.io/,exodus,io.xmode.BcnConfig|io.xmode.locationsdk|io.mysdk.
+YOC VIS.X,com.yoc.visx,Advertisement,yoc-performance\.com|yoc\.com,https://yoc.com,exodus,com.yoc.visx
+Yandex Ad,com.yandex.mobile.ads,Advertisement,analytics\.mobile\.yandex\.net|appmetrica\.yandex\.com|banners-slb\.mobile\.yandex\.net|banners\.mobile\.yandex\.net|mc\.yandex\.ru|report\.appmetrica\.yandex\.net|startup\.mobile\.yandex\.net,https://www.yandex.com/,exodus,com.yandex.mobile.ads
+Yinzcam Sobek,com.yinzcam.sobek,Location|Advertisement|Analytics,analytics\.yinzcam\.com,http://www.yinzcam.com/,exodus,com.yinzcam.sobek
+Yoadx,com.yoadx.yoadx,Advertisement,,https://yoadx.com/,exodus,com.yoadx.yoadx.
+YouAppi,com.youappi.sdk,,,https://www.youappi.com,exodus,com.youappi.sdk.
+YuMe,com.yume.android,Advertisement,,https://www.appbrain.com/stats/libraries/details/yume/yume,exodus,com.yume.android
+Yueying Crash SDK,com.uc.crashsdk,Analytics|Crash reporting,,https://yueying-docs.effirst.com/,exodus,com.uc.crashsdk|com.uc2.crashsdk
+Yueying Crash SDK,com.uc2.crashsdk,Analytics|Crash reporting,,https://yueying-docs.effirst.com/,exodus,com.uc.crashsdk|com.uc2.crashsdk
+Zapr,com.redbricklane.zapr,Location|Advertisement|Analytics,.zapr\.in,https://www.zapr.in/,exodus,com.redbricklane.zapr
+Zendrive,com.zendrive.sdk,Location|Profiling|Analytics,,https://www.zendrive.com/,exodus,com.zendrive.sdk.
+Zoho Analytics,com.zoho.zanalytics,Analytics,,http://analytics.zoho.com/,exodus,com.zoho.zanalytics.
+adPOPcorn,com.igaworks.adpopcorn,Advertisement,,https://adpopcorn.com/,exodus,com.igaworks.adpopcorn|com.igaworks.ssp.
+adPOPcorn,com.igaworks.ssp,Advertisement,,https://adpopcorn.com/,exodus,com.igaworks.adpopcorn|com.igaworks.ssp.
+deltaDNA,com.deltadna,Analytics,deltadna\.net,https://deltadna.com/,exodus,com.deltadna
+fineboost,com.fineboost,Advertisement|Analytics,,http://www.yifants.cn/,exodus,com.fineboost.
+flymob,com.flymob.sdk,,,https://flymob.com/,exodus,com.flymob.sdk.
+fullstory,com.fullstory.fs,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+fullstory,com.fullstory.fssessiondata,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+fullstory,com.fullstory.instrumentation,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+fullstory,com.fullstory.jni,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+fullstory,com.fullstory.rust,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+fullstory,com.fullstory.util,Analytics,,https://www.fullstory.com/,exodus,com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData
+ironSource,com.ironsource,Analytics,,https://www.ironsrc.com,exodus,com.ironsource.
+mParticle,com.mparticle,Analytics,mparticle\.com,http://mparticle.com,exodus,com.mparticle
+maio by i-mobile,jp.maio.sdk,,,https://adpf-info.i-mobile.co.jp/en/,exodus,jp.maio.sdk.
+mediba,com.mediba.jp,Advertisement,,https://www.mediba.jp,exodus,com.mediba.jp|mediba.ad.sdk.android.openx
+mediba,mediba.ad.sdk.android.openx,Advertisement,,https://www.mediba.jp,exodus,com.mediba.jp|mediba.ad.sdk.android.openx
+myTarget,com.my.target,Advertisement,.target\.my\.com,https://target.my.com/,exodus,com.my.target.
+myTracker,com.my.tracker,,tracker-api\.my\.com,https://tracker.my.com/,exodus,com.my.tracker.
+nend,net.nend.android,Advertisement,,https://nend.net/en/,exodus,net.nend.android|net.nend.unity.
+nend,net.nend.unity,Advertisement,,https://nend.net/en/,exodus,net.nend.android|net.nend.unity.

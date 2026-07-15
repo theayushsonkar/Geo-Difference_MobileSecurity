@@ -1,0 +1,20 @@
+android_permission_group,privacy_category
+LOCATION,Location
+CONTACTS,Contacts
+CALENDAR,Calendar
+SMS,SMS
+MESSAGES,SMS
+PHONE,Device Identifiers
+CALL_LOG,Call Logs
+CAMERA,Camera
+MICROPHONE,Microphone
+NEARBY_DEVICES,Bluetooth
+BLUETOOTH_NETWORK,Bluetooth
+SENSORS,Sensors
+ACCOUNTS,Accounts
+NETWORK,Connectivity
+STORAGE,Storage
+MEDIA,Storage
+HARDWARE_CONTROLS,Hardware Controls
+SYSTEM_TOOLS,System Tools
+PERSONAL_INFO,Personal Info

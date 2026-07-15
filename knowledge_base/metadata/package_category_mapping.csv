@@ -1,0 +1,17 @@
+package_prefix,category
+android.location,Location
+android.telephony,Telephony
+android.bluetooth,Bluetooth
+android.hardware.camera2,Camera
+android.hardware,Camera
+android.accounts,Accounts
+android.provider,Contacts
+android.net,Connectivity
+android.nfc,NFC
+android.hardware.biometrics,Biometrics
+android.hardware.fingerprint,Biometrics
+android.hardware.Sensor,Sensors
+androidx.camera,Camera
+androidx.biometric,Biometrics
+com.google.android.gms.location,Location
+com.google.android.gms.ads.identifier,Advertising ID
