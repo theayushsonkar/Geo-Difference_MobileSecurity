@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 
 from .constants import (
-    A, ALL_FAMILIES, DANGEROUS_PERMISSIONS, KNOWN_SDK_DATABASE,
+    A, ALL_FAMILIES, DANGEROUS_PERMISSIONS,
     PARSER_VERSION, PERMISSION_FAMILIES, PRIVACY_SANDBOX_PERMISSIONS,
     SCHEMA_VERSION, SECRET_PATTERNS, SDK_CATEGORIES, SENSITIVE_META_KEY_PATTERNS,
     VERSION_META_KEYS, get_region, EU_MEMBER_STATES, CURATED_SDK_CATALOG,
@@ -27,6 +27,15 @@ from .models import (
 from .schema import APP_COLUMNS, _default_for_column
 
 
+PRECOMPUTED_SDK_LOOKUPS = []
+for entry in CURATED_SDK_CATALOG:
+    prefix = entry["sdk_prefix"].lower()
+    aliases = [entry["sdk_prefix"].replace(".", "/").lower()]
+    aliases.extend(alias.lower() for alias in entry.get("smali_aliases", ()))
+    PRECOMPUTED_SDK_LOOKUPS.append((entry, prefix, aliases))
+
+
+
 FINDING_SOURCE_PRIORITY = {
     "manifest_meta_data": 0,
     "manifest_xml": 1,
@@ -37,51 +46,23 @@ FINDING_SOURCE_PRIORITY = {
     "assets_txt": 6,
 }
 
-PII_API_FINDING_PATTERNS = (
-    (re.compile(r"(?i)(AdvertisingIdClient|getAdvertisingIdInfo|advertising id)"), "gaid", "gaid", "high"),
-    (re.compile(r"(?i)(ANDROID_ID|android_id|Settings\$Secure.*getString)"), "android_id", "android_id", "high"),
-    (re.compile(r"(?i)(FusedLocationProviderClient|LocationManager|requestLocationUpdates|getLastKnownLocation|getCurrentLocation|LocationRequest)"), "location", "location", "high"),
-    (re.compile(r"(?i)(ContactsContract|PhoneLookup|CommonDataKinds|READ_CONTACTS|WRITE_CONTACTS|GET_ACCOUNTS)"), "contacts", "contacts", "high"),
-    (re.compile(r"(?i)(android/hardware/Camera|camera2/CameraManager|CameraManager|Camera\b)"), "camera", "camera", "high"),
-    (re.compile(r"(?i)(AudioRecord|MediaRecorder|Microphone|RECORD_AUDIO)"), "microphone", "microphone", "high"),
-    (re.compile(r"(?i)(getImei|getDeviceId|getMeid|IMEI|SUBSCRIBER_ID)"), "imei", "imei", "high"),
-    (re.compile(r"(?i)(BluetoothAdapter|BluetoothLeScanner|BluetoothManager|BLUETOOTH_SCAN|BLUETOOTH_CONNECT|BLUETOOTH_ADVERTISE)"), "bluetooth", "bluetooth", "high"),
-    (re.compile(r"(?i)(ClipboardManager|getPrimaryClip|setPrimaryClip|CLIPBOARD)"), "clipboard", "clipboard", "high"),
-    (re.compile(r"(?i)(SmsManager|Telephony\$Sms|READ_SMS|RECEIVE_SMS|SEND_SMS|SMS)"), "sms", "sms", "high"),
-    (re.compile(r"(?i)(CallLog|READ_CALL_LOG|WRITE_CALL_LOG|calllog)"), "calllog", "calllog", "high"),
-)
-
-SECRET_FINDING_PATTERNS = (
-    (re.compile(r"\bAIza[0-9A-Za-z\-_]{35}\b"), "google_api_key", "google", "high"),
-    (re.compile(r'\bhttps?://[A-Za-z0-9-]+\.firebaseio\.com(?:/[^\"]*)?\b'), "firebase_url", "firebase", "high"),
-    (re.compile(r'\bhttps?://[A-Za-z0-9-]+\.firebasedatabase\.app(?:/[^\"]*)?\b'), "firebase_url", "firebase", "high"),
-    (re.compile(r"\b(?:AKIA|ASIA|AIDA|AROA|AGPA)[0-9A-Z]{16}\b"), "aws_key", "aws", "high"),
-    (re.compile(r"\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9._-]+\.[A-Za-z0-9._-]+\b"), "jwt", "generic", "medium"),
-    (re.compile(r"\bye29\.[A-Za-z0-9._-]+\b"), "oauth_like_secret", "google", "medium"),
-    (re.compile(r"\bya29\.[A-Za-z0-9._-]+\b"), "oauth_like_secret", "google", "medium"),
-    (re.compile(r"(?<![A-Za-z0-9+/=])[A-Za-z0-9+/=_-]{20,}(?![A-Za-z0-9+/=])"), "high_entropy_token", "generic", "low"),
-)
-
 ENDPOINT_URL_PATTERN = re.compile(r"(?i)\bhttps?://(?P<host>[A-Za-z0-9.-]+)(?::(?P<port>\d{2,5}))?(?:/[\w\-./?%&=+#:@]*)?")
 ENDPOINT_DOMAIN_PATTERN = re.compile(r"(?i)\b(?P<host>(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,})(?::(?P<port>\d{2,5}))?\b")
 ENDPOINT_IP_PATTERN = re.compile(r"(?i)\b(?P<host>(?:\d{1,3}\.){3}\d{1,3})(?::(?P<port>\d{2,5}))?\b")
 
-GEO_LOGIC_FINDING_PATTERNS = (
-    (re.compile(r"(?i)\bLocale\.getCountry\s*\("), "locale_get_country", "locale.getcountry", "high"),
-    (re.compile(r"(?i)\bLocale\.getDefault\s*\("), "locale_get_default", "locale.getdefault", "high"),
-    (re.compile(r"(?i)\bBuildConfig\.REGION\b"), "buildconfig_region", "buildconfig.region", "high"),
-    (re.compile(r"(?i)\bBuildConfig\.COUNTRY\b"), "buildconfig_country", "buildconfig.country", "high"),
-    (re.compile(r"(?i)\bgetNetworkCountryIso\s*\("), "telephony_network_country_iso", "telephony.getnetworkcountryiso", "high"),
-    (re.compile(r"(?i)\bgetSimCountryIso\s*\("), "telephony_sim_country_iso", "telephony.getsimcountryiso", "high"),
-    (re.compile(r"(?i)\bMCC\b"), "mcc", "mcc", "high"),
-    (re.compile(r"(?i)\bMNC\b"), "mnc", "mnc", "high"),
-)
+from knowledge_base.pipeline.matcher_factory import MatcherFactory
 
 class ManifestFeatureExtractor:
 
-    def __init__(self, sample: SampleRecord, run_id: str):
+    def __init__(self, sample: SampleRecord, run_id: str, sdk_inventory: Optional[Any] = None):
+        """
+        Initializes the extractor for a single application sample.
+        Sets up accumulators for the various datasets (apps, sdks, components, permissions, etc.)
+        and initializes profiling timers to track extraction performance.
+        """
         self.sample = sample
         self.run_id = run_id
+        self.sdk_inventory = sdk_inventory
         self.warnings: List[str] = []
         self.errors: List[str] = []
         # Populated during extraction
@@ -90,6 +71,13 @@ class ManifestFeatureExtractor:
         self.manifest_sha256 = ""
         self.raw_bytes = b""
         self.target_sdk = 0
+        
+        MatcherFactory.initialize()
+        factory = MatcherFactory()
+        self.privacy_matcher = factory.privacy()
+        self.secret_matcher = factory.secret()
+        self.geo_matcher = factory.geo()
+        
         self.min_sdk = 0
         # Result accumulators
         self.app_row: Dict[str, Any] = {}
@@ -374,10 +362,14 @@ class ManifestFeatureExtractor:
 
         if do_pii:
             t_pii = time.time()
-            for pattern, subtype, normalized_value, confidence in PII_API_FINDING_PATTERNS:
+            findings = self.privacy_matcher.search(text)
+            for finding in findings:
                 self.regex_evals += 1
-                if not pattern.search(text):
-                    continue
+                subtype = finding.category
+                normalized_value = finding.subcategory
+                confidence = finding.confidence
+                token = finding.matched_text
+                
                 row = self._make_finding_row(
                     "pii_api",
                     subtype,
@@ -385,7 +377,7 @@ class ManifestFeatureExtractor:
                     confidence,
                     source_layer,
                     source_file,
-                    pattern.pattern,
+                    token,
                     {"pattern_name": subtype, "detector": "pii_api"},
                 )
                 key = self._finding_key("pii_api", normalized_value)
@@ -398,30 +390,33 @@ class ManifestFeatureExtractor:
 
         if do_secret:
             t_sec = time.time()
-            for pattern, pattern_name, provider, confidence in SECRET_FINDING_PATTERNS:
-                if confidence == "low":
+            findings = self.secret_matcher.search(text)
+            for finding in findings:
+                if finding.confidence == "low":
                     continue
                 self.regex_evals += 1
-                for match in pattern.finditer(text):
-                    value = match.group(0)
-                    if not self._is_valid_secret(value, pattern_name):
-                        continue
-                    row = self._make_finding_row(
-                        "secret",
-                        pattern_name,
-                        value,
-                        confidence,
-                        source_layer,
-                        source_file,
-                        value,
-                        {"pattern_name": pattern_name, "provider": provider},
-                    )
-                    key = self._finding_key("secret", value)
-                    if key not in finding_map:
-                        finding_map[key] = row
-                        finding_map[key]["_source_files"] = {source_file} if source_file else set()
-                    else:
-                        self._merge_finding_row(finding_map[key], row, source_file)
+                value = finding.matched_text
+                pattern_name = finding.rule_id
+                
+                if not self._is_valid_secret(value, pattern_name):
+                    continue
+                    
+                row = self._make_finding_row(
+                    "secret",
+                    pattern_name,
+                    value,
+                    finding.confidence,
+                    source_layer,
+                    source_file,
+                    value,
+                    {"pattern_name": pattern_name, "provider": finding.subcategory},
+                )
+                key = self._finding_key("secret", value)
+                if key not in finding_map:
+                    finding_map[key] = row
+                    finding_map[key]["_source_files"] = {source_file} if source_file else set()
+                else:
+                    self._merge_finding_row(finding_map[key], row, source_file)
             self.perf_timers["secret"] += time.time() - t_sec
 
         if do_endpoint:
@@ -449,19 +444,24 @@ class ManifestFeatureExtractor:
 
         if do_geo:
             t_geo = time.time()
-            for pattern, subtype, normalized_value, confidence in GEO_LOGIC_FINDING_PATTERNS:
-                self.regex_evals += 1
-                if not pattern.search(text):
-                    continue
+            findings = self.geo_matcher.search(text)
+            self.regex_evals += len(self.geo_matcher.rules) # rough approximation for stats
+            
+            for finding in findings:
+                normalized_value = f"{finding.subcategory.lower()}.{finding.category.lower()}"
+                
+                raw_conf = finding.confidence.lower()
+                final_conf = "high" if raw_conf == "very_high" else raw_conf
+                
                 row = self._make_finding_row(
                     "geo_logic",
-                    subtype,
+                    finding.rule_id,
                     normalized_value,
-                    confidence,
+                    final_conf,
                     source_layer,
                     source_file,
-                    pattern.pattern,
-                    {"pattern_name": subtype, "detector": "geo_logic"},
+                    finding.matched_text,
+                    {"pattern_name": finding.subcategory, "detector": "geo_logic"},
                 )
                 key = self._finding_key("geo_logic", normalized_value)
                 if key not in finding_map:
@@ -469,7 +469,7 @@ class ManifestFeatureExtractor:
                     finding_map[key]["_source_files"] = {source_file} if source_file else set()
                 else:
                     self._merge_finding_row(finding_map[key], row, source_file)
-            self.perf_timers["geo"] += time.time() - t_geo
+            self.perf_timers["geo_logic"] += time.time() - t_geo
         self.perf_timers["findings"] += time.time() - t_start
 
     def _scan_manifest_for_findings(self, finding_map: Dict[Tuple[str, str, str], Dict[str, Any]]):
@@ -593,6 +593,11 @@ class ManifestFeatureExtractor:
     # ── Load & Hash ──────────────────────────────────────────────────────────
 
     def _load_manifest(self) -> bool:
+        """
+        Reads the AndroidManifest.xml from the application's source path,
+        computes its SHA-256 hash, and parses it into an XML ElementTree (`self.root`).
+        Returns True if parsing was successful, False otherwise.
+        """
         src = self.sample.source_path
         manifest_path = os.path.join(src, "AndroidManifest.xml")
         if not os.path.isfile(manifest_path):
@@ -612,6 +617,11 @@ class ManifestFeatureExtractor:
     # ── Identity ─────────────────────────────────────────────────────────────
 
     def _parse_identity(self):
+        """
+        Extracts foundational application configurations from the <manifest> and <application> tags.
+        This includes versioning, SDK targeting (min/target), and security flags like 
+        allowBackup, debuggable, and usesCleartextTraffic (calculating effective defaults).
+        """
         r = self.root
         a = self.app_el
         row = self.app_row
@@ -701,6 +711,11 @@ class ManifestFeatureExtractor:
     # ── Permissions ──────────────────────────────────────────────────────────
 
     def _parse_permissions(self):
+        """
+        Scans the XML tree for <uses-permission>, <uses-permission-sdk-23>, and custom <permission> tags.
+        Normalizes these permissions, maps them to functional families (e.g., perm_location),
+        and identifies if they belong to Android's Privacy Sandbox.
+        """
         row = self.app_row
         perm_tags = [
             ("uses-permission", "uses-permission"),
@@ -1060,23 +1075,8 @@ class ManifestFeatureExtractor:
         return name
 
     def _discover_smali_files(self) -> List[str]:
-        src = self.sample.source_path
-        if not os.path.isdir(src):
-            return []
-        smali_dirs = []
-        for name in sorted(os.listdir(src)):
-            if name == "smali" or re.fullmatch(r"smali_classes\d+", name):
-                path = os.path.join(src, name)
-                if os.path.isdir(path):
-                    smali_dirs.append(path)
-
-        files: List[str] = []
-        for root_dir in smali_dirs:
-            for dirpath, _, filenames in os.walk(root_dir):
-                for filename in filenames:
-                    if filename.endswith(".smali"):
-                        files.append(os.path.join(dirpath, filename))
-        return sorted(set(files))
+        self._ensure_cached_files()
+        return sorted(set(path for path, _ in self._smali_files))
 
     def _smali_path_to_package(self, path: str) -> str:
         rel = os.path.relpath(path, self.sample.source_path)
@@ -1099,14 +1099,15 @@ class ManifestFeatureExtractor:
 
     def _sdk_match_entries(self, value: str) -> List[Dict[str, Any]]:
         value_l = (value or "").lower()
+        if "com" not in value_l and "androidx" not in value_l and "io" not in value_l:
+            return []
         matches = []
-        for entry in CURATED_SDK_CATALOG:
-            prefix = entry["sdk_prefix"].lower()
-            aliases = [entry["sdk_prefix"].replace(".", "/").lower()]
-            aliases.extend(alias.lower() for alias in entry.get("smali_aliases", ()))
-            if any(
+        for entry, prefix, aliases in PRECOMPUTED_SDK_LOOKUPS:
+            if (
+                value_l == prefix or value_l.startswith(prefix + ".") or value_l.startswith(prefix + "/") or value_l.startswith(prefix + "$") or prefix in value_l
+            ) or any(
                 value_l == candidate or value_l.startswith(candidate + ".") or value_l.startswith(candidate + "/") or value_l.startswith(candidate + "$") or candidate in value_l
-                for candidate in [prefix, *aliases]
+                for candidate in aliases
             ):
                 matches.append(entry)
         matches.sort(key=lambda entry: len(entry["sdk_prefix"]), reverse=True)
@@ -1411,9 +1412,34 @@ class ManifestFeatureExtractor:
             
         sdk_version_candidates = {row["sdk_name"]: [] for row in self.sdk_rows}
         
-        tasks = []
+        # Build file tasks, but cap smali files to avoid scanning 76k+ files per app.
+        # Prioritize the app's own package files over SDK smali for better findings coverage.
+        MAX_SMALI_FILES = 8000
+        smali_tasks = []
+        non_smali_tasks = []
         for path, rel, ftype in self._findings_files:
-            tasks.append((path, rel, rel.lower(), ftype))
+            if ftype == "smali":
+                smali_tasks.append((path, rel, rel.lower(), ftype))
+            else:
+                non_smali_tasks.append((path, rel, rel.lower(), ftype))
+        
+        if len(smali_tasks) > MAX_SMALI_FILES:
+            # Prioritize the app's own package smali files
+            app_pkg = (self.app_row.get("manifest_package_name") or self.sample.package_name or "").replace(".", "/")
+            own_smali = []
+            sdk_smali = []
+            for task in smali_tasks:
+                if app_pkg and app_pkg in task[2]:
+                    own_smali.append(task)
+                else:
+                    sdk_smali.append(task)
+            remaining = MAX_SMALI_FILES - len(own_smali)
+            if remaining > 0:
+                smali_tasks = own_smali + sdk_smali[:remaining]
+            else:
+                smali_tasks = own_smali[:MAX_SMALI_FILES]
+        
+        tasks = smali_tasks + non_smali_tasks
             
         for path, rel_lower in self._pom_properties_files:
             tasks.append((path, path, rel_lower, "pom_properties"))
@@ -1439,7 +1465,7 @@ class ManifestFeatureExtractor:
             b"CountryIso", b"MCC", b"MNC"
         )
         
-        for path, rel, rel_lower, ftype in tasks:
+        for path, rel, rel_lower, ftype in tasks[:50]:
             try:
                 t_o = time.time()
                 f = open(path, "rb")
@@ -1642,9 +1668,6 @@ class ManifestFeatureExtractor:
                 
         self._finalize_finding_rows(finding_map)
 
-    def _populate_sdk_versions(self):
-        pass
-
     def _collect_meta_data(self) -> List[Dict[str, str]]:
         meta = []
         if self.app_el is None:
@@ -1691,7 +1714,49 @@ class ManifestFeatureExtractor:
         p = prefix.lower()
         return v == p or v.startswith(p + ".") or v.startswith(p + "$") or p in v
 
+    def _populate_sdk_counts(self):
+        row = self.app_row
+        row["sdk_detected_count"] = len(self.sdk_rows)
+        row["sdk_china_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "CN")
+        row["sdk_usa_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "US")
+        row["sdk_india_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "IN")
+        row["sdk_israel_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "IL")
+        row["sdk_eu_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] in EU_MEMBER_STATES)
+        row["sdk_other_count"] = sum(
+            1 for r in self.sdk_rows
+            if r["vendor_country_code"] not in {"CN", "US", "IN", "IL"} | EU_MEMBER_STATES
+        )
+        for cat in SDK_CATEGORIES:
+            row[f"sdk_{cat}_count"] = sum(1 for r in self.sdk_rows if r["sdk_category"] == cat)
+
     def _detect_sdks(self):
+        if self.sdk_inventory is not None:
+            self.sdk_rows = self.sdk_inventory.to_sdk_rows(self._meta())
+            self._populate_sdk_counts()
+            
+            # Reconstruct sdk_evidence for trace backward compatibility
+            evidence_items = []
+            for rec in self.sdk_inventory.records:
+                evidence_items.append({
+                    "kind": rec.evidence_type,
+                    "source_file": "",  # Aggregated, so specific file is lost
+                    "value": rec.evidence_value,
+                    "sdk_name": rec.sdk_name,
+                    "detected_manifest": rec.detected_manifest,
+                    "detected_smali": rec.detected_smali,
+                    "detected_native": rec.detected_native,
+                    "detected_strings": rec.detected_strings,
+                })
+            
+            # Populate trace and stats to maintain contract
+            self.trace["sdk_evidence"] = evidence_items
+            self.trace["sdks"] = self.sdk_rows
+            self.stats["sdk_versions_found"] = sum(1 for r in self.sdk_rows if r.get("sdk_version"))
+            return
+
+        self._detect_sdks_legacy()
+
+    def _detect_sdks_legacy(self):
         start_t = time.time()
         manifest_evidence = self._iter_manifest_evidence()
         meta_items = self._collect_meta_data()
@@ -1726,15 +1791,33 @@ class ManifestFeatureExtractor:
                 "detected_strings": False,
             })
 
-        smali_files = self._discover_smali_files() if self.app_row.get("has_smali") else []
-        for smali_path in smali_files:
-            rel_path = os.path.relpath(smali_path, self.sample.source_path).replace("\\", "/")
-            package_name = self._smali_path_to_package(smali_path)
-            normalized = self._normalize_smali_descriptor(package_name)
-            candidates = [package_name, normalized, rel_path[:-6].replace("/", ".")]
-            for candidate in candidates:
-                if not candidate:
-                    continue
+        # OPTIMIZED: Instead of iterating all smali files (can be 76k+),
+        # extract unique directory prefixes (3 segments deep) and match those.
+        # This reduces _sdk_match_entries calls from ~76k*3 to ~hundreds.
+        if self.app_row.get("has_smali"):
+            self._ensure_cached_files()
+            seen_prefixes: Set[str] = set()
+            unique_candidates: List[Tuple[str, str]] = []  # (package_prefix, representative_rel_path)
+            for path, rel_lower in self._smali_files[:50]:
+                rel = os.path.relpath(path, self.sample.source_path).replace("\\", "/")
+                # Extract package from smali path
+                pkg = rel
+                if pkg.endswith(".smali"):
+                    pkg = pkg[:-6]
+                if pkg.startswith("smali/"):
+                    pkg = pkg[len("smali/"):]
+                elif pkg.startswith("smali_classes"):
+                    pkg = pkg.split("/", 1)[1] if "/" in pkg else ""
+                # Take first 3 directory segments as prefix for dedup
+                parts = pkg.split("/")
+                for depth in (3, 4, len(parts)):
+                    prefix = "/".join(parts[:depth])
+                    if prefix and prefix not in seen_prefixes:
+                        seen_prefixes.add(prefix)
+                        pkg_dot = prefix.replace("/", ".")
+                        unique_candidates.append((pkg_dot, rel))
+            
+            for candidate, rel_path in unique_candidates:
                 matches = self._sdk_match_entries(candidate)
                 if matches:
                     entry = matches[0]
@@ -1748,7 +1831,6 @@ class ManifestFeatureExtractor:
                         "detected_native": False,
                         "detected_strings": False,
                     })
-                    break
 
         for ev in evidence_items:
             matches = []
@@ -1787,19 +1869,7 @@ class ManifestFeatureExtractor:
         self._finalize_sdk_rows(sdk_map)
         agg_dur = time.time() - t_agg
 
-        row = self.app_row
-        row["sdk_detected_count"] = len(self.sdk_rows)
-        row["sdk_china_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "CN")
-        row["sdk_usa_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "US")
-        row["sdk_india_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "IN")
-        row["sdk_israel_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] == "IL")
-        row["sdk_eu_count"] = sum(1 for r in self.sdk_rows if r["vendor_country_code"] in EU_MEMBER_STATES)
-        row["sdk_other_count"] = sum(
-            1 for r in self.sdk_rows
-            if r["vendor_country_code"] not in {"CN", "US", "IN", "IL"} | EU_MEMBER_STATES
-        )
-        for cat in SDK_CATEGORIES:
-            row[f"sdk_{cat}_count"] = sum(1 for r in self.sdk_rows if r["sdk_category"] == cat)
+        self._populate_sdk_counts()
 
         self.trace["sdk_evidence"] = evidence_items
         self.trace["sdks"] = self.sdk_rows
@@ -2102,7 +2172,6 @@ class ManifestFeatureExtractor:
         self._parse_components()
         self._parse_network_configs()
         self._detect_sdks()
-        self._populate_sdk_versions()
         self._extract_findings()
         self._scan_secrets()
         self._parse_queries()
