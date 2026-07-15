@@ -1,0 +1,4 @@
+package,class,method,Axplorer,PScout,permission_match,category_match
+com.android.internal.telephony,IccPhoneBookInterfaceManager,getAdnRecordsInEf,android.permission.READ_CONTACTS,android.permission.READ_CONTACTS,True,True
+com.android.internal.telephony,IccPhoneBookInterfaceManager,updateAdnRecordsInEfByIndex,android.permission.WRITE_CONTACTS,android.permission.WRITE_CONTACTS,True,True
+com.android.internal.telephony,IccPhoneBookInterfaceManager,updateAdnRecordsInEfBySearch,android.permission.WRITE_CONTACTS,android.permission.WRITE_CONTACTS,True,True

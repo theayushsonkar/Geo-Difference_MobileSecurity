@@ -1,0 +1,12 @@
+metric,value
+axplorer_records,3099
+pscout_records,272
+gms_records,6413
+total_inputs,9784
+merged_records,9336
+duplicate_merge_operations,448
+permission_conflicts,0
+category_conflicts,0
+unknown_categories,9034
+fw_Android Framework,2923
+fw_Google Play Services,6413

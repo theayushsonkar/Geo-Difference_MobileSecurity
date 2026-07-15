@@ -1,0 +1,7 @@
+Metric,Value
+Total trackers,432
+Total extracted prefixes,588
+Duplicate prefixes removed,0
+Trackers with multiple prefixes,101
+Unsupported regex patterns,0
+Empty signatures,4

@@ -1,0 +1,193 @@
+package,class,method,permissions,categories
+android.accounts,AccountManager,addOnAccountsUpdatedListener,android.permission.GET_ACCOUNTS,Contacts
+android.accounts,AccountManager,getAccounts,android.permission.GET_ACCOUNTS,Contacts
+android.accounts,AccountManager,getAccountsByType,android.permission.GET_ACCOUNTS,Contacts
+android.accounts,AccountManager,getAccountsByTypeAndFeatures,android.permission.GET_ACCOUNTS,Contacts
+android.accounts,AccountManager,hasFeatures,android.permission.GET_ACCOUNTS,Contacts
+android.bluetooth,BluetoothDevice,ACTION_FOUND,android.permission.ACCESS_COARSE_LOCATION,Unknown
+android.content,Context,checkSelfPermission,android.permission._PERM_CHECKER_,Unknown
+android.content,Intent,ACTION_CALL,android.permission.CALL_PHONE,Device Identifiers
+android.content,Intent,ACTION_NEW_OUTGOING_CALL,android.permission.PROCESS_OUTGOING_CALLS,Unknown
+android.hardware,Camera,open,android.permission.CAMERA,Unknown
+android.hardware,Sensor,TYPE_HEART_RATE,android.permission.BODY_SENSORS,Unknown
+android.hardware.camera2,CameraManager,openCamera,android.permission.CAMERA,Unknown
+android.hardware.location,GeofenceHardware,addGeofence,android.permission.ACCESS_FINE_LOCATION,Location
+android.hardware.location,GeofenceHardware,pauseGeofence,android.permission.ACCESS_FINE_LOCATION,Location
+android.hardware.location,GeofenceHardware,registerForMonitorStateChangeCallback,android.permission.ACCESS_FINE_LOCATION,Location
+android.hardware.location,GeofenceHardware,removeGeofence,android.permission.ACCESS_FINE_LOCATION,Location
+android.hardware.location,GeofenceHardware,resumeGeofence,android.permission.ACCESS_FINE_LOCATION,Location
+android.hardware.location,GeofenceHardware,unregisterForMonitorStateChangeCallback,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,addGpsStatusListener,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,addNmeaListener,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,addProximityAlert,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.location,LocationManager,getGpsStatus,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,getLastKnownLocation,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.location,LocationManager,registerGnssMeasurementsCallback,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,registerGnssNavigationMessageCallback,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,registerGnssStatusCallback,android.permission.ACCESS_FINE_LOCATION,Location
+android.location,LocationManager,removeProximityAlert,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.location,LocationManager,requestLocationUpdates,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.location,LocationManager,requestSingleUpdate,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.media,AudioRecord,<init>,android.permission.RECORD_AUDIO,Unknown
+android.media,MediaRecorder,setAudioSource,android.permission.RECORD_AUDIO,Unknown
+android.media.audiofx,Visualizer,<init>,android.permission.RECORD_AUDIO,Unknown
+android.net.rtp,AudioGroup,<init>,android.permission.RECORD_AUDIO,Unknown
+android.net.sip,SipAudioCall,startAudio,android.permission.RECORD_AUDIO,Unknown
+android.net.sip,SipManager,createSipSession,android.permission.USE_SIP,Device Identifiers
+android.net.sip,SipManager,getSessionFor,android.permission.USE_SIP,Device Identifiers
+android.net.sip,SipManager,makeAudioCall,android.permission.USE_SIP,Device Identifiers
+android.net.sip,SipManager,open,android.permission.USE_SIP,Device Identifiers
+android.net.sip,SipManager,register,android.permission.USE_SIP,Device Identifiers
+android.net.sip,SipManager,takeAudioCall,android.permission.USE_SIP,Device Identifiers
+android.net.wifi,WifiManager,SCAN_RESULTS_AVAILABLE_ACTION,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.provider,CalendarContract,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Attendees,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$CalendarAlerts,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$CalendarEntity,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Calendars,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Colors,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$EventDays,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Events,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$EventsEntity,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$ExtendedProperties,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Instances,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$Reminders,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CalendarContract$SyncState,CONTENT_URI,"android.permission.READ_CALENDAR, android.permission.WRITE_CALENDAR",Unknown
+android.provider,CallLog,CONTENT_URI,"android.permission.READ_CALL_LOG, android.permission.WRITE_CALL_LOG",Unknown
+android.provider,CallLog$Calls,CONTENT_FILTER_URI,"android.permission.READ_CALL_LOG, android.permission.WRITE_CALL_LOG",Unknown
+android.provider,CallLog$Calls,CONTENT_URI,"android.permission.READ_CALL_LOG, android.permission.WRITE_CALL_LOG",Unknown
+android.provider,CallLog$Calls,CONTENT_URI_WITH_VOICEMAIL,"android.permission.READ_CALL_LOG, android.permission.WRITE_CALL_LOG",Unknown
+android.provider,ContactsContract,AUTHORITY_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$AggregationExceptions,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Callable,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Callable,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Contactables,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Contactables,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Email,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Email,CONTENT_LOOKUP_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Email,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Email,ENTERPRISE_CONTENT_LOOKUP_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Phone,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$Phone,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$CommonDataKinds$StructuredPostal,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_FREQUENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_GROUP_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_LOOKUP_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_MULTI_VCARD_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_STREQUENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_STREQUENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,CONTENT_VCARD_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Contacts,lookupContact,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Data,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$DataUsageFeedback,DELETE_USAGE_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$DataUsageFeedback,FEEDBACK_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$DeletedContacts,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$DisplayPhoto,CONTENT_MAX_DIMENSIONS_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$DisplayPhoto,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Groups,CONTENT_SUMMARY_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Groups,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$PhoneLookup,CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$PhoneLookup,ENTERPRISE_CONTENT_FILTER_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Profile,CONTENT_RAW_CONTACTS_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Profile,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Profile,CONTENT_VCARD_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$ProfileSyncState,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$ProviderStatus,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$RawContacts,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$RawContactsEntity,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$RawContactsEntity,PROFILE_CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$Settings,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$StatusUpdates,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$StatusUpdates,PROFILE_CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,ContactsContract$SyncState,CONTENT_URI,"android.permission.READ_CONTACTS, android.permission.WRITE_CONTACTS",Contacts
+android.provider,MediaStore,ACTION_IMAGE_CAPTURE,android.permission.CAMERA,Unknown
+android.provider,MediaStore,ACTION_VIDEO_CAPTURE,android.permission.CAMERA,Unknown
+android.provider,Telephony$Carriers,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms,REPORT_REQUEST_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms,REPORT_STATUS_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms$Draft,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms$Inbox,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms$Outbox,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms$Rate,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Mms$Sent,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_CONVERSATIONS_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_DRAFT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_FILTER_BYPHONE_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_LOCKED_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_UNDELIVERED_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms,SEARCH_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$MmsSms$PendingMessages,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms$Conversations,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms$Draft,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms$Inbox,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms$Intents,SMS_RECEIVED_ACTION,android.permission.RECEIVE_SMS,SMS
+android.provider,Telephony$Sms$Outbox,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Sms$Sent,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Threads,CONTENT_URI,android.permission.READ_SMS,Unknown
+android.provider,Telephony$Threads,OBSOLETE_THREADS_URI,android.permission.READ_SMS,Unknown
+android.provider,VoicemailContract$Status,CONTENT_URI,com.android.voicemail.permission.ADD_VOICEMAIL,Unknown
+android.provider,VoicemailContract$Voicemails,CONTENT_URI,com.android.voicemail.permission.ADD_VOICEMAIL,Unknown
+android.speech,SpeechRecognizer,createSpeechRecognizer,android.permission.RECORD_AUDIO,Unknown
+android.support.v4.content,ContextCompat,checkSelfPermission,android.permission._PERM_CHECKER_,Unknown
+android.support.v4.content,PermissionChecker,checkSelfPermission,android.permission._PERM_CHECKER_,Unknown
+android.telecom,TelecomManager,getCallCapablePhoneAccounts,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,getDefaultOutgoingPhoneAccount,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,getLine1Number,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,getVoiceMailNumber,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,isInCall,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,isVoiceMailNumber,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telecom,TelecomManager,placeCall,android.permission.CALL_PHONE,Device Identifiers
+android.telecom,TelecomManager,showInCallScreen,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,CarrierConfigManager,getConfig,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,CarrierConfigManager,getConfigForSubId,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneNumberUtils,isVoiceMailNumber,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneStateListener,LISTEN_CALL_FORWARDING_INDICATOR,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneStateListener,LISTEN_CELL_LOCATION,android.permission.ACCESS_COARSE_LOCATION,Unknown
+android.telephony,PhoneStateListener,LISTEN_MESSAGE_WAITING_INDICATOR,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneStateListener,LISTEN_SIGNAL_STRENGTH,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneStateListener,LISTEN_SIGNAL_STRENGTHS,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,PhoneStateListener,onCallStateChanged,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SmsManager,sendDataMessage,android.permission.SEND_SMS,SMS
+android.telephony,SmsManager,sendMultipartTextMessage,android.permission.SEND_SMS,SMS
+android.telephony,SmsManager,sendTextMessage,android.permission.SEND_SMS,SMS
+android.telephony,SubscriptionManager,addOnSubscriptionsChangedListener,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,from,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,getActiveSubscriptionInfo,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,getActiveSubscriptionInfoCount,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,getActiveSubscriptionInfoCountMax,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,getActiveSubscriptionInfoForSimSlotIndex,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,getActiveSubscriptionInfoList,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,isNetworkRoaming,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,SubscriptionManager,removeOnSubscriptionsChangedListener,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,ACTION_PHONE_STATE_CHANGED,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getAllCellInfo,android.permission.ACCESS_COARSE_LOCATION,Unknown
+android.telephony,TelephonyManager,getCellLocation,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+android.telephony,TelephonyManager,getDeviceId,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getDeviceSoftwareVersion,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getGroupIdLevel1,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getLine1Number,"android.permission.READ_PHONE_STATE, android.permission.READ_SMS","Device Identifiers, Unknown"
+android.telephony,TelephonyManager,getNeighboringCellInfo,android.permission.ACCESS_COARSE_LOCATION,Unknown
+android.telephony,TelephonyManager,getSimSerialNumber,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getSubscriberId,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getVoiceMailAlphaTag,android.permission.READ_PHONE_STATE,Device Identifiers
+android.telephony,TelephonyManager,getVoiceMailNumber,android.permission.READ_PHONE_STATE,Device Identifiers
+android.webkit,WebSettings,setGeolocationEnabled,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.android.internal.telephony,TelephonyIntents,ACTION_ANY_DATA_CONNECTION_STATE_CHANGED,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_DATA_CONNECTION_CONNECTED_TO_PROVISIONING_APN,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_DATA_CONNECTION_FAILED,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_NETWORK_SET_TIME,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_NETWORK_SET_TIMEZONE,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_SERVICE_STATE_CHANGED,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_SIGNAL_STRENGTH_CHANGED,android.permission.READ_PHONE_STATE,Device Identifiers
+com.android.internal.telephony,TelephonyIntents,ACTION_SIM_STATE_CHANGED,android.permission.READ_PHONE_STATE,Device Identifiers
+com.google.android.gms.location,FusedLocationProviderApi,getLastLocation,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.google.android.gms.location,FusedLocationProviderApi,getLocationAvailability,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.google.android.gms.location,FusedLocationProviderApi,requestLocationUpdates,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.google.android.gms.location,FusedLocationProviderApi,setMockLocation,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.google.android.gms.location,FusedLocationProviderApi,setMockMode,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"
+com.google.android.gms.maps,GoogleMap,setMyLocationEnabled,"android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION","Location, Unknown"

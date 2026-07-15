@@ -1,0 +1,8 @@
+category,rule_count,source,confidence_distribution
+Country Detection,4,Manual:4,VERY_HIGH:4
+Language,1,Manual:1,VERY_HIGH:1
+Locale,3,"Manual:2, FlowDroid:1","VERY_HIGH:2, HIGH:1"
+Location,3,FlowDroid:3,HIGH:3
+Region Detection,3,Manual:3,VERY_HIGH:3
+Telephony,8,"FlowDroid:3, Manual:5","HIGH:3, VERY_HIGH:5"
+Timezone,2,Manual:2,VERY_HIGH:2
