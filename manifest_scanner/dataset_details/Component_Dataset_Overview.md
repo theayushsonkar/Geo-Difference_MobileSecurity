@@ -125,6 +125,7 @@ Possible values:
 
 ```text
 activity
+activity-alias
 service
 receiver
 provider
@@ -161,7 +162,7 @@ Examples:
 ```text
 fully_qualified
 relative
-short
+simple
 ```
 
 **Why it is stored:**
@@ -268,7 +269,8 @@ Examples:
 explicit
 legacy_default
 provider_default
-android12_missing
+unknown
+missing_on_android12plus
 ```
 
 **Why it is stored:**

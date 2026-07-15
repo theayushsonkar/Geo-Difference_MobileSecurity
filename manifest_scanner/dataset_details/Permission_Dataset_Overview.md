@@ -135,6 +135,7 @@ permission
 permission-group
 permission-tree
 uses-permission-sdk-23
+uses-permission-sdk-m
 ```
 
 **Why it is stored:**
@@ -358,6 +359,8 @@ Examples:
 uses-permission
 permission
 uses-permission-sdk-23
+uses-permission-sdk-m
+permission-group
 ```
 
 **Why it is stored:**
@@ -404,13 +407,7 @@ This field makes it easy to identify applications that have adopted these newer 
 **What it stores:**
 Additional parser-generated information related to the permission.
 
-Examples:
-
-```text
-custom_permission
-privacy_sandbox
-unknown_family
-```
+Currently, the extractor leaves this field empty (`""`) for all permission records. It is reserved for future supplementary context.
 
 **Why it is stored:**
 Provides supplementary context without requiring additional dataset columns.

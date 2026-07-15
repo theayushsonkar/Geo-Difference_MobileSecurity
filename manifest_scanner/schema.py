@@ -57,7 +57,8 @@ SDK_COLUMNS = [
     "app_country_code", "app_region_group", "sdk_id", "sdk_name", "sdk_prefix",
     "sdk_version", "sdk_version_source", "sdk_version_confidence",
     "sdk_ecosystem", "sdk_identifier", "sdk_category", "vendor_country_code",
-    "vendor_region_group", "detected_manifest", "detected_smali",
+    "vendor_region_group", "is_tracker", "tracker_name", "tracker_categories",
+    "network_signature", "website", "detected_manifest", "detected_smali",
     "detected_native", "detected_strings", "detection_source_primary",
     "evidence_type", "evidence_value", "evidence_count",
 ]

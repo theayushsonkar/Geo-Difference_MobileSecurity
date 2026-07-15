@@ -30,8 +30,9 @@ manifest_scanner/
 ├── sample_index.py
 ├── extractor.py
 ├── output.py
-├── runner.py
-│
+└── runner.py
+
+(Root Directory)
 └── scan_manifest.py
 ```
 
@@ -42,11 +43,10 @@ manifest_scanner/
 Contains:
 
 * Permission family mappings
-* SDK database
+* Curated SDK catalog (used for fallback/enrichment)
 * Region mappings
-* Regex patterns
+* Regex patterns for versions and secrets
 * Android constants
-* Network security constants
 
 This file acts as the reference database used during extraction.
 
@@ -105,9 +105,9 @@ Responsible for:
 * Manifest parsing
 * Permission extraction
 * Component analysis
-* SDK detection
+* SDK detection formatting (via external `sdk_detection` module)
 * Deep-link extraction
-* Secret detection
+* Static code findings extraction (Knowledge Base integration for privacy, secrets, and geo-logic)
 * Network security configuration parsing
 
 Most feature extraction logic resides here.
@@ -143,7 +143,7 @@ Responsible for:
 
 ### `scan_manifest.py`
 
-Thin command-line entry point.
+Thin command-line entry point located at the repository root.
 
 Used to start the scanner.
 
@@ -258,7 +258,23 @@ Contains:
 
 ---
 
-### 6. `manifest_trace.json`
+---
+
+### 6. [`manifest_static_code_findings.csv`](dataset_details/Static_Code_Findings_Dataset_Overview.md)
+
+One row per static code finding.
+
+Contains:
+
+* Finding types (e.g., secret, pii_api, geo_logic)
+* Finding subtypes and normalized values
+* Evidence snippets and occurrence counts
+* Source layer (e.g., smali, res_xml)
+* Confidence and metadata
+
+---
+
+### 7. `manifest_trace.json`
 
 Detailed trace output.
 
@@ -289,7 +305,8 @@ manifest_apps.csv
         ├── manifest_permissions.csv
         ├── manifest_components.csv
         ├── manifest_sdks.csv
-        └── manifest_network_domains.csv
+        ├── manifest_network_domains.csv
+        └── manifest_static_code_findings.csv
 ```
 
 `sample_id` acts as the primary key in `manifest_apps.csv` and as a foreign key in all supporting datasets.
@@ -343,5 +360,13 @@ The manifest scanner extracts:
 * Shared user IDs
 * Instrumentation
 * Queries visibility
+
+### Static Code Findings
+
+* Hardcoded secrets and API keys
+* Privacy-sensitive API invocations (PII)
+* Geo-sensitive logic
+
+*(Note: These findings are powered by the external `knowledge_base` module, which utilizes the **Aho-Corasick algorithm** for high-performance, multi-pattern string matching across compiled smali code.)*
 
 ---

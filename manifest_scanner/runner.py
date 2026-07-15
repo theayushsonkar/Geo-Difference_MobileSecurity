@@ -12,6 +12,7 @@ from .constants import PARSER_VERSION, SCHEMA_VERSION
 from .extractor import ManifestFeatureExtractor
 from .output import write_outputs
 from .sample_index import load_sample_index
+from sdk_detection.inventory import build_inventory
 
 
 def run(sample_index_path: str, output_dir: str, run_id: Optional[str] = None, verbose: bool = False):
@@ -33,7 +34,10 @@ def run(sample_index_path: str, output_dir: str, run_id: Optional[str] = None, v
         sample_start = time.time()
         if verbose:
             print(f"[{i}/{len(samples)}] {sample.sample_id} {sample.source_path}")
-        extractor = ManifestFeatureExtractor(sample, run_id)
+            
+        inventory = build_inventory(sample.source_path, run_id)
+        extractor = ManifestFeatureExtractor(sample, run_id, sdk_inventory=inventory)
+        
         result = extractor.extract()
         results.append(result)
         extractors.append(extractor)

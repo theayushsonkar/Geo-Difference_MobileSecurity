@@ -205,7 +205,6 @@ Examples:
 ```text
 base-config
 domain-config
-pin-set
 debug-overrides
 ```
 
@@ -215,8 +214,7 @@ Different rule types affect network behavior in different ways.
 For example:
 
 * `base-config` applies globally.
-* `domain-config` applies only to specific domains.
-* `pin-set` defines certificate pinning rules.
+* `domain-config` applies only to specific domains (and includes any nested pin-sets).
 * `debug-overrides` define development-time exceptions.
 
 ---

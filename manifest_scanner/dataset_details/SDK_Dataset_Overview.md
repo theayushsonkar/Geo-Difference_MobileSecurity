@@ -177,6 +177,43 @@ Firebase 32.x
 
 ---
 
+### `sdk_version_source`
+
+**What it stores:**
+The source or method used to determine the SDK's version.
+
+Examples:
+
+```text
+meta_data
+libscan_exact
+```
+
+**Why it is stored:**
+Different detection methods yield varying levels of reliability when extracting versions.
+
+---
+
+### `sdk_version_confidence`
+
+**What it stores:**
+Confidence level of the extracted SDK version.
+
+Examples:
+
+```text
+none
+low
+medium
+high
+exact
+```
+
+**Why it is stored:**
+Helps analysts decide how much to trust the reported version string.
+
+---
+
 ### `sdk_category`
 
 **What it stores:**
@@ -195,6 +232,39 @@ crash_reporting
 
 **Why it is stored:**
 Allows SDKs to be grouped based on their purpose rather than their specific vendor.
+
+---
+
+### `sdk_identifier`
+
+**What it stores:**
+A stable identifier or package coordinate for the SDK.
+
+Example:
+
+```text
+com.google.firebase:firebase-auth
+```
+
+**Why it is stored:**
+Helps map the detected SDK to standard package registries and vulnerability databases.
+
+---
+
+### `sdk_ecosystem`
+
+**What it stores:**
+The ecosystem from which the SDK originates.
+
+Examples:
+
+```text
+maven
+custom
+```
+
+**Why it is stored:**
+Provides context for where the SDK is distributed and managed.
 
 ---
 
@@ -241,6 +311,69 @@ Provides a broader geographical grouping of SDK vendors.
 
 ---
 
+## Tracker Identification Fields
+
+These fields are populated when the SDK is enriched with privacy tracker metadata.
+
+---
+
+### `is_tracker`
+
+**What it stores:**
+Whether the SDK is classified as a privacy tracker.
+
+**Why it is stored:**
+Allows immediate filtering of applications containing advertising, profiling, or tracking software.
+
+---
+
+### `tracker_name`
+
+**What it stores:**
+Standardized name of the tracker (e.g., from Exodus Privacy).
+
+**Why it is stored:**
+Provides a recognized name for the tracker entity.
+
+---
+
+### `tracker_categories`
+
+**What it stores:**
+Functional categories assigned to the tracker.
+
+Example:
+
+```text
+Analytics, Profiling
+Advertisement
+```
+
+**Why it is stored:**
+Specifies what kind of tracking or data collection the SDK performs.
+
+---
+
+### `network_signature`
+
+**What it stores:**
+Network domains or signatures associated with the tracker.
+
+**Why it is stored:**
+Provides actionable IoCs (Indicators of Compromise) or domains for network traffic analysis.
+
+---
+
+### `website`
+
+**What it stores:**
+The official website or documentation URL for the SDK/tracker.
+
+**Why it is stored:**
+Provides a reference for further manual investigation.
+
+---
+
 ## Detection Fields
 
 These fields describe how the SDK was identified.
@@ -263,7 +396,7 @@ Documents the source of the detection and improves traceability.
 Whether the SDK was detected from application code (smali).
 
 **Why it is stored:**
-Reserved for future static-analysis stages and maintains compatibility with later versions of the analysis pipeline.
+Documents whether the SDK was identified by scanning the application's compiled code (smali), providing a deeper level of assurance than manifest declarations alone.
 
 ---
 
