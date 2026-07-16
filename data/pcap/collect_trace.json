@@ -1,0 +1,1126 @@
+{
+  "run_id": "80b3b721-65bf-428f-bcbc-d8811ef4dbcc",
+  "run_timestamp": "2026-06-23T16:52:28.087344+00:00",
+  "device_serial": "RZ8R923ZYLD",
+  "device_abi": {
+    "primary": "arm64-v8a",
+    "abi32": "armeabi-v7a,armeabi",
+    "abi64": "arm64-v8a"
+  },
+  "capture_time_sec": 60,
+  "monkey_events": 500,
+  "total_apps": 235,
+  "processed": 119,
+  "skipped": 112,
+  "failed": 4,
+  "elapsed_sec": 10397.9,
+  "entries": [
+    {
+      "sample_id": "ai.hailuo.video_in",
+      "package_name": "ai.hailuo.video",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\ai.hailuo.video_in.pcap",
+      "pcap_bytes": 47927019,
+      "timestamp": "2026-06-23T16:52:28.088309+00:00"
+    },
+    {
+      "sample_id": "ai.photo.enhancer.photoclear_in",
+      "package_name": "ai.photo.enhancer.photoclear",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\ai.photo.enhancer.photoclear_in.pcap",
+      "pcap_bytes": 6402525,
+      "timestamp": "2026-06-23T16:53:59.337044+00:00"
+    },
+    {
+      "sample_id": "asav.roomtemprature_in",
+      "package_name": "asav.roomtemprature",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\asav.roomtemprature_in.pcap",
+      "pcap_bytes": 4512321,
+      "timestamp": "2026-06-23T16:55:39.785157+00:00"
+    },
+    {
+      "sample_id": "babypics.baby.photoeditor.babymoths_in",
+      "package_name": "babypics.baby.photoeditor.babymoths",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\babypics.baby.photoeditor.babymoths_in.pcap",
+      "pcap_bytes": 2304095,
+      "timestamp": "2026-06-23T16:57:06.812402+00:00"
+    },
+    {
+      "sample_id": "bowling.speed.meter.bowlometer_in",
+      "package_name": "bowling.speed.meter.bowlometer",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\bowling.speed.meter.bowlometer_in.pcap",
+      "pcap_bytes": 3466921,
+      "timestamp": "2026-06-23T16:58:39.556469+00:00"
+    },
+    {
+      "sample_id": "chanel.weather.forecast.live_in",
+      "package_name": "chanel.weather.forecast.live",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\chanel.weather.forecast.live_in.pcap",
+      "pcap_bytes": 6939554,
+      "timestamp": "2026-06-23T17:00:02.748120+00:00"
+    },
+    {
+      "sample_id": "com.accurate.local.weather.forecast.live_in",
+      "package_name": "com.accurate.local.weather.forecast.live",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.accurate.local.weather.forecast.live_in.pcap",
+      "pcap_bytes": 6404996,
+      "timestamp": "2026-06-23T17:01:27.833692+00:00"
+    },
+    {
+      "sample_id": "com.accurate.weather.forecast.live.radar_in",
+      "package_name": "com.accurate.weather.forecast.live.radar",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.accurate.weather.forecast.live.radar_in.pcap",
+      "pcap_bytes": 5839247,
+      "timestamp": "2026-06-23T17:02:53.930671+00:00"
+    },
+    {
+      "sample_id": "com.ai.photo.enhancer.art_in",
+      "package_name": "com.ai.photo.enhancer.art",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.ai.photo.enhancer.art_in.pcap",
+      "pcap_bytes": 5131762,
+      "timestamp": "2026-06-23T17:04:24.023342+00:00"
+    },
+    {
+      "sample_id": "com.aim2excel.maxliveline_in",
+      "package_name": "com.aim2excel.maxliveline",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.aim2excel.maxliveline_in.pcap",
+      "pcap_bytes": 3857495,
+      "timestamp": "2026-06-23T17:05:50.315194+00:00"
+    },
+    {
+      "sample_id": "com.aiphotoenhancer.boostart_in",
+      "package_name": "com.aiphotoenhancer.boostart",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.aiphotoenhancer.boostart_in.pcap",
+      "pcap_bytes": 6831290,
+      "timestamp": "2026-06-23T17:07:12.353087+00:00"
+    },
+    {
+      "sample_id": "com.amazon.kindle_in",
+      "package_name": "com.amazon.kindle",
+      "status": "install_failed",
+      "error": "install_apk() returned False",
+      "pcap_path": "data\\pcap\\com.amazon.kindle_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T17:08:45.323583+00:00"
+    },
+    {
+      "sample_id": "com.app.live.tv.score.pro_in",
+      "package_name": "com.app.live.tv.score.pro",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.app.live.tv.score.pro_in.pcap",
+      "pcap_bytes": 3598726,
+      "timestamp": "2026-06-23T17:09:03.494069+00:00"
+    },
+    {
+      "sample_id": "com.appostrophe.scrl_in",
+      "package_name": "com.appostrophe.scrl",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.appostrophe.scrl_in.pcap",
+      "pcap_bytes": 2665045,
+      "timestamp": "2026-06-23T17:10:27.356666+00:00"
+    },
+    {
+      "sample_id": "com.artech.football.two_in",
+      "package_name": "com.artech.football.two",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.artech.football.two_in.pcap",
+      "pcap_bytes": 7348048,
+      "timestamp": "2026-06-23T17:11:54.016300+00:00"
+    },
+    {
+      "sample_id": "com.awesomedevcoders.matchline_in",
+      "package_name": "com.awesomedevcoders.matchline",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.awesomedevcoders.matchline_in.pcap",
+      "pcap_bytes": 9641960,
+      "timestamp": "2026-06-23T17:13:22.571715+00:00"
+    },
+    {
+      "sample_id": "com.beautyplus.makeupfilter.sweetcamera.photo_in",
+      "package_name": "com.beautyplus.makeupfilter.sweetcamera.photo",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.beautyplus.makeupfilter.sweetcamera.photo_in.pcap",
+      "pcap_bytes": 6083385,
+      "timestamp": "2026-06-23T17:14:50.203699+00:00"
+    },
+    {
+      "sample_id": "com.betterme.booksnap_in",
+      "package_name": "com.betterme.booksnap",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.betterme.booksnap_in.pcap",
+      "pcap_bytes": 890896,
+      "timestamp": "2026-06-23T17:16:17.331816+00:00"
+    },
+    {
+      "sample_id": "com.biblica.hindi_in",
+      "package_name": "com.biblica.hindi",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.biblica.hindi_in.pcap",
+      "pcap_bytes": 3181287,
+      "timestamp": "2026-06-23T17:17:39.869885+00:00"
+    },
+    {
+      "sample_id": "com.biblica.marathi_in",
+      "package_name": "com.biblica.marathi",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.biblica.marathi_in.pcap",
+      "pcap_bytes": 35618,
+      "timestamp": "2026-06-23T17:19:09.147130+00:00"
+    },
+    {
+      "sample_id": "com.bitsmedia.android.holyquran_in",
+      "package_name": "com.bitsmedia.android.holyquran",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.bitsmedia.android.holyquran_in.pcap",
+      "pcap_bytes": 799998,
+      "timestamp": "2026-06-23T17:20:37.956046+00:00"
+    },
+    {
+      "sample_id": "com.bjp_in",
+      "package_name": "com.bjp",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.bjp_in.pcap",
+      "pcap_bytes": 16878493,
+      "timestamp": "2026-06-23T17:22:10.959287+00:00"
+    },
+    {
+      "sample_id": "com.blueskyapps.telugubible_in",
+      "package_name": "com.blueskyapps.telugubible",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.blueskyapps.telugubible_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T17:23:35.355675+00:00"
+    },
+    {
+      "sample_id": "com.book.hindibible_in",
+      "package_name": "com.book.hindibible",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.book.hindibible_in.pcap",
+      "pcap_bytes": 5390112,
+      "timestamp": "2026-06-23T17:24:56.504018+00:00"
+    },
+    {
+      "sample_id": "com.braingen.odiacalendar_in",
+      "package_name": "com.braingen.odiacalendar",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.braingen.odiacalendar_in.pcap",
+      "pcap_bytes": 1658395,
+      "timestamp": "2026-06-23T17:26:22.586371+00:00"
+    },
+    {
+      "sample_id": "com.brawlbussid.karnatakatrafficmodbussid_in",
+      "package_name": "com.brawlbussid.karnatakatrafficmodbussid",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.brawlbussid.karnatakatrafficmodbussid_in.pcap",
+      "pcap_bytes": 2641727,
+      "timestamp": "2026-06-23T17:27:46.592500+00:00"
+    },
+    {
+      "sample_id": "com.candelalabs.devbytes_in",
+      "package_name": "com.candelalabs.devbytes",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.candelalabs.devbytes_in.pcap",
+      "pcap_bytes": 57275,
+      "timestamp": "2026-06-23T17:29:10.836169+00:00"
+    },
+    {
+      "sample_id": "com.castlehdllc.castlehd_unknown",
+      "package_name": "com.castlehdllc.castlehd",
+      "status": "install_failed",
+      "error": "install_apk() returned False",
+      "pcap_path": "data\\pcap\\com.castlehdllc.castlehd_unknown.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T17:30:36.280782+00:00"
+    },
+    {
+      "sample_id": "com.channelnewsasia_in",
+      "package_name": "com.channelnewsasia",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.channelnewsasia_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T17:30:40.087314+00:00"
+    },
+    {
+      "sample_id": "com.class10.ncertsolutions_in",
+      "package_name": "com.class10.ncertsolutions",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.class10.ncertsolutions_in.pcap",
+      "pcap_bytes": 5355262,
+      "timestamp": "2026-06-23T17:32:03.367571+00:00"
+    },
+    {
+      "sample_id": "com.class12.ncertbooks_in",
+      "package_name": "com.class12.ncertbooks",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.class12.ncertbooks_in.pcap",
+      "pcap_bytes": 3359037,
+      "timestamp": "2026-06-23T17:34:15.623017+00:00"
+    },
+    {
+      "sample_id": "com.class9.ncertbooks_in",
+      "package_name": "com.class9.ncertbooks",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.class9.ncertbooks_in.pcap",
+      "pcap_bytes": 965475,
+      "timestamp": "2026-06-23T17:35:39.323547+00:00"
+    },
+    {
+      "sample_id": "com.cricketLineX.CricketLineX_in",
+      "package_name": "com.cricketLineX.CricketLineX",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.cricketLineX.CricketLineX_in.pcap",
+      "pcap_bytes": 10390489,
+      "timestamp": "2026-06-23T17:37:04.102209+00:00"
+    },
+    {
+      "sample_id": "com.crrepa.band.boultfit_in",
+      "package_name": "com.crrepa.band.boultfit",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.crrepa.band.boultfit_in.pcap",
+      "pcap_bytes": 1341269,
+      "timestamp": "2026-06-23T17:38:31.946274+00:00"
+    },
+    {
+      "sample_id": "com.daily.marathi.news_in",
+      "package_name": "com.daily.marathi.news",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.daily.marathi.news_in.pcap",
+      "pcap_bytes": 8538207,
+      "timestamp": "2026-06-23T17:40:02.278727+00:00"
+    },
+    {
+      "sample_id": "com.dazn_in",
+      "package_name": "com.dazn",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.dazn_in.pcap",
+      "pcap_bytes": 32896217,
+      "timestamp": "2026-06-23T17:41:25.072158+00:00"
+    },
+    {
+      "sample_id": "com.drikp.core_in",
+      "package_name": "com.drikp.core",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.drikp.core_in.pcap",
+      "pcap_bytes": 41122,
+      "timestamp": "2026-06-23T17:42:47.677642+00:00"
+    },
+    {
+      "sample_id": "com.drone.assist_in",
+      "package_name": "com.drone.assist",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.drone.assist_in.pcap",
+      "pcap_bytes": 236740,
+      "timestamp": "2026-06-23T17:44:11.071038+00:00"
+    },
+    {
+      "sample_id": "com.et.reader.activities_in",
+      "package_name": "com.et.reader.activities",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.et.reader.activities_in.pcap",
+      "pcap_bytes": 8889224,
+      "timestamp": "2026-06-23T17:45:35.242627+00:00"
+    },
+    {
+      "sample_id": "com.football.fifaworldcup.fastfootballupdates_in",
+      "package_name": "com.football.fifaworldcup.fastfootballupdates",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.football.fifaworldcup.fastfootballupdates_in.pcap",
+      "pcap_bytes": 4850582,
+      "timestamp": "2026-06-23T17:47:09.267019+00:00"
+    },
+    {
+      "sample_id": "com.gamad.shipgamessimulator_in",
+      "package_name": "com.gamad.shipgamessimulator",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.gamad.shipgamessimulator_in.pcap",
+      "pcap_bytes": 14697864,
+      "timestamp": "2026-06-23T17:48:37.975738+00:00"
+    },
+    {
+      "sample_id": "com.games24x7.my11circle.fantasycricket_in",
+      "package_name": "com.games24x7.my11circle.fantasycricket",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.games24x7.my11circle.fantasycricket_in.pcap",
+      "pcap_bytes": 710315,
+      "timestamp": "2026-06-23T17:50:11.055752+00:00"
+    },
+    {
+      "sample_id": "com.global.livescore.football.soccer.news_in",
+      "package_name": "com.global.livescore.football.soccer.news",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.global.livescore.football.soccer.news_in.pcap",
+      "pcap_bytes": 2360944,
+      "timestamp": "2026-06-23T17:51:47.124656+00:00"
+    },
+    {
+      "sample_id": "com.google.android.apps.photosgo_in",
+      "package_name": "com.google.android.apps.photosgo",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.google.android.apps.photosgo_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T17:53:11.494491+00:00"
+    },
+    {
+      "sample_id": "com.gps.map.camera.photo.pkv_in",
+      "package_name": "com.gps.map.camera.photo.pkv",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.gps.map.camera.photo.pkv_in.pcap",
+      "pcap_bytes": 2752450,
+      "timestamp": "2026-06-23T17:54:31.875384+00:00"
+    },
+    {
+      "sample_id": "com.gpscamera.map.location.geotagphoto_in",
+      "package_name": "com.gpscamera.map.location.geotagphoto",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.gpscamera.map.location.geotagphoto_in.pcap",
+      "pcap_bytes": 7409683,
+      "timestamp": "2026-06-23T17:55:54.240622+00:00"
+    },
+    {
+      "sample_id": "com.greentech.quran_in",
+      "package_name": "com.greentech.quran",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.greentech.quran_in.pcap",
+      "pcap_bytes": 51849,
+      "timestamp": "2026-06-23T17:57:21.170945+00:00"
+    },
+    {
+      "sample_id": "com.gujaraticalendar.astrology.panchang.india_in",
+      "package_name": "com.gujaraticalendar.astrology.panchang.india",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.gujaraticalendar.astrology.panchang.india_in.pcap",
+      "pcap_bytes": 4148795,
+      "timestamp": "2026-06-23T17:58:44.933198+00:00"
+    },
+    {
+      "sample_id": "com.gyra.ai.photo.generator_in",
+      "package_name": "com.gyra.ai.photo.generator",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.gyra.ai.photo.generator_in.pcap",
+      "pcap_bytes": 6047816,
+      "timestamp": "2026-06-23T18:00:08.689954+00:00"
+    },
+    {
+      "sample_id": "com.hd.camera.zoom.filter.ultra_in",
+      "package_name": "com.hd.camera.zoom.filter.ultra",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.hd.camera.zoom.filter.ultra_in.pcap",
+      "pcap_bytes": 4170436,
+      "timestamp": "2026-06-23T18:01:40.773602+00:00"
+    },
+    {
+      "sample_id": "com.heytap.games.forum_in",
+      "package_name": "com.heytap.games.forum",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.heytap.games.forum_in.pcap",
+      "pcap_bytes": 9987202,
+      "timestamp": "2026-06-23T18:03:12.261227+00:00"
+    },
+    {
+      "sample_id": "com.hogatoga.apps_in",
+      "package_name": "com.hogatoga.apps",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.hogatoga.apps_in.pcap",
+      "pcap_bytes": 2475657,
+      "timestamp": "2026-06-23T18:04:39.658372+00:00"
+    },
+    {
+      "sample_id": "com.igscore.sports_in",
+      "package_name": "com.igscore.sports",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.igscore.sports_in.pcap",
+      "pcap_bytes": 48636612,
+      "timestamp": "2026-06-23T18:06:07.166163+00:00"
+    },
+    {
+      "sample_id": "com.imaginstudio.imagetools.pixellab_in",
+      "package_name": "com.imaginstudio.imagetools.pixellab",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.imaginstudio.imagetools.pixellab_in.pcap",
+      "pcap_bytes": 154420,
+      "timestamp": "2026-06-23T18:07:28.888041+00:00"
+    },
+    {
+      "sample_id": "com.info.weather.forecast_in",
+      "package_name": "com.info.weather.forecast",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.info.weather.forecast_in.pcap",
+      "pcap_bytes": 1243773,
+      "timestamp": "2026-06-23T18:08:52.442409+00:00"
+    },
+    {
+      "sample_id": "com.jagran.english.twa_in",
+      "package_name": "com.jagran.english.twa",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.jagran.english.twa_in.pcap",
+      "pcap_bytes": 498053,
+      "timestamp": "2026-06-23T18:10:17.881925+00:00"
+    },
+    {
+      "sample_id": "com.jagran.naidunia_in",
+      "package_name": "com.jagran.naidunia",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.jagran.naidunia_in.pcap",
+      "pcap_bytes": 1202379,
+      "timestamp": "2026-06-23T18:11:47.168860+00:00"
+    },
+    {
+      "sample_id": "com.july.cricinfo_in",
+      "package_name": "com.july.cricinfo",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.july.cricinfo_in.pcap",
+      "pcap_bytes": 6512187,
+      "timestamp": "2026-06-23T18:13:13.760428+00:00"
+    },
+    {
+      "sample_id": "com.larsam.headlyne_in",
+      "package_name": "com.larsam.headlyne",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.larsam.headlyne_in.pcap",
+      "pcap_bytes": 3596686,
+      "timestamp": "2026-06-23T18:14:45.071847+00:00"
+    },
+    {
+      "sample_id": "com.lavish.yellowsingam_in",
+      "package_name": "com.lavish.yellowsingam",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.lavish.yellowsingam_in.pcap",
+      "pcap_bytes": 1915322,
+      "timestamp": "2026-06-23T18:16:12.568296+00:00"
+    },
+    {
+      "sample_id": "com.littlegoodness_in",
+      "package_name": "com.littlegoodness",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.littlegoodness_in.pcap",
+      "pcap_bytes": 59629,
+      "timestamp": "2026-06-23T18:17:36.134570+00:00"
+    },
+    {
+      "sample_id": "com.live.accurate.weather.forecast_in",
+      "package_name": "com.live.accurate.weather.forecast",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.live.accurate.weather.forecast_in.pcap",
+      "pcap_bytes": 1230285,
+      "timestamp": "2026-06-23T18:19:09.746007+00:00"
+    },
+    {
+      "sample_id": "com.live.tv.hd.cricket.snapish_in",
+      "package_name": "com.live.tv.hd.cricket.snapish",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.live.tv.hd.cricket.snapish_in.pcap",
+      "pcap_bytes": 4126746,
+      "timestamp": "2026-06-23T18:20:34.507831+00:00"
+    },
+    {
+      "sample_id": "com.livematch.football.fifaworlcup_in",
+      "package_name": "com.livematch.football.fifaworlcup",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.livematch.football.fifaworlcup_in.pcap",
+      "pcap_bytes": 7366714,
+      "timestamp": "2026-06-23T18:22:01.249762+00:00"
+    },
+    {
+      "sample_id": "com.livewatchscoreiplcal.storeematchscorewatch_in",
+      "package_name": "com.livewatchscoreiplcal.storeematchscorewatch",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.livewatchscoreiplcal.storeematchscorewatch_in.pcap",
+      "pcap_bytes": 162075,
+      "timestamp": "2026-06-23T18:23:23.486236+00:00"
+    },
+    {
+      "sample_id": "com.lucky_apps.RainViewer_in",
+      "package_name": "com.lucky_apps.RainViewer",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.lucky_apps.RainViewer_in.pcap",
+      "pcap_bytes": 2766910,
+      "timestamp": "2026-06-23T18:24:44.269799+00:00"
+    },
+    {
+      "sample_id": "com.maharashtra.boardbooks_in",
+      "package_name": "com.maharashtra.boardbooks",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.maharashtra.boardbooks_in.pcap",
+      "pcap_bytes": 51057392,
+      "timestamp": "2026-06-23T18:26:07.567021+00:00"
+    },
+    {
+      "sample_id": "com.medium.reader_in",
+      "package_name": "com.medium.reader",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.medium.reader_in.pcap",
+      "pcap_bytes": 2370303,
+      "timestamp": "2026-06-23T18:27:30.948693+00:00"
+    },
+    {
+      "sample_id": "com.mist.weather.radar.home_in",
+      "package_name": "com.mist.weather.radar.home",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.mist.weather.radar.home_in.pcap",
+      "pcap_bytes": 33324,
+      "timestamp": "2026-06-23T18:28:55.551556+00:00"
+    },
+    {
+      "sample_id": "com.mobilefootie.wc2010_in",
+      "package_name": "com.mobilefootie.wc2010",
+      "status": "install_failed",
+      "error": "install_apk() returned False",
+      "pcap_path": "data\\pcap\\com.mobilefootie.wc2010_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T18:30:21.815877+00:00"
+    },
+    {
+      "sample_id": "com.mobisystems.msdict.embedded.wireless.oxford.dictionaryofenglish_in",
+      "package_name": "com.mobisystems.msdict.embedded.wireless.oxford.dictionaryofenglish",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.mobisystems.msdict.embedded.wireless.oxford.dictionaryofenglish_in.pcap",
+      "pcap_bytes": 469347,
+      "timestamp": "2026-06-23T18:30:29.371583+00:00"
+    },
+    {
+      "sample_id": "com.motionix.aivideo.photo.maker_in",
+      "package_name": "com.motionix.aivideo.photo.maker",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.motionix.aivideo.photo.maker_in.pcap",
+      "pcap_bytes": 6278525,
+      "timestamp": "2026-06-23T18:31:59.865051+00:00"
+    },
+    {
+      "sample_id": "com.nano.art.ai.generator_in",
+      "package_name": "com.nano.art.ai.generator",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.nano.art.ai.generator_in.pcap",
+      "pcap_bytes": 5580795,
+      "timestamp": "2026-06-23T18:33:36.023865+00:00"
+    },
+    {
+      "sample_id": "com.nbt.reader_in",
+      "package_name": "com.nbt.reader",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.nbt.reader_in.pcap",
+      "pcap_bytes": 6740203,
+      "timestamp": "2026-06-23T18:35:11.976442+00:00"
+    },
+    {
+      "sample_id": "com.otito_in",
+      "package_name": "com.otito",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.otito_in.pcap",
+      "pcap_bytes": 17308,
+      "timestamp": "2026-06-23T18:36:45.361951+00:00"
+    },
+    {
+      "sample_id": "com.parsarbharti.airnews_in",
+      "package_name": "com.parsarbharti.airnews",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.parsarbharti.airnews_in.pcap",
+      "pcap_bytes": 4888951,
+      "timestamp": "2026-06-23T18:38:09.515916+00:00"
+    },
+    {
+      "sample_id": "com.photoroom.app_in",
+      "package_name": "com.photoroom.app",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.photoroom.app_in.pcap",
+      "pcap_bytes": 906037,
+      "timestamp": "2026-06-23T18:39:34.506816+00:00"
+    },
+    {
+      "sample_id": "com.pixelgrid.tv.live.tvcricket.hd.liveline_in",
+      "package_name": "com.pixelgrid.tv.live.tvcricket.hd.liveline",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.pixelgrid.tv.live.tvcricket.hd.liveline_in.pcap",
+      "pcap_bytes": 1301585,
+      "timestamp": "2026-06-23T18:41:08.490371+00:00"
+    },
+    {
+      "sample_id": "com.pixverseai.pixverse_in",
+      "package_name": "com.pixverseai.pixverse",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.pixverseai.pixverse_in.pcap",
+      "pcap_bytes": 2760365,
+      "timestamp": "2026-06-23T18:42:38.921727+00:00"
+    },
+    {
+      "sample_id": "com.quran.deeperquran.aiquran_in",
+      "package_name": "com.quran.deeperquran.aiquran",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.quran.deeperquran.aiquran_in.pcap",
+      "pcap_bytes": 6522998,
+      "timestamp": "2026-06-23T18:44:11.680371+00:00"
+    },
+    {
+      "sample_id": "com.readwhere.whitelabel.prabhatkhabar_in",
+      "package_name": "com.readwhere.whitelabel.prabhatkhabar",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.readwhere.whitelabel.prabhatkhabar_in.pcap",
+      "pcap_bytes": 901680,
+      "timestamp": "2026-06-23T18:45:41.933147+00:00"
+    },
+    {
+      "sample_id": "com.riadah.koralive_in",
+      "package_name": "com.riadah.koralive",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.riadah.koralive_in.pcap",
+      "pcap_bytes": 20018,
+      "timestamp": "2026-06-23T18:47:11.660013+00:00"
+    },
+    {
+      "sample_id": "com.room.temperature.meter_in",
+      "package_name": "com.room.temperature.meter",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.room.temperature.meter_in.pcap",
+      "pcap_bytes": 4576266,
+      "timestamp": "2026-06-23T18:48:35.405079+00:00"
+    },
+    {
+      "sample_id": "com.roomthermometer.interior_in",
+      "package_name": "com.roomthermometer.interior",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.roomthermometer.interior_in.pcap",
+      "pcap_bytes": 1447030,
+      "timestamp": "2026-06-23T18:49:56.787033+00:00"
+    },
+    {
+      "sample_id": "com.savyasachi.livefootball.footballtvhd_in",
+      "package_name": "com.savyasachi.livefootball.footballtvhd",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.savyasachi.livefootball.footballtvhd_in.pcap",
+      "pcap_bytes": 113077,
+      "timestamp": "2026-06-23T18:51:21.473576+00:00"
+    },
+    {
+      "sample_id": "com.scribd.app.reader0.docs_in",
+      "package_name": "com.scribd.app.reader0.docs",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.scribd.app.reader0.docs_in.pcap",
+      "pcap_bytes": 1622821,
+      "timestamp": "2026-06-23T18:52:42.346228+00:00"
+    },
+    {
+      "sample_id": "com.sensemobile.action_in",
+      "package_name": "com.sensemobile.action",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.sensemobile.action_in.pcap",
+      "pcap_bytes": 116620,
+      "timestamp": "2026-06-23T18:54:10.346516+00:00"
+    },
+    {
+      "sample_id": "com.smartsolution.nitnempathpro_in",
+      "package_name": "com.smartsolution.nitnempathpro",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.smartsolution.nitnempathpro_in.pcap",
+      "pcap_bytes": 611635,
+      "timestamp": "2026-06-23T18:55:40.867734+00:00"
+    },
+    {
+      "sample_id": "com.snaptune.ai.photoeditor.collagemaker_in",
+      "package_name": "com.snaptune.ai.photoeditor.collagemaker",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.snaptune.ai.photoeditor.collagemaker_in.pcap",
+      "pcap_bytes": 7991552,
+      "timestamp": "2026-06-23T18:57:03.892428+00:00"
+    },
+    {
+      "sample_id": "com.ssgcp.app_in",
+      "package_name": "com.ssgcp.app",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.ssgcp.app_in.pcap",
+      "pcap_bytes": 84349,
+      "timestamp": "2026-06-23T18:58:35.349446+00:00"
+    },
+    {
+      "sample_id": "com.thermometer.room.temperature.checker_in",
+      "package_name": "com.thermometer.room.temperature.checker",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.thermometer.room.temperature.checker_in.pcap",
+      "pcap_bytes": 2599957,
+      "timestamp": "2026-06-23T19:00:08.793589+00:00"
+    },
+    {
+      "sample_id": "com.thermometer.roomtemp_in",
+      "package_name": "com.thermometer.roomtemp",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.thermometer.roomtemp_in.pcap",
+      "pcap_bytes": 2075332,
+      "timestamp": "2026-06-23T19:01:31.950663+00:00"
+    },
+    {
+      "sample_id": "com.tiim.goforexx24_in",
+      "package_name": "com.tiim.goforexx24",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.tiim.goforexx24_in.pcap",
+      "pcap_bytes": 6853263,
+      "timestamp": "2026-06-23T19:02:52.934616+00:00"
+    },
+    {
+      "sample_id": "com.tomo.livescore_in",
+      "package_name": "com.tomo.livescore",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.tomo.livescore_in.pcap",
+      "pcap_bytes": 5688733,
+      "timestamp": "2026-06-23T19:04:15.645346+00:00"
+    },
+    {
+      "sample_id": "com.tv9news_in",
+      "package_name": "com.tv9news",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.tv9news_in.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T19:05:41.168337+00:00"
+    },
+    {
+      "sample_id": "com.vcamera.roudndai_in",
+      "package_name": "com.vcamera.roudndai",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.vcamera.roudndai_in.pcap",
+      "pcap_bytes": 3227610,
+      "timestamp": "2026-06-23T19:07:03.002305+00:00"
+    },
+    {
+      "sample_id": "com.vikatanapp_in",
+      "package_name": "com.vikatanapp",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.vikatanapp_in.pcap",
+      "pcap_bytes": 4644052,
+      "timestamp": "2026-06-23T19:08:25.963445+00:00"
+    },
+    {
+      "sample_id": "com.vserv.rajasthanpatrika_in",
+      "package_name": "com.vserv.rajasthanpatrika",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.vserv.rajasthanpatrika_in.pcap",
+      "pcap_bytes": 1423683,
+      "timestamp": "2026-06-23T19:09:55.113369+00:00"
+    },
+    {
+      "sample_id": "com.WahegurooNetwork.SundarGutka_in",
+      "package_name": "com.WahegurooNetwork.SundarGutka",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.WahegurooNetwork.SundarGutka_in.pcap",
+      "pcap_bytes": 39676,
+      "timestamp": "2026-06-23T19:11:22.348776+00:00"
+    },
+    {
+      "sample_id": "com.wanderweather.wanweforecast_in",
+      "package_name": "com.wanderweather.wanweforecast",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.wanderweather.wanweforecast_in.pcap",
+      "pcap_bytes": 3561902,
+      "timestamp": "2026-06-23T19:12:47.409387+00:00"
+    },
+    {
+      "sample_id": "com.weather.forecast.easy_in",
+      "package_name": "com.weather.forecast.easy",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.weather.forecast.easy_in.pcap",
+      "pcap_bytes": 53069,
+      "timestamp": "2026-06-23T19:14:13.978345+00:00"
+    },
+    {
+      "sample_id": "com.weather.Weather_unknown",
+      "package_name": "com.weather.Weather",
+      "status": "install_failed",
+      "error": "install_apk() returned False",
+      "pcap_path": "data\\pcap\\com.weather.Weather_unknown.pcap",
+      "pcap_bytes": 0,
+      "timestamp": "2026-06-23T19:15:36.316963+00:00"
+    },
+    {
+      "sample_id": "com.weather.weatherforecast.weathertimeline_in",
+      "package_name": "com.weather.weatherforecast.weathertimeline",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.weather.weatherforecast.weathertimeline_in.pcap",
+      "pcap_bytes": 5202847,
+      "timestamp": "2026-06-23T19:15:40.019820+00:00"
+    },
+    {
+      "sample_id": "com.weatherteam.rainy.forecast.radar.widgets_in",
+      "package_name": "com.weatherteam.rainy.forecast.radar.widgets",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.weatherteam.rainy.forecast.radar.widgets_in.pcap",
+      "pcap_bytes": 5474395,
+      "timestamp": "2026-06-23T19:17:01.624571+00:00"
+    },
+    {
+      "sample_id": "com.whindipanchangcalendar.iwebnapp_in",
+      "package_name": "com.whindipanchangcalendar.iwebnapp",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.whindipanchangcalendar.iwebnapp_in.pcap",
+      "pcap_bytes": 7358338,
+      "timestamp": "2026-06-23T19:18:26.260042+00:00"
+    },
+    {
+      "sample_id": "com.winit.starnews.hin_in",
+      "package_name": "com.winit.starnews.hin",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\com.winit.starnews.hin_in.pcap",
+      "pcap_bytes": 11887935,
+      "timestamp": "2026-06-23T19:19:46.099144+00:00"
+    },
+    {
+      "sample_id": "cricket.live.line_in",
+      "package_name": "cricket.live.line",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\cricket.live.line_in.pcap",
+      "pcap_bytes": 44382771,
+      "timestamp": "2026-06-23T19:21:12.513677+00:00"
+    },
+    {
+      "sample_id": "dailyfree.diamondsfiree.guide.iemotes.tools_in",
+      "package_name": "dailyfree.diamondsfiree.guide.iemotes.tools",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\dailyfree.diamondsfiree.guide.iemotes.tools_in.pcap",
+      "pcap_bytes": 36549,
+      "timestamp": "2026-06-23T19:22:39.154444+00:00"
+    },
+    {
+      "sample_id": "de.mdiener.rain.usa_in",
+      "package_name": "de.mdiener.rain.usa",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\de.mdiener.rain.usa_in.pcap",
+      "pcap_bytes": 474235,
+      "timestamp": "2026-06-23T19:24:02.268792+00:00"
+    },
+    {
+      "sample_id": "foootball.live.hd.itg.pro.app_in",
+      "package_name": "foootball.live.hd.itg.pro.app",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\foootball.live.hd.itg.pro.app_in.pcap",
+      "pcap_bytes": 6474116,
+      "timestamp": "2026-06-23T19:25:27.171578+00:00"
+    },
+    {
+      "sample_id": "gallery.photogallery.pictures.vault.album_in",
+      "package_name": "gallery.photogallery.pictures.vault.album",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\gallery.photogallery.pictures.vault.album_in.pcap",
+      "pcap_bytes": 40368436,
+      "timestamp": "2026-06-23T19:26:52.813160+00:00"
+    },
+    {
+      "sample_id": "is.follow_in",
+      "package_name": "is.follow",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\is.follow_in.pcap",
+      "pcap_bytes": 406261,
+      "timestamp": "2026-06-23T19:28:22.443910+00:00"
+    },
+    {
+      "sample_id": "life.channel.accurate.local.weather.forecast_in",
+      "package_name": "life.channel.accurate.local.weather.forecast",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\life.channel.accurate.local.weather.forecast_in.pcap",
+      "pcap_bytes": 129943,
+      "timestamp": "2026-06-23T19:29:50.466298+00:00"
+    },
+    {
+      "sample_id": "live.app.cricketapp.score_in",
+      "package_name": "live.app.cricketapp.score",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\live.app.cricketapp.score_in.pcap",
+      "pcap_bytes": 18369842,
+      "timestamp": "2026-06-23T19:31:14.118237+00:00"
+    },
+    {
+      "sample_id": "live.weather.forecast.radar.localweather.accurate_in",
+      "package_name": "live.weather.forecast.radar.localweather.accurate",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\live.weather.forecast.radar.localweather.accurate_in.pcap",
+      "pcap_bytes": 4597850,
+      "timestamp": "2026-06-23T19:32:40.347346+00:00"
+    },
+    {
+      "sample_id": "org.wikipedia_in",
+      "package_name": "org.wikipedia",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\org.wikipedia_in.pcap",
+      "pcap_bytes": 181333,
+      "timestamp": "2026-06-23T19:34:10.252329+00:00"
+    },
+    {
+      "sample_id": "photocollage.photoeditor.collagemaker_in",
+      "package_name": "photocollage.photoeditor.collagemaker",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\photocollage.photoeditor.collagemaker_in.pcap",
+      "pcap_bytes": 9400370,
+      "timestamp": "2026-06-23T19:35:33.917837+00:00"
+    },
+    {
+      "sample_id": "photocollage.photomaker.piccollage6_in",
+      "package_name": "photocollage.photomaker.piccollage6",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\photocollage.photomaker.piccollage6_in.pcap",
+      "pcap_bytes": 10516036,
+      "timestamp": "2026-06-23T19:36:58.920655+00:00"
+    },
+    {
+      "sample_id": "photoeditor.layout.collagemaker_in",
+      "package_name": "photoeditor.layout.collagemaker",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\photoeditor.layout.collagemaker_in.pcap",
+      "pcap_bytes": 14415443,
+      "timestamp": "2026-06-23T19:38:27.445921+00:00"
+    },
+    {
+      "sample_id": "timewarpscanner.facescan.timewarp.timewarpscan_in",
+      "package_name": "timewarpscanner.facescan.timewarp.timewarpscan",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\timewarpscanner.facescan.timewarp.timewarpscan_in.pcap",
+      "pcap_bytes": 13923908,
+      "timestamp": "2026-06-23T19:39:52.803868+00:00"
+    },
+    {
+      "sample_id": "video.filter.stagefy_in",
+      "package_name": "video.filter.stagefy",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\video.filter.stagefy_in.pcap",
+      "pcap_bytes": 12255444,
+      "timestamp": "2026-06-23T19:41:20.933850+00:00"
+    },
+    {
+      "sample_id": "weather.forecast.alert.storm.radar_in",
+      "package_name": "weather.forecast.alert.storm.radar",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\weather.forecast.alert.storm.radar_in.pcap",
+      "pcap_bytes": 617018,
+      "timestamp": "2026-06-23T19:42:57.429788+00:00"
+    },
+    {
+      "sample_id": "weather.forecast.storm.radar_in",
+      "package_name": "weather.forecast.storm.radar",
+      "status": "success",
+      "error": null,
+      "pcap_path": "data\\pcap\\weather.forecast.storm.radar_in.pcap",
+      "pcap_bytes": 937992,
+      "timestamp": "2026-06-23T19:44:22.773602+00:00"
+    }
+  ]
+}

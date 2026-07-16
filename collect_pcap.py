@@ -166,8 +166,12 @@ def get_device_abi() -> dict:
 
 def is_package_installed(package_name: str) -> bool:
     """Returns True if the package is currently installed on the device."""
-    out = adb_shell("pm", "list", "packages", package_name)
-    return f"package:{package_name}" in out
+    for attempt in range(3):
+        out = adb_shell("pm", "list", "packages", package_name)
+        if f"package:{package_name}" in out:
+            return True
+        time.sleep(1)
+    return False
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -177,26 +181,93 @@ def is_package_installed(package_name: str) -> bool:
 def install_apk(apk_dir: Path, package_name: str, abi_info: dict) -> bool:
     """
     Installs a split-APK directory or single APK.
+    Filters out incompatible and conflicting ABI splits.
     Returns True if installation succeeded.
     """
-    apk_files = sorted(apk_dir.glob("*.apk"))
-    if not apk_files:
+    raw_apk_files = sorted(apk_dir.glob("*.apk"))
+    if not raw_apk_files:
         logger.error("No APK files found in: %s", apk_dir)
         return False
 
-    # ABI compatibility guard — skip 32-bit-only apps on 64-bit-only devices
-    has_arm32_config = any("armeabi_v7a" in f.name or "armeabi-v7a" in f.name for f in apk_files)
-    has_arm64_config = any("arm64_v8a" in f.name or "arm64-v8a" in f.name for f in apk_files)
-    if has_arm32_config and not has_arm64_config and not abi_info["abi32"]:
-        logger.warning("32-bit-only app on 64-bit-only device — skipping: %s", package_name)
+    # Build preference list of device-supported ABIs
+    supported_abis = []
+    if abi_info.get("primary"):
+        supported_abis.append(abi_info["primary"])
+    if abi_info.get("abi64"):
+        supported_abis.extend([x.strip() for x in abi_info["abi64"].split(",") if x.strip()])
+    if abi_info.get("abi32"):
+        supported_abis.extend([x.strip() for x in abi_info["abi32"].split(",") if x.strip()])
+    # De-duplicate while preserving order
+    seen = set()
+    supported_abis = [x for x in supported_abis if not (x in seen or seen.add(x))]
+
+    # Patterns to match known architectures
+    abi_patterns = {
+        "arm64-v8a": ["arm64_v8a", "arm64-v8a", "arm64", "v8a"],
+        "armeabi-v7a": ["armeabi_v7a", "armeabi-v7a", "armeabi", "v7a"],
+        "x86_64": ["x86_64"],
+        "x86": ["x86"]
+    }
+
+    base_and_other_apks = []
+    abi_splits = []
+
+    for f in raw_apk_files:
+        matched_abi = None
+        fname_lower = f.name.lower()
+        for abi, patterns in abi_patterns.items():
+            if any(p in fname_lower for p in patterns):
+                matched_abi = abi
+                break
+        if matched_abi:
+            abi_splits.append((f, matched_abi))
+        else:
+            base_and_other_apks.append(f)
+
+    apk_files = []
+    if abi_splits:
+        # Group files by their matched ABI
+        grouped = {}
+        for f, abi in abi_splits:
+            grouped.setdefault(abi, []).append(f)
+
+        # Select the best ABI split that matches device capabilities
+        best_abi = None
+        for abi in supported_abis:
+            if abi in grouped:
+                best_abi = abi
+                break
+
+        if best_abi:
+            logger.info("Device supports: %s. Selected ABI split: %s", supported_abis, best_abi)
+            apk_files.extend(grouped[best_abi])
+            # Log skipped ABI splits
+            for abi, files in grouped.items():
+                if abi != best_abi:
+                    logger.info("Skipping redundant/incompatible ABI split (%s): %s", abi, [f.name for f in files])
+        else:
+            logger.warning("No supported ABI split found. Device: %s, Available in package: %s", supported_abis, list(grouped.keys()))
+    
+    apk_files.extend(base_and_other_apks)
+
+    if not apk_files:
+        logger.error("No compatible APK files to install for %s", package_name)
         return False
 
     if len(apk_files) == 1:
-        logger.info("Installing single APK: %s", apk_files[0].name)
-        result = adb("install", "-r", str(apk_files[0]))
+        logger.info("Installing single APK with Play Store installer spoofing: %s", apk_files[0].name)
+        result = adb("install", "-i", "com.android.vending", "-r", str(apk_files[0]))
     else:
-        logger.info("Installing split APK bundle (%d files) for: %s", len(apk_files), package_name)
-        result = adb("install-multiple", "-r", *[str(f) for f in apk_files])
+        logger.info("Installing split APK bundle (%d files) with Play Store installer spoofing for: %s", len(apk_files), package_name)
+        result = adb("install-multiple", "-i", "com.android.vending", "-r", *[str(f) for f in apk_files])
+
+    if result.returncode != 0:
+        logger.error("Install with spoofing failed:\n%s", result.stderr.strip())
+        logger.info("Retrying installation without spoofing...")
+        if len(apk_files) == 1:
+            result = adb("install", "-r", str(apk_files[0]))
+        else:
+            result = adb("install-multiple", "-r", *[str(f) for f in apk_files])
 
     if result.returncode != 0:
         logger.error("Install failed:\n%s", result.stderr.strip())
@@ -263,46 +334,145 @@ def stop_pcapdroid_capture(package_name: str, api_key: str):
     time.sleep(2)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# APP LAUNCH / MONKEY HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
+def clear_device_pcap_folder():
+    """Removes all .pcap files from the device's PCAPdroid folder before starting a new run."""
+    adb_shell("rm", "-f", "/storage/emulated/0/Download/PCAPdroid/*.pcap")
+    logger.info("Cleared any existing PCAPs from device PCAPdroid folder.")
 
-def launch_app_with_monkey(package_name: str, events: int, throttle_ms: int):
+
+def find_latest_device_pcap() -> str:
     """
-    Launches the app using Android Monkey (UI exerciser).
-    
-    Monkey fires random taps, swipes, and key events which trigger
-    real network requests. This is what generates meaningful PCAP data.
-    
-    Options used:
-      -p <package>             : restrict events to this app only
-      -c android.intent.category.LAUNCHER : only launch via home launcher
-      --ignore-crashes         : don't abort on app crash
-      --ignore-timeouts        : don't abort on ANR timeouts
-      --ignore-security-exceptions: skip permission dialogs
-      --throttle <ms>          : pause between events (ms)
+    Finds the absolute path of the most recently modified .pcap file
+    in /storage/emulated/0/Download/PCAPdroid/
     """
-    logger.info(
-        "Running Monkey on %s (%d events, %dms throttle)",
-        package_name, events, throttle_ms
+    out = adb_shell("ls", "-t", "/storage/emulated/0/Download/PCAPdroid/")
+    if not out or "No such file" in out:
+        return ""
+    pcaps = [line.strip() for line in out.splitlines() if line.strip().endswith(".pcap")]
+    if not pcaps:
+        return ""
+    return f"/storage/emulated/0/Download/PCAPdroid/{pcaps[0]}"
+
+
+def init_pcapdroid(api_key: str):
+    """Ensure PCAPdroid is clean and stopped before starting a capture."""
+    logger.info("Initializing PCAPdroid state...")
+    adb(
+        "shell", "am", "start",
+        "-n", CONFIG["pcapdroid_activity"],
+        "-e", "action", "stop",
+        "-e", "api_key", api_key
     )
+    time.sleep(1)
+    adb_shell("am", "force-stop", CONFIG["pcapdroid_package"])
+    time.sleep(1)
+
+
+def ensure_device_unlocked():
+    """
+    Checks if the device screen is asleep, wakes it up, and unlocks it using keyevent 82 (Menu)
+    and/or swipe gestures if the keyguard is showing.
+    """
+    try:
+        # 1. Check wakefulness / screen state
+        result = adb("shell", "dumpsys", "power", capture=True)
+        if result.returncode == 0:
+            stdout = result.stdout or ""
+            if "mWakefulness=Asleep" in stdout or "mWakefulness=Dozing" in stdout or "Display Power: state=OFF" in stdout:
+                logger.info("Device screen is asleep. Waking up...")
+                # Send KEYCODE_WAKE
+                adb("shell", "input", "keyevent", "224")
+                time.sleep(1.0)
+
+        # 2. Check keyguard (lockscreen) state
+        result_window = adb("shell", "dumpsys", "window", capture=True)
+        if result_window.returncode == 0:
+            stdout_window = result_window.stdout or ""
+            if "mKeyguardShowing=true" in stdout_window or "isKeyguardLocked=true" in stdout_window or "mShowingLockscreen=true" in stdout_window:
+                logger.info("Keyguard (lockscreen) is showing. Attempting unlock...")
+                # Send keyevent 82 (KEYCODE_MENU) to dismiss lockscreen on some devices
+                adb("shell", "input", "keyevent", "82")
+                time.sleep(0.5)
+                # Swipe up as standard fallback to dismiss lockscreen
+                adb("shell", "input", "swipe", "500", "1500", "500", "500", "300")
+                time.sleep(1.5)
+    except Exception as e:
+        logger.warning("Failed to check lock state or unlock device: %s", e)
+
+
+def launch_app(package_name: str):
+    """
+    Launches the app via its LAUNCHER activity using a single Monkey event.
+    Waits 3 seconds for the app to initialize before returning.
+    """
+    logger.info("Launching app: %s", package_name)
     result = adb(
         "shell", "monkey",
         "-p", package_name,
         "-c", "android.intent.category.LAUNCHER",
-        "--ignore-crashes",
-        "--ignore-timeouts",
-        "--ignore-security-exceptions",
-        "--throttle", str(throttle_ms),
-        str(events),
+        "1",
         capture=True
     )
-    if result.returncode != 0 and "No activities found" in (result.stderr or result.stdout):
+    if result.returncode != 0 and "No activities found" in (result.stderr or result.stdout or ""):
         logger.warning(
             "No LAUNCHER activity found for %s — app may still generate traffic passively.",
             package_name
         )
-    return result.returncode == 0
+    time.sleep(3)  # Let the app initialize
+
+
+def start_monkey_background(package_name: str, events: int, throttle_ms: int):
+    """
+    Starts Monkey UI exerciser as a NON-BLOCKING background subprocess.
+    Returns the subprocess.Popen handle so the caller can kill it later.
+
+    Key confinement flags:
+      --pct-syskeys 0    : prevents HOME / BACK / VOLUME keys → Monkey stays
+                           inside the app and can never navigate to PCAPdroid
+      --pct-appswitch 0  : prevents Activity-switch intents
+      (no --ignore-crashes): if the target app crashes, Monkey stops immediately
+                           instead of continuing on whatever app is behind it
+    """
+    logger.info(
+        "Starting background Monkey on %s (%d events, %dms throttle)",
+        package_name, events, throttle_ms
+    )
+    proc = subprocess.Popen(
+        [ADB_BIN, "shell", "monkey",
+         "-p", package_name,
+         "-c", "android.intent.category.LAUNCHER",
+         "--pct-syskeys", "0",
+         "--pct-appswitch", "0",
+         "--ignore-timeouts",
+         "--ignore-security-exceptions",
+         "--throttle", str(throttle_ms),
+         str(events)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+    return proc
+
+
+def stop_monkey(proc):
+    """
+    Stops a background Monkey subprocess (both the local adb process
+    and the monkey process running on the device).
+    """
+    # 1. Terminate the local adb process that is driving monkey
+    try:
+        proc.terminate()
+        proc.wait(timeout=5)
+    except Exception:
+        try:
+            proc.kill()
+        except Exception:
+            pass
+
+    # 2. Kill any lingering monkey process on the device itself
+    try:
+        adb("shell", "pkill -9 -f com.android.commands.monkey 2>/dev/null || true")
+    except Exception:
+        pass
 
 
 def force_stop_app(package_name: str):
@@ -394,7 +564,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Automated PCAP collection via ADB + PCAPdroid + Monkey"
     )
-    parser.add_argument("--apk-dir",       default="apks",            help="Directory containing APK subdirectories")
+    parser.add_argument("--apk-dir",       default="normalized",      help="Directory containing APK subdirectories")
     parser.add_argument("--output-dir",    default="data/pcap",       help="Directory to save pulled PCAP files")
     parser.add_argument("--sample-index",  default="sample_index.csv",help="Path to sample_index.csv")
     parser.add_argument("--capture-time",  type=int, default=CONFIG["capture_time"],      help="Seconds to capture traffic per app")
@@ -435,6 +605,10 @@ def main():
     try:
         device_serial = check_device()
         abi_info = get_device_abi()
+        # Keep screen awake and unlock
+        logger.info("Setting device to stay awake while connected to USB...")
+        adb("shell", "svc", "power", "stayon", "true")
+        ensure_device_unlocked()
     except RuntimeError as e:
         logger.error("%s", e)
         sys.exit(1)
@@ -508,41 +682,66 @@ def main():
         }
 
         installed = False
+        monkey_proc = None
         try:
             # ── 1. Install ────────────────────────────────────────────────────
-            logger.info("[%d/%d] Installing: %s", idx, total, package_name)
-            if not install_apk(pkg_dir, package_name, abi_info):
-                entry["status"] = "install_failed"
-                entry["error"] = "install_apk() returned False"
-                failed += 1
-                trace_entries.append(entry)
-                continue
+            if is_package_installed(package_name):
+                logger.info("[%d/%d] App %s is already installed on the device. Skipping installation to preserve Google Play Store license.", idx, total, package_name)
+                installed = False
+            else:
+                logger.info("[%d/%d] Installing: %s", idx, total, package_name)
+                if not install_apk(pkg_dir, package_name, abi_info):
+                    entry["status"] = "install_failed"
+                    entry["error"] = "install_apk() returned False"
+                    failed += 1
+                    trace_entries.append(entry)
+                    continue
+                
+                if not is_package_installed(package_name):
+                    raise RuntimeError("Package not present on device after install")
+                installed = True
 
-            if not is_package_installed(package_name):
-                raise RuntimeError("Package not present on device after install")
+            # Ensure device is awake and unlocked
+            ensure_device_unlocked()
 
-            installed = True
+            # Clean and stop any active PCAPdroid processes/captures
+            init_pcapdroid(api_key)
+
+            # Pre-clear the PCAP folder to ensure the current run creates the only file
+            clear_device_pcap_folder()
 
             # ── 2. Start Capture ──────────────────────────────────────────────
             start_pcapdroid_capture(package_name, api_key)
 
-            # ── 3. Launch app + Monkey ────────────────────────────────────────
-            launch_app_with_monkey(package_name, monkey_events, CONFIG["monkey_throttle_ms"])
+            # ── 3. Launch app ─────────────────────────────────────────────────
+            launch_app(package_name)
 
-            # ── 4. Wait ───────────────────────────────────────────────────────
+            # ── 4. Start Monkey in background (non-blocking) ─────────────────
+            monkey_proc = start_monkey_background(
+                package_name, monkey_events, CONFIG["monkey_throttle_ms"]
+            )
+
+            # ── 5. Wait for capture duration ─────────────────────────────────
             logger.info("Capturing for %d seconds...", capture_time)
             time.sleep(capture_time)
 
-            # ── 5. Stop app ───────────────────────────────────────────────────
+            # ── 6. Stop Monkey + Stop app ─────────────────────────────────────
+            stop_monkey(monkey_proc)
+            monkey_proc = None
             force_stop_app(package_name)
 
-            # ── 6. Stop Capture ───────────────────────────────────────────────
+            # ── 7. Stop Capture ───────────────────────────────────────────────
             stop_pcapdroid_capture(package_name, api_key)
 
-            # ── 7. Pull PCAP ──────────────────────────────────────────────────
-            pull_ok = pull_pcap(CONFIG["device_pcap_path"], local_pcap)
+            # ── 8. Pull PCAP ──────────────────────────────────────────────────
+            detected_pcap_path = find_latest_device_pcap()
+            if not detected_pcap_path:
+                logger.warning("No timestamped PCAP found. Falling back to default path.")
+                detected_pcap_path = CONFIG["device_pcap_path"]
+
+            pull_ok = pull_pcap(detected_pcap_path, local_pcap)
             if not pull_ok:
-                raise RuntimeError("PCAP pull failed — file may not exist on device")
+                raise RuntimeError(f"PCAP pull failed for path: {detected_pcap_path}")
 
             entry["status"]     = "success"
             entry["pcap_bytes"] = local_pcap.stat().st_size
@@ -556,9 +755,16 @@ def main():
             failed += 1
 
         finally:
-            # ── 8. Cleanup device ─────────────────────────────────────────────
+            # ── 9. Kill Monkey if still running ──────────────────────────────
+            if monkey_proc is not None:
+                stop_monkey(monkey_proc)
+            # ── 10. Cleanup device ────────────────────────────────────────────
             try:
-                cleanup_device_pcap(CONFIG["device_pcap_path"])
+                target_cleanup = find_latest_device_pcap()
+                if target_cleanup:
+                    cleanup_device_pcap(target_cleanup)
+                else:
+                    cleanup_device_pcap(CONFIG["device_pcap_path"])
             except Exception:
                 pass
             if installed:

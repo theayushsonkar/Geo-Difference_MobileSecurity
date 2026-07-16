@@ -203,19 +203,19 @@ python run_pcap_analysis.py --input-dir data/pcap --output-dir output/pcap --sam
 
 ## 5. Repository Layout
 
-```text
-├── apks/                     # Stored APK subdirectories (e.g., apks/com.bgfa/*.apk)
-├── decoded/                  # Apktool decompile outputs
-├── data/
-│   ├── pcap/                 # Collected raw .pcap files
-│   └── package_lists/        # Lists of target package names
-├── pipeline/                 # Ingestion stage python scripts
-├── manifest_scanner/         # Static manifest parsing package
-├── cve/                      # NVD database parser & CVE library matcher
-├── pcap/                     # PCAP parsing, tracker matching & GeoIP mapper library
-├── tests/                    # Consolidated unit and integration tests
-├── sample_index.csv          # Master registry mapping sample_id to metadata
-├── collect_pcap.py           # Device traffic capture automation script
-├── run_pcap_analysis.py      # Traffic parsing coordinator
-└── scan_manifest.py          # Manifest analysis coordinator
-```
+**Production code:**
+- `cve/`
+- `manifest_scanner/`
+- `sdk_detection/`
+- `pcap/`
+- `pipeline/`
+- `knowledge_base/`
+
+**Developer tools:**
+- `tools/`
+
+**Historical artifacts:**
+- `research_archive/`
+
+**Documentation:**
+- `docs/`

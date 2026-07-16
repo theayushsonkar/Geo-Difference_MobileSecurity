@@ -3,7 +3,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-INPUT_CSV = PROJECT_ROOT / "top_apps_full.csv"
+INPUT_CSV = PROJECT_ROOT / "output" / "top_apps_full.csv"
 
 OUTPUT_DIR = PROJECT_ROOT / "data/package_lists"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\New folder\Geo-Difference_MobileSecurity\third_party\libscan\tool\LibScan.py", line 142, in <module>
+    main(lib_folder = args.lf, lib_dex_folder = args.ld, apk_folder=args.af, output_folder= args.o, processes=args.p, model="multiple")
+  File "D:\New folder\Geo-Difference_MobileSecurity\third_party\libscan\tool\LibScan.py", line 124, in main
+    search_libs_in_app(os.path.abspath(lib_dex_folder),
+  File "D:\New folder\Geo-Difference_MobileSecurity\third_party\libscan\tool\module\analyzer.py", line 915, in search_libs_in_app
+    print('\r' + "current analysis: " + '▇' * (int(finish_num / all_libs_num * 100 / 2)) + str(
+                                                   ~~~~~~~~~~~^~~~~~~~~~~~~~
+ZeroDivisionError: division by zero

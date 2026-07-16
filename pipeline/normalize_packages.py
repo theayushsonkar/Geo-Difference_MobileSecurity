@@ -1,4 +1,5 @@
 import zipfile
+import shutil
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -28,40 +29,48 @@ def process_package(package_dir):
         print(f"[SKIP] {package_name}")
         return
 
-    apk_files = list(package_dir.glob("*.apk"))
+    try:
+        apk_files = list(package_dir.glob("*.apk"))
 
-    if apk_files:
+        if apk_files:
 
-        output_dir.mkdir(
-            parents=True,
-            exist_ok=True
-        )
-
-        for apk in apk_files:
-            target = output_dir / apk.name
-            target.write_bytes(
-                apk.read_bytes()
+            output_dir.mkdir(
+                parents=True,
+                exist_ok=True
             )
 
-        print(f"[APK ] {package_name}")
-        return
+            for apk in apk_files:
+                target = output_dir / apk.name
+                target.write_bytes(
+                    apk.read_bytes()
+                )
 
-    xapk_files = list(package_dir.glob("*.xapk"))
+            print(f"[APK ] {package_name}")
+            return
 
-    if xapk_files:
+        xapk_files = list(package_dir.glob("*.xapk"))
 
-        xapk = xapk_files[0]
+        if xapk_files:
 
-        print(f"[XAPK] {package_name}")
+            xapk = xapk_files[0]
 
-        extract_xapk(
-            xapk,
-            output_dir
-        )
+            print(f"[XAPK] {package_name}")
 
-        return
+            extract_xapk(
+                xapk,
+                output_dir
+            )
 
-    print(f"[WARN] No APK/XAPK found: {package_name}")
+            return
+
+        print(f"[WARN] No APK/XAPK found: {package_name}")
+    except Exception as e:
+        print(f"[ERR ] Failed to process {package_name}: {e}")
+        if output_dir.exists():
+            try:
+                shutil.rmtree(output_dir)
+            except Exception:
+                pass
 
 
 def main():
