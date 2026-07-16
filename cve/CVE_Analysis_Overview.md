@@ -1,33 +1,201 @@
-# CVE Analysis Module
+# CVE Vulnerability Mapping Engine
 
-## Overview
-
-The CVE Analysis module identifies known vulnerabilities in Android applications by matching detected SDK versions against vulnerability information extracted from the National Vulnerability Database (NVD).
-
-The module operates entirely on SDK metadata produced during earlier analysis stages and does not inspect APKs directly.
-
-Its primary responsibilities are:
-
-- Load and parse NVD CVE datasets directly from compressed ZIP archives.
-- Extract affected products and vulnerable version ranges.
-- Match detected SDK versions against vulnerable versions using a product-only candidate lookup layer.
-- Record confirmed SDK ↔ CVE matches.
-- Record skipped SDKs and matching coverage.
-- Produce application-level vulnerability summaries.
-- Generate execution trace metadata.
+This module implements a deterministic, offline vulnerability mapping engine for Android applications. It bridges the semantic gap between detected third-party Software Development Kits (SDKs) — sourced from the manifest analysis stage — and structured vulnerability records from the National Vulnerability Database (NVD). Operating exclusively on extracted SDK metadata (`output/manifest_sdks.csv`), the engine cross-references detected library version strings against CPE-based version constraints to identify known Common Vulnerabilities and Exposures (CVEs) without requiring re-analysis of the underlying APKs.
 
 ---
 
-## Running the Analysis
+## 1. Architectural Overview
 
-### 1. Prerequisites
-Ensure you have the following directory structure and files in place:
-1. **NVD Archives**: Store NVD zip archives under `data/nvd/` (e.g. `nvdcve-2.0-2020.json.zip`, `nvdcve-2.0-2021.json.zip`, etc.).
-2. **SDK Inputs**: Ensure the SDK metadata file `output/manifest_sdks.csv` exists and contains the analyzed applications' SDK version details (with columns: `sample_id`, `package_name`, `sdk_name`, `sdk_identifier`, `sdk_version`).
-3. **Dependencies**: Ensure the environment has `pandas` and `packaging` packages installed.
+The mapping engine is a composable, memory-efficient pipeline orchestrating five sequential phases. Each phase is implemented as an isolated module with strict, typed interfaces defined in `schemas.py`.
 
-### 2. Execution Command
-Run the main pipeline from the workspace root directory:
+```text
+┌─────────────────────────────────────────┐
+│       Extracted SDK Metadata            │ (output/manifest_sdks.csv)
+│  sample_id, sdk_identifier, sdk_version │
+└────────────────┬────────────────────────┘
+                 │
+         ┌───────▼───────┐
+         │ NVD Ingestion │  nvd_loader.py
+         │ & Indexing    │  ──► ZIP → JSON → CVERecord → product_index
+         └───────┬───────┘
+                 │ dict: product_token → [CVERecord]
+         ┌───────▼──────────────┐
+         │ Tokenization &       │  matcher.py
+         │ Alias Expansion      │  ──► stopwords stripped, SDK_ALIASES injected
+         └───────┬──────────────┘
+                 │ set[str] tokens
+         ┌───────▼────────────────┐
+         │ Candidate Lookup &     │  matcher.py + versioning.py
+         │ Version Constraint     │  ──► product_index only, packaging.version
+         │ Resolution             │
+         └───────┬────────────────┘
+                 │ list[CVEMatch] + list[CoverageRecord]
+        ┌────────▼──────────────┐
+        │ Application-Level     │  aggregator.py
+        │ Aggregation           │  ──► groupby sample_id → summary metrics
+        └────────┬──────────────┘
+                 │
+         ┌───────▼────────┐
+         │ Trace & Output │  trace.py + main.py
+         │ Serialization  │  ──► sdk_cve_matches.csv, cve_coverage_report.csv,
+         └────────────────┘       app_cve_summary.csv, cve_trace.json
+```
+
+---
+
+## 2. Data Schemas (`schemas.py`)
+
+All pipeline data flows through four strongly-typed `@dataclass(slots=True)` structures. The `slots=True` annotation reduces per-instance memory overhead, which is critical when processing tens of thousands of CVE records.
+
+| Schema | Source | Destination |
+|---|---|---|
+| `SDKRecord` | `manifest_sdks.csv` | Input to matcher |
+| `CVERecord` | NVD JSON feed | Built by `nvd_loader`, consumed by `matcher` |
+| `CVEMatch` | Verified version match | `sdk_cve_matches.csv` |
+| `CoverageRecord` | Skipped/unmatched SDKs | `cve_coverage_report.csv` |
+
+**`CVERecord`** is the most structurally complex. A single NVD CVE entry can affect multiple `(vendor, product)` pairs, each with its own version range boundaries. The loader therefore emits *one `CVERecord` per `(vendor, product)` pair*, meaning a single CVE-ID can produce several records in the index. The `version_ranges` field is a `list[dict]` where each dict may hold up to four NVD boundary keys:
+
+```python
+{
+    "versionStartIncluding": "20.0.0",  # >= 20.0.0
+    "versionEndExcluding":   "21.5.2"   # <  21.5.2
+}
+```
+
+---
+
+## 3. NVD Ingestion & Indexing (`nvd_loader.py`)
+
+### 3.1 Zero-Extraction ZIP Loading
+The NVD distributes vulnerability data as paginated, annual JSON feeds compressed into ZIP archives (`nvdcve-2.0-YYYY.json.zip`). To avoid unnecessary disk writes, `load_nvd()` reads JSON streams **directly from ZIP archives in memory** using `zipfile.ZipFile`, requiring no prior extraction step.
+
+### 3.2 CVSS Normalization
+NVD records can carry metrics in CVSS v2.0, v3.0, or v3.1 format. The `_extract_cvss()` function enforces a strict priority ladder:
+
+```
+cvssMetricV31 > cvssMetricV30 > cvssMetricV2
+```
+
+Within each version tier, `Primary` metrics are preferred over `Secondary` when multiple assessors have scored the same CVE.
+
+### 3.3 CPE 2.3 Parsing
+Every affected product is encoded in a CPE 2.3 URI (e.g., `cpe:2.3:a:google:firebase_android_sdk:*`). The `_parse_cpe_criteria()` function tokenizes the URI on `:`, accounts for escaped colons (`\:`), and extracts the `vendor` (index 3) and `product` (index 4) components. Wildcards (`*`) are discarded.
+
+### 3.4 Version Range Extraction
+For each CPE match entry, the parser selectively extracts only the four recognized NVD boundary keys (`versionStartIncluding`, `versionStartExcluding`, `versionEndIncluding`, `versionEndExcluding`). These are grouped by `(vendor, product)` and stored as the `version_ranges` list on the emitted `CVERecord`.
+
+### 3.5 Inverted Index Construction (`build_indexes`)
+`build_indexes()` compiles the parsed record list into two `defaultdict(list)` maps:
+
+- **`vendor_index`**: `vendor_token → [CVERecord]` — built but intentionally **not queried** at match time to prevent overly broad false positives (e.g., the token `"google"` matching thousands of unrelated records).
+- **`product_index`**: `product_token → [CVERecord]` — the **sole driver** of candidate retrieval at match time.
+
+---
+
+## 4. Token Expansion & Alias Mapping (`matcher.py`)
+
+### 4.1 The Semantic Gap Problem
+A fundamental challenge in vulnerability mapping is the *terminology mismatch* between the Android software supply chain and the NVD. Maven coordinates (e.g., `com.google.android.gms:play-services-auth:20.4.1`) bear no resemblance to the NVD product names that curators assign (e.g., `play_services`). Raw tokenization of the Maven coordinate would yield fragments like `"play"`, `"services"`, `"auth"` — all of which are stopwords that convey no discriminative signal.
+
+### 4.2 Tokenization & Stopword Stripping (`_extract_search_tokens`)
+Tokens are extracted from both `sdk_identifier` and `sdk_name` by splitting on four delimiters (`.`, `:`, ` `, `/`). Hyphenated and underscored fragments are additionally decomposed. Two filter sets are applied:
+
+- **Domain prefixes** (discarded): `{"com", "org", "net", "edu", "gov", "mil", "io", "co", "squareup", "unity3d"}`
+- **Semantic stopwords** (discarded): `{"google", "android", "play", "sdk", "library", "common", "core", "mobile", "client", "ads"}`
+
+Tokens that survive both filters are normalized to lowercase and deduplicated into a `set[str]`. Hyphen/underscore variants are also emitted (e.g., `"firebase-android"` → `"firebase_android"`) to handle NVD naming inconsistencies.
+
+### 4.3 Alias Injection (`SDK_ALIASES`)
+Stopword filtering alone cannot reconstruct the idiomatic NVD product names. The `SDK_ALIASES` dictionary provides explicit prefix-keyed mappings that inject known NVD-compatible tokens:
+
+```python
+SDK_ALIASES = {
+    "com.google.firebase":       ["firebase", "firebase_android_sdk"],
+    "com.google.android.gms":    ["google_play_services", "play_services"],
+    "com.facebook":              ["facebook", "facebook_android_sdk", "android_sdk"],
+    "com.squareup.okhttp3":      ["okhttp"],
+    "com.squareup.retrofit2":    ["retrofit"],
+    "com.google.code.gson":      ["gson"],
+    "com.unity3d.ads":           ["unity", "unity_ads"],
+    "com.applovin":              ["applovin"],
+    "com.bytedance.sdk":         ["pangle", "bytedance"],
+    "com.mbridge":               ["mbridge", "mintegral"],
+}
+```
+
+`_expand_tokens_with_aliases()` performs a prefix scan: if `sdk_identifier.startswith(key)`, the associated alias list is merged into the token set. This is a O(|SDK_ALIASES|) operation per SDK record.
+
+---
+
+## 5. Candidate Lookup & Version Constraint Resolution
+
+### 5.1 Product-Only Index Lookup (`_find_candidate_cves`)
+With the expanded token set, the matcher queries **only `product_index`**. For each token, the corresponding list of `CVERecord` objects is retrieved and merged into a deduplicated dict keyed on `(cve_id, vendor, product)` to prevent double-counting.
+
+The vendor index is deliberately bypassed. Querying it would cause a single token like `"firebase"` to also match every CVE attributed to any Google product, producing thousands of irrelevant candidates.
+
+### 5.2 Version Constraint Evaluation (`versioning.py`)
+
+**Pre-flight guard — `has_real_version_constraints()`**: Before any numerical comparison, the engine checks that at least one of the four boundary keys exists in the candidate's `version_ranges`. CVEs with empty or boundary-free range structures (e.g., `[{}]`) are unconditionally rejected. This guard prevents matching on catch-all CVEs that affect "all versions" without specifying bounds.
+
+**Numerical evaluation — `version_in_range()`**: Uses `packaging.version.Version` for PEP 440-compatible comparison, supporting multi-part version strings (e.g., `20.4.1`, `3.12.0.0`). The function maps the four NVD boundary keys to four comparison operators:
+
+| NVD Key | Operator |
+|---|---|
+| `versionStartIncluding` | `>=` |
+| `versionStartExcluding` | `>` |
+| `versionEndIncluding` | `<=` |
+| `versionEndExcluding` | `<` |
+
+Missing boundaries are treated as unbounded (no constraint in that direction). An unparseable boundary string on the NVD side causes the range to be discarded (returns `False`), preventing a malformed NVD record from generating a spurious match.
+
+**Multi-range disjunction — `matches_any_range()`**: A single CVE can specify multiple disjoint vulnerable ranges (e.g., `>=1.0 <2.0` OR `>=3.0 <4.0`). The function iterates over all ranges and returns `True` on the first match, implementing short-circuit OR evaluation.
+
+**Safe version parsing — `parse_version_safe()`**: Version strings from the SDK extraction phase may contain non-standard formats or trailing noise. Rather than raising `InvalidVersion`, the function catches all exceptions and returns `None`, triggering a `parse_error` coverage record for that SDK row.
+
+### 5.3 Match Deduplication
+Confirmed matches are deduplicated by a three-tuple key `(sample_id, sdk_identifier, cve_id)` tracked in a `seen_matches` set. This prevents duplicate rows in the output CSV when the same SDK-CVE pair is confirmed by multiple product tokens hitting the same `CVERecord`.
+
+---
+
+## 6. Coverage Audit & Output
+
+Every SDK record entering the matcher is guaranteed to produce exactly one outcome, ensuring 100% input accountability:
+
+| Outcome | Condition | Output |
+|---|---|---|
+| `no_version` | `sdk_version` is null or empty | `CoverageRecord(skip_reason="no_version")` |
+| `parse_error` | `packaging` cannot parse the version string | `CoverageRecord(skip_reason="parse_error")` |
+| `no_nvd_entry` | No candidate passes version constraints | `CoverageRecord(skip_reason="no_nvd_entry")` |
+| Confirmed match | Version falls within at least one NVD range | `CVEMatch` row |
+
+### Output Files
+
+| File | Content |
+|---|---|
+| `output/sdk_cve_matches.csv` | Verified SDK↔CVE matches, sorted by `(sample_id, sdk_identifier, cve_id)` |
+| `output/cve_coverage_report.csv` | All skipped SDKs with their skip reason |
+| `output/app_cve_summary.csv` | Per-application aggregates: `total_cve_matches`, `unique_cve_count`, `affected_sdk_count` |
+| `output/cve_trace.json` | Run metadata: timestamp, snapshot date, processed/skipped/matched counts |
+
+---
+
+## 7. Application-Level Aggregation (`aggregator.py`)
+
+`generate_app_summary()` converts `list[CVEMatch]` into a `pandas.DataFrame` grouped by `sample_id`. Three metrics are computed:
+
+- **`total_cve_matches`**: Raw count of all match rows for the application.
+- **`unique_cve_count`**: `nunique` on `cve_id` — removes inflation from multiple SDK records hitting the same CVE.
+- **`affected_sdk_count`**: `nunique` on `sdk_identifier` — the number of distinct vulnerable library coordinates.
+
+Results are sorted ascending by `sample_id` for deterministic output ordering.
+
+---
+
+## 8. Execution Interface
+
+The engine is invoked as a zero-configuration pipeline from the workspace root. With `output/manifest_sdks.csv` and `data/nvd/*.zip` in place:
 
 ```bash
 python -m cve.main
@@ -35,347 +203,10 @@ python -m cve.main
 
 ---
 
-# High-Level Workflow
+## 9. Extension Points
 
-```text
-output/manifest_sdks.csv
-        │
-        ▼
-Load SDK Records
-        │
-        ▼
-Load NVD Dataset (data/nvd/*.zip)
-        │
-        ▼
-Build Search Indexes (Product Index Only)
-        │
-        ▼
-Generate SDK Search Tokens (Clean & Split)
-        │
-        ▼
-Expand Tokens Using Alias Mapping (SDK_ALIASES)
-        │
-        ▼
-Find Candidate CVEs (product_index only)
-        │
-        ▼
-Apply Version Filtering (version_in_range)
-        │
-        ▼
-Generate CVE Matches (Deduplicated)
-        │
-        ▼
-Generate Coverage Report (no_version, parse_error, no_nvd_entry)
-        │
-        ▼
-Generate App Summary (Aggregated Counts)
-        │
-        ▼
-Generate Trace Metadata (cve_trace.json)
-```
+The modular design isolates each concern, enabling targeted extension without pipeline-wide changes:
 
----
-
-# Input Data
-
-## SDK Input
-
-The module consumes:
-
-```text
-output/manifest_sdks.csv
-```
-
-Required columns:
-
-- `sample_id`: Identifier of the analyzed application.
-- `package_name`: The application's package name.
-- `sdk_name`: Human-readable name of the SDK.
-- `sdk_identifier`: The unique SDK identifier (e.g. Maven coordinate).
-- `sdk_version`: The detected version string of the SDK.
-- `sdk_version_source`: Source of the version detection.
-- `sdk_version_confidence`: Confidence level of the version detection.
-
-Example:
-
-```csv
-sample_id,package_name,sdk_name,sdk_identifier,sdk_version,sdk_version_source,sdk_version_confidence
-app1,com.example,Firebase,com.google.firebase:firebase-common,19.0.0,buildconfig,high
-app1,com.example,AppLovin MAX,com.applovin,4.3.0.1,buildconfig,high
-```
-
----
-
-## NVD Input
-
-NVD files are stored under:
-
-```text
-data/nvd/
-```
-
-Example files:
-
-```text
-nvdcve-2.0-2020.json.zip
-nvdcve-2.0-2021.json.zip
-...
-nvdcve-2.0-2026.json.zip
-```
-
-The loader reads JSON directly from ZIP archives dynamically. No manual extraction step is required.
-
----
-
-# Module Structure
-
-```text
-cve/
-├── __init__.py
-├── schemas.py
-├── nvd_loader.py
-├── versioning.py
-├── matcher.py
-├── aggregator.py
-├── trace.py
-└── main.py
-```
-
----
-
-# schemas.py
-
-Defines the canonical, strongly-typed data structures used in the CVE matching pipeline. All classes use `slots=True` for memory optimization.
-
----
-
-## SDKRecord
-
-Represents one SDK entry loaded from `manifest_sdks.csv`.
-
-```python
-@dataclass(slots=True)
-class SDKRecord:
-    sample_id: str
-    package_name: str
-    sdk_name: str
-    sdk_identifier: str
-    sdk_version: str | None
-    sdk_version_source: str | None
-    sdk_version_confidence: str | None
-```
-
----
-
-## CVERecord
-
-Represents one vulnerability extracted from NVD. A single CVE may generate multiple CVERecord objects if it affects multiple vendor/product combinations.
-
-```python
-@dataclass(slots=True)
-class CVERecord:
-    cve_id: str
-    published_date: str | None
-    last_modified_date: str | None
-    cvss_version: str | None
-    cvss_score: float | None
-    severity: str | None
-    cvss_vector: str | None
-    vendor: str | None
-    product: str | None
-    version_ranges: list[dict]
-```
-
----
-
-## CVEMatch
-
-Represents a confirmed SDK vulnerability match. Writes out to `output/sdk_cve_matches.csv`.
-
-```python
-@dataclass(slots=True)
-class CVEMatch:
-    sample_id: str
-    package_name: str
-    sdk_name: str
-    sdk_identifier: str
-    sdk_version: str
-    cve_id: str
-    published_date: str | None
-    last_modified_date: str | None
-    cvss_version: str | None
-    cvss_score: float | None
-    severity: str | None
-    cvss_vector: str | None
-    affected_version_range: str | None
-    nvd_snapshot_date: str
-```
-
----
-
-## CoverageRecord
-
-Represents SDKs that could not be matched or were skipped. Writes out to `output/cve_coverage_report.csv`.
-
-```python
-@dataclass(slots=True)
-class CoverageRecord:
-    sample_id: str
-    sdk_name: str
-    sdk_identifier: str
-    sdk_version: str | None
-    skip_reason: str
-```
-
----
-
-# nvd_loader.py
-
-Handles finding, loading, parsing, and indexing of reference NVD vulnerability datasets.
-
-### Step 1: Discover NVD Files
-Recursively searches `data/nvd/` for `*.zip` archives.
-
-### Step 2: Load JSON From ZIP
-Uses `zipfile.ZipFile` to load JSON content dynamically in-memory without extracted files on disk.
-
-### Step 3: Parse CVE Metadata
-Retrieves CVE identifiers, dates, and CVSS information. The CVSS parser prioritizes CVSS v3.1, falls back to v3.0, and lastly v2.0.
-
-### Step 4: Parse Affected Products
-Standardizes CPE 2.3 criteria (e.g. `cpe:2.3:a:google:firebase_android_sdk:*`) into distinct `vendor` and `product` components.
-
-### Step 5: Extract Version Constraints
-Extracts boundary properties (`versionStartIncluding`, `versionStartExcluding`, `versionEndIncluding`, `versionEndExcluding`) and maps them to `version_ranges`.
-
-### Step 6: Indexing
-Constructs two fast-lookup indices:
-- `vendor`: maps vendor tokens to matching CVERecords.
-- `product`: maps product tokens to matching CVERecords (currently the only driver of candidate retrieval).
-
----
-
-# versioning.py
-
-Handles version parsing and evaluation logic using `packaging.version.Version`.
-
-### parse_version_safe(ver_str)
-Safely parses version strings. Invalid/unsupported formats return `None` (rather than crashing the pipeline).
-
-### version_in_range(...)
-Evaluates a target SDK version against specific boundary conditions:
-- `version_start_including` / `version_start_excluding`
-- `version_end_including` / `version_end_excluding`
-
-### has_real_version_constraints(version_ranges)
-Helper to filter out CVEs lacking concrete version intervals. Range structures such as `[]`, `[{}]`, or dictionary inputs containing no boundary keys are rejected.
-
-### matches_any_range(sdk_version, version_ranges)
-Evaluates if the target version matches at least one valid range boundary within the range list.
-
----
-
-# matcher.py
-
-Coordinates the core matching logic.
-
-## Token Cleanup and Extraction
-
-Tokens are extracted from `sdk_identifier` and `sdk_name` using `_extract_search_tokens()`:
-- Splits on colons (`:`), dots (`.`), spaces, and slashes (`/`).
-- Generates variations swapping hyphens (`-`) and underscores (`_`).
-- Filters out generic stopwords: `{"google", "android", "play", "sdk", "library", "common", "core", "mobile", "client", "ads"}`.
-- Ignores domain prefixes: `{"com", "org", "net", "edu", "gov", "mil", "io", "co", "squareup", "unity3d"}`.
-
-## Alias Mapping Layer
-
-To align custom/third-party Maven coordinates with official NVD product entries, a lightweight alias dictionary `SDK_ALIASES` is applied:
-
-```python
-SDK_ALIASES = {
-    "com.google.firebase": ["firebase", "firebase_android_sdk"],
-    "com.google.android.gms": ["google_play_services", "play_services"],
-    "com.facebook": ["facebook", "facebook_android_sdk", "android_sdk"],
-    "com.squareup.okhttp3": ["okhttp"],
-    "com.squareup.retrofit2": ["retrofit"],
-    "com.google.code.gson": ["gson"],
-    "com.unity3d.ads": ["unity", "unity_ads"],
-    "com.applovin": ["applovin"],
-    "com.bytedance.sdk": ["pangle", "bytedance"],
-    "com.mbridge": ["mbridge", "mintegral"]
-}
-```
-
-If the SDK's `sdk_identifier` begins with any alias key, the associated alias words are appended to the search tokens.
-
-## Matching Algorithm
-
-For each SDK record:
-1. **Validate & Parse Version**: If missing, skip with `no_version`. If invalid, skip with `parse_error`.
-2. **Generate and Expand Tokens**: Extracts and expands tokens using alias rules.
-3. **Lookup Candidates**: Queries only `product_index` with tokens. Vendor index lookups are completely bypassed to eliminate broad false positives. Deduplicates candidates via `(cve_id, vendor, product)`.
-4. **Apply Strict Version Constraints**: Only emits matches if the candidate has real version constraints and `matches_any_range()` returns `True`.
-5. **Deduplication**: Resulting matches are deduplicated via `(sample_id, sdk_identifier, cve_id)`.
-6. **Coverage Log**: If no matches are found, logs a `CoverageRecord` with `no_nvd_entry`.
-
----
-
-# aggregator.py
-
-Aggregates individual `CVEMatch` objects into application-level metrics:
-- `total_cve_matches`: Total matches generated.
-- `unique_cve_count`: Count of unique CVE IDs.
-- `affected_sdk_count`: Count of unique vulnerable SDKs.
-- `nvd_snapshot_date`: Output generation date.
-
-Writes output to `output/app_cve_summary.csv` grouped by `sample_id`.
-
----
-
-# trace.py
-
-Writes execution metadata to `output/cve_trace.json`. Consists of:
-- `run_timestamp`: ISO-8601 UTC timestamp.
-- `nvd_snapshot_date`: Execution date.
-- `sdk_rows_processed`: Count of processed SDKs.
-- `sdk_rows_skipped`: Count of skipped SDKs.
-- `sdk_rows_matched`: Count of matched SDKs.
-- `unique_cves_found`: Count of unique CVE IDs identified.
-
----
-
-# main.py
-
-Coordinates the execution of the entire CVE matching pipeline:
-1. Loads NVD reference datasets and builds indices.
-2. Reads detected SDK records from `output/manifest_sdks.csv`.
-3. Invokes the matching engine in `matcher.py`.
-4. Alphabetically sorts matches by `(sample_id, sdk_identifier, cve_id)` and writes to `output/sdk_cve_matches.csv`.
-5. Alphabetically sorts skipped entries by `(sample_id, sdk_identifier)` and writes to `output/cve_coverage_report.csv`.
-6. Invokes the aggregator to produce app-level summaries and writes to `output/app_cve_summary.csv`.
-7. Builds and writes trace statistics to `output/cve_trace.json`.
-
----
-
-# Output Files
-
-### output/sdk_cve_matches.csv
-Contains confirmed SDK-to-CVE matches sorted alphabetically.
-
-### output/cve_coverage_report.csv
-Maintains list of skipped or non-matching SDKs.
-
-### output/app_cve_summary.csv
-Summarizes total vulnerabilities at the app level.
-
-### output/cve_trace.json
-Contains execution statistics and timestamps.
-
----
-
-# Extension Points
-
-The CVE pipeline is built to easily accommodate future extensions:
-- **Expanded Alias Lists**: Add extra package mappings directly to `SDK_ALIASES`.
-- **Alternative Vulnerability Feeds**: Integrate OSV (Open Source Vulnerability) JSON structures or custom vulnerability datasets.
-- **Advanced Scoring**: Incorporate risk, severity, or EPSS scores into matched CVE outputs.
+- **Expanded Alias Coverage**: Add new `sdk_identifier` prefix → NVD product token mappings to `SDK_ALIASES` in `matcher.py`.
+- **Alternative Vulnerability Feeds**: OSV (Open Source Vulnerability) JSON schemas or custom internal datasets can be integrated by implementing a new loader that emits `CVERecord` objects and passes them to `build_indexes()`.
+- **Advanced Risk Scoring**: EPSS scores or custom severity weights can be appended directly to `CVEMatch` fields in `schemas.py` and serialized by `main.py`.
