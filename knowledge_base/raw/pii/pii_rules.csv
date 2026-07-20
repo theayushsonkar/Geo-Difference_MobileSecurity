@@ -1,0 +1,16 @@
+pattern_name,category,regex,source_reference
+Email Address,Identity,\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b,RFC 5322
+IMEI,Hardware,\b(?:[0-9]{15})\b,3GPP TS 23.003
+IMSI,Hardware,"\b(?:[0-9]{14,15})\b",ITU-T E.212
+Android ID,Hardware,\b[0-9a-fA-F]{16}\b,Android Developer Docs
+MAC Address,Hardware,\b(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})\b,IEEE 802
+IPv4,Network,\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b,RFC 791
+Bearer Token,Authentication,\bBearer\s+[A-Za-z0-9\-\._~\+\/]+\b,RFC 6750
+JWT Token,Authentication,\beyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b,RFC 7519
+ICCID,Hardware,"\b89[0-9]{16,18}\b",ITU-T E.118
+UUID,Hardware,\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b,RFC 4122
+Phone Number,Identity,"\b\+(?:[0-9]\s?){6,14}[0-9]\b",ITU-T E.164
+Session ID,Authentication,\b(?:session_id|sessionId|sid)=([A-Za-z0-9_-]+)\b,OWASP
+Latitude,Location,"\b(?:lat|latitude)=(-?\d{1,2}\.\d+)\b",WGS 84
+Longitude,Location,"\b(?:lon|lng|longitude)=(-?\d{1,3}\.\d+)\b",WGS 84
+SSID,Network,\b(?:ssid)=([^&]+)\b,IEEE 802.11

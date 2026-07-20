@@ -6,7 +6,8 @@ workspace_dir = Path(r"d:\New folder\Geo-Difference_MobileSecurity")
 sys.path.append(str(workspace_dir))
 
 from pcap.pcap_parser import parse_pcap
-from pcap.geoip import GeoMapper
+from knowledge_base.dataset_manager import DatasetManager
+from pcap.network_context import NetworkContext
 from pcap.connection_builder import ConnectionBuilder
 
 def run_test():
@@ -17,8 +18,10 @@ def run_test():
     pcap_path = workspace_dir / "data" / "pcap" / "arrow_escape.pcap"
     events = parse_pcap(pcap_path)
     
-    geo_mapper = GeoMapper()
-    builder = ConnectionBuilder(geo_mapper)
+    manager = DatasetManager()
+    geo_mapper = manager.load_geolite()
+    network_context = NetworkContext(geo_mapper=geo_mapper)
+    builder = ConnectionBuilder(network_context=network_context)
     result = builder.build(events, sample_id="arrow_escape", session_id="session_123")
 
     dns_records = result.dns_records
@@ -64,7 +67,6 @@ def run_test():
         if not passed:
             all_pass = False
 
-    geo_mapper.close()
 
     if all_pass:
         print("Final Verdict: PASS")

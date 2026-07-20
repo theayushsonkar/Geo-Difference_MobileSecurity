@@ -15,9 +15,9 @@ import os
 
 # --- Configuration ---
 COUNTRIES = {
-    "ca": {"name": "Canada",        "region": "NA",      "fhif_score": 87, "fhif_status": "Free"},
-    "ua": {"name": "Ukraine",       "region": "Europe",  "fhif_score": 56, "fhif_status": "Partially Free"},
-    "de": {"name": "Germany",       "region": "Europe",  "fhif_score": 80, "fhif_status": "Free"},
+    # "ca": {"name": "Canada",        "region": "NA",      "fhif_score": 87, "fhif_status": "Free"},
+    # "ua": {"name": "Ukraine",       "region": "Europe",  "fhif_score": 56, "fhif_status": "Partially Free"},
+    # "de": {"name": "Germany",       "region": "Europe",  "fhif_score": 80, "fhif_status": "Free"},
     # "in": {"name": "India",         "region": "Asia",    "fhif_score": 55, "fhif_status": "Partially Free"},
     # "us": {"name": "United States", "region": "NA",      "fhif_score": 77, "fhif_status": "Free"},
     # "zw": {"name": "Zimbabwe",      "region": "Africa",  "fhif_score": 42, "fhif_status": "Partially Free"},
@@ -38,9 +38,9 @@ COUNTRIES = {
     # "tn": {"name": "Tunisia",       "region": "Africa",  "fhif_score": 64, "fhif_status": "Partially Free"},
     # "hk": {"name": "Hong Kong",     "region": "Asia",    "fhif_score": None, "fhif_status": "N/A"},
     # "mx": {"name": "Mexico",        "region": "NA",      "fhif_score": 60, "fhif_status": "Partially Free"},
-    # "ie": {"name": "Ireland",       "region": "Europe",  "fhif_score": None, "fhif_status": "N/A"},
-    # "sg": {"name": "Singapore",     "region": "Asia",    "fhif_score": 56, "fhif_status": "Partially Free"},
-    # "il": {"name": "Israel",        "region": "Asia",    "fhif_score": None, "fhif_status": "N/A"},
+    "ie": {"name": "Ireland",       "region": "Europe",  "fhif_score": None, "fhif_status": "N/A"},
+    "sg": {"name": "Singapore",     "region": "Asia",    "fhif_score": 56, "fhif_status": "Partially Free"},
+    "il": {"name": "Israel",        "region": "Asia",    "fhif_score": None, "fhif_status": "N/A"},
 }
 
 CATEGORIES = {

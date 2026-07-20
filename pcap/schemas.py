@@ -6,7 +6,66 @@ All fields are plain Python types for easy CSV serialization.
 """
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Dict, List
+
+
+@dataclass(frozen=True)
+class TrackerFact:
+    """Represents a guaranteed, atomic truth extracted from the Tracker Knowledge Base."""
+    domain_suffix: str
+    vendor: str
+    canonical_vendor: str
+    category: str
+    source_dataset: str
+    source_version: str
+
+
+@dataclass(frozen=True)
+class DNSResolverFact:
+    """Represents a deterministic mapping of an IP to a known public DNS resolver."""
+    ip_address: str
+    provider: str
+    canonical_provider: str
+    resolver_name: str
+    provider_country: str
+    supports_doh: bool
+    supports_dot: bool
+    source_dataset: str
+    source_version: str
+    confidence: str
+    supports_dnscrypt: bool = False
+
+@dataclass(frozen=True)
+class PIIFact:
+    """Represents a matched PII instance in network traffic."""
+    pattern_name: str
+    category: str
+    matched_value: str
+    source_location: str
+    start_offset: int
+    end_offset: int
+    confidence: str
+    source_dataset: str
+    source_reference: str
+
+@dataclass(frozen=True)
+class GeoFact:
+    """Represents a deterministic country mapping from GeoLite2."""
+    ip: str
+    country_code: str
+    country_name: str
+    continent: str
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+
+
+@dataclass(frozen=True)
+class ASNFact:
+    """Represents a deterministic ASN mapping from GeoLite2."""
+    ip: str
+    asn: str
+    organization: str
+    organization_type: str
 
 
 @dataclass
@@ -54,12 +113,8 @@ class ConnectionRecord:
     last_seen:          str = ""
 
     # ── Geo / ASN ────────────────────────────────────────────────
-    ip_country_code:        str = ""
-    ip_country_name:        str = ""
-    ip_asn:                 str = ""
-    ip_asn_org:             str = ""
-    ip_is_chinese_cloud:    bool = False
-    ip_is_high_risk:        bool = False
+    geo_fact:               Optional[GeoFact] = None
+    asn_fact:               Optional[ASNFact] = None
 
     # ── Tracker identity ─────────────────────────────────────────
     sdk_name:               str = ""
@@ -68,6 +123,7 @@ class ConnectionRecord:
     canonical_vendor:       str = ""
     is_known_tracker:       bool = False
     matched_in_manifest:    bool = False   # cross-validation
+    tracker_fact:           Optional[TrackerFact] = None
 
     # ── Security flags ───────────────────────────────────────────
     is_cleartext_http:      bool = False
@@ -136,7 +192,6 @@ class AppSummary:
     country_top1_domain_pct:    float = 0.0
     country_top3_domain_pct:    float = 0.0
     chinese_cloud_domain_count: int = 0
-    high_risk_country_domain_count: int = 0
     eu_domain_count:            int = 0
     us_domain_count:            int = 0
     in_domain_count:            int = 0
@@ -148,6 +203,10 @@ class AppSummary:
     analytics_domain_count:     int = 0
     data_broker_count:          int = 0
     chinese_sdk_domain_count:   int = 0
+    tracker_vendor_distribution: Dict[str, int] = field(default_factory=dict)
+    tracker_category_distribution: Dict[str, int] = field(default_factory=dict)
+    top_tracker_vendors:        List[str] = field(default_factory=list)
+    tracker_diversity:          int = 0
 
     # ── Security findings ────────────────────────────────────────
     cleartext_http_domain_count:    int = 0

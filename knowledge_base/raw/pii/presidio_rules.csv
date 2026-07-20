@@ -1,0 +1,6 @@
+pattern_name,category,regex,source_reference
+Credit Card,Financial,"\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})\b",Presidio
+US SSN,Identity,\b(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}\b,Presidio
+UK NHS,Identity,"\b[0-9]{3}\s?[0-9]{3}\s?[0-9]{4}\b",Presidio
+Email Address,Identity,\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b,Presidio
+Bitcoin Address,Financial,"\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b",Presidio

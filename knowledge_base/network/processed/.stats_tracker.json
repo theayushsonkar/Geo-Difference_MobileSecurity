@@ -1,0 +1,17 @@
+{
+    "raw_rows_per_dataset": {
+        "Exodus": 631,
+        "EasyPrivacy": 46681
+    },
+    "imported_rows": 47312,
+    "duplicates_removed": 24,
+    "conflicts_resolved": 71,
+    "unique_domains": 47217,
+    "unique_vendors": 252,
+    "unique_categories": 6,
+    "contribution": {
+        "Exodus": 603,
+        "EasyPrivacy": 46659
+    },
+    "generation_duration_ms": 633
+}

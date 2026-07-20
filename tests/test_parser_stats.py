@@ -10,7 +10,7 @@ workspace_dir = Path(r"d:\New folder\Geo-Difference_MobileSecurity")
 sys.path.append(str(workspace_dir))
 
 from pcap.pcap_parser import (
-    parse_pcap, RawEvent, _ip_to_string, _extract_tls_sni, _extract_http_host, _dns_name_to_str
+    parse_pcap, RawEvent, _ip_to_string, _extract_tls_sni, _extract_http, _dns_name_to_str
 )
 
 pcap_path = workspace_dir / "data" / "pcap" / "arrow_escape.pcap"

@@ -99,3 +99,9 @@ knowledge_base/
 This design ensures the pipeline remains entirely deterministic and memory-efficient. By consolidating all rules into `classification_rules.csv` and refusing to cache derived datasets, the architecture drastically reduces file I/O overhead and synchronization bugs. Extending the engine to handle new SDKs simply involves adding new rows to the unified rule CSV—zero changes to the underlying Python logic will be required. 
 
 This model satisfies the rigid constraints of the project, completely eliminates persistent intermediate states, and prepares an immutable, highly scalable integration for Regex Generation.
+
+## 10. Relationship to PCAP Network Knowledge Base
+
+The Knowledge Enrichment Engine described above applies exclusively to the **Static Analysis Knowledge Base** (enriching Smali bytecode findings). 
+
+For the **PCAP Network Knowledge Base**, enrichment is handled dynamically at runtime via the `NetworkContext` and its specialized matchers (`TrackerMatcher`, `GeoMapper`, `DNSResolverMatcher`, `PIIMatcher`). The PCAP pipeline does not use an in-memory rule-cascade engine; instead, its processed datasets (e.g., `trackers.csv`, `dns_resolvers.csv`) are already fully semantically enriched during their respective offline build phases and are loaded directly into specialized lookup structures (like `SuffixMatcher` or direct dictionaries).

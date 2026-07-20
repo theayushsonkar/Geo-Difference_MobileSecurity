@@ -14,7 +14,8 @@ workspace_dir = Path(r"d:\New folder\Geo-Difference_MobileSecurity")
 sys.path.append(str(workspace_dir))
 
 from pcap.pcap_parser import parse_pcap
-from pcap.geoip import GeoMapper
+from knowledge_base.dataset_manager import DatasetManager
+from pcap.network_context import NetworkContext
 from pcap.connection_builder import ConnectionBuilder
 from pcap.app_summary import AppSummaryBuilder
 
@@ -29,8 +30,10 @@ def run_test():
     print("\n" + "="*60)
     print("Step 2: Building Connections & DNS Records")
     print("="*60)
-    geo_mapper = GeoMapper()
-    conn_builder = ConnectionBuilder(geo_mapper)
+    manager = DatasetManager()
+    geo_mapper = manager.load_geolite()
+    network_context = NetworkContext(geo_mapper=geo_mapper)
+    conn_builder = ConnectionBuilder(network_context=network_context)
     build_result = conn_builder.build(events, sample_id="arrow_escape", session_id="session_123")
     
     print("\n" + "="*60)
@@ -43,7 +46,7 @@ def run_test():
         domain_geo_records=build_result.domain_geo_records
     )
     
-    geo_mapper.close()
+
 
     print("\n" + "="*60)
     print("Step 4: Printed AppSummary Fields")
@@ -57,7 +60,7 @@ def run_test():
     print(f"country_top1_code                  : {summary.country_top1_code}")
     print(f"country_top1_pct                   : {summary.country_top1_pct}")
     print(f"country_top3_pct                   : {summary.country_top3_pct}")
-    print(f"unique_countries                   : {summary.unique_countries}")
+    print(f"unique_destination_countries : {summary.unique_destination_countries}")
     print(f"dns_query_count                    : {summary.dns_query_count}")
     print(f"dns_answer_count                   : {summary.dns_answer_count}")
     print(f"aws_domain_count                   : {summary.aws_domain_count}")
@@ -74,12 +77,12 @@ def run_test():
     print(f"Is PRIVATE excluded from country_top1 calculation? {'YES' if is_private_excluded else 'NO'}")
     
     # 2. Country Counts
-    ignored = {"PRIVATE", "LOCAL", "UNKNOWN"}
-    c_set = {c.ip_country_code.upper() for c in build_result.connections if c.ip_country_code}
+    ignored = {"PRIVATE", "LOCAL", "UNKNOWN", ""}
+    c_set = {c.geo_fact.country_code.upper() for c in build_result.connections if c.geo_fact and c.geo_fact.country_code}
     c_set.update(r.country_code.upper() for r in build_result.domain_geo_records if r.country_code)
     expected_count = len(c_set - ignored)
-    unique_countries_exclude = (summary.unique_countries == expected_count)
-    print(f"Does unique_countries exclude PRIVATE/LOCAL/UNKNOWN? {'YES' if unique_countries_exclude else 'NO'} (Count: {summary.unique_countries}, Expected: {expected_count})")
+    unique_countries_exclude = (summary.unique_destination_countries == expected_count)
+    print(f"Does unique_countries exclude PRIVATE/LOCAL/UNKNOWN? {'YES' if unique_countries_exclude else 'NO'} (Count: {summary.unique_destination_countries}, Expected: {expected_count})")
     
     # 3. Cloud Provider Counts
     # Verify unique domains in GCP (e.g. googleads.g.doubleclick.net count matches 1 for that domain name rather than count of separate IPs)

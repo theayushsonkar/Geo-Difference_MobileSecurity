@@ -29,6 +29,9 @@ class RawEvent:
     dns_response_ips: list[str] = field(default_factory=list)
     tls_sni: str = ""
     http_host: str = ""
+    http_url: str = ""
+    http_headers: dict = field(default_factory=dict)
+    http_body: str = ""
     is_dns: bool = False
     is_tls: bool = False
     is_http: bool = False
@@ -174,16 +177,30 @@ def _extract_tls_sni(payload: bytes) -> str:
     return ""
 
 
-def _extract_http_host(payload: bytes) -> str:
-    """Attempts to parse payload as cleartext HTTP Request to extract the Host header."""
+def _extract_http(payload: bytes) -> tuple[str, str, dict, str]:
+    """Attempts to parse payload as cleartext HTTP Request to extract the Host, URL, Headers, and Body.
+    Returns (host, url, headers, body_str)
+    """
     try:
         req = dpkt.http.Request(payload)
         host = req.headers.get("host", "")
         if host:
-            return _clean_http_host(host)
+            host = _clean_http_host(host)
+        
+        url = req.uri
+        headers = req.headers
+        
+        body_str = ""
+        if req.body:
+            try:
+                body_str = req.body.decode('utf-8')
+            except UnicodeDecodeError:
+                body_str = req.body.decode('latin1')
+                
+        return host, url, headers, body_str
     except Exception:
         pass
-    return ""
+    return "", "", {}, ""
 
 
 def parse_pcap(path: Path) -> list[RawEvent]:
@@ -251,6 +268,9 @@ def parse_pcap(path: Path) -> list[RawEvent]:
                 dns_response_ips = []
                 tls_sni = ""
                 http_host = ""
+                http_url = ""
+                http_headers = {}
+                http_body = ""
                 is_dns = False
                 is_tls = False
                 is_http = False
@@ -291,11 +311,14 @@ def parse_pcap(path: Path) -> list[RawEvent]:
 
                     # Cleartext HTTP Host check
                     if not event_type and (dst_port in [80, 8080, 8008] or src_port in [80, 8080, 8008]) and payload_len > 0:
-                        host = _extract_http_host(tcp.data)
-                        if host:
+                        host, url, headers, body = _extract_http(tcp.data)
+                        if host or url:
                             event_type = "http"
                             is_http = True
                             http_host = host
+                            http_url = url
+                            http_headers = headers
+                            http_body = body
                             http_count += 1
 
                     # Fallback to generic TCP event
@@ -359,6 +382,9 @@ def parse_pcap(path: Path) -> list[RawEvent]:
                     dns_response_ips=dns_response_ips,
                     tls_sni=tls_sni,
                     http_host=http_host,
+                    http_url=http_url,
+                    http_headers=http_headers,
+                    http_body=http_body,
                     is_dns=is_dns,
                     is_tls=is_tls,
                     is_http=is_http,

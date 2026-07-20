@@ -40,3 +40,32 @@ Previously, detectors evolved sequentially resulting in fractured schema outputs
 The new unified architecture resolves this by wrapping all detection primitives inside the centralized `MatcherFactory`.
 
 The scanner architecture is now **production-ready** and permanently **FROZEN**.
+
+## PCAP Network Matchers
+
+While the Static Analysis matchers use the singleton `MatcherFactory`, the PCAP Network Knowledge Base uses a dependency-injection architecture via `NetworkContext`.
+
+### PCAP Architecture Diagram
+```mermaid
+flowchart TD
+    CB[ConnectionBuilder] -->|uses| NC[NetworkContext]
+    DMgr[DatasetManager] -->|loads data for| NC
+    NC -->|provides| TM[TrackerMatcher]
+    NC -->|provides| GMM[GeoMapper]
+    NC -->|provides| DRM[DNSResolverMatcher]
+    NC -->|provides| PII[PIIMatcher]
+    
+    TM -.->|inherits| SM[SuffixMatcher]
+    DRM -.->|inherits| SM[SuffixMatcher]
+    
+    TM -->|returns| TF[TrackerFact]
+    GMM -->|returns| GF[GeoFact / ASNFact]
+    DRM -->|returns| DF[DNSResolverFact]
+    PII -->|returns| PIF[PIIFact]
+```
+
+### PCAP Matcher Lifecycle
+1. **Orchestration**: `DatasetManager` loads frozen processed datasets (e.g., `trackers.csv`, `pii_patterns.csv`) from disk.
+2. **Initialization**: The PCAP matchers (`TrackerMatcher`, `GeoMapper`, `DNSResolverMatcher`, `PIIMatcher`) are instantiated and injected into `NetworkContext`.
+3. **Invocation**: `ConnectionBuilder` applies these matchers per connection flow to augment `ConnectionRecord` objects with deterministic factual metadata (`TrackerFact`, `GeoFact`, etc.).
+4. **Caching**: Matchers like `TrackerMatcher` utilize internal LRU caching (e.g., `@functools.lru_cache`) to optimize repeated lookups across high-volume network streams.

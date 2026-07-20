@@ -1,0 +1,19 @@
+{
+    "Google": ["google", "firebase", "crashlytics", "doubleclick", "admob", "anvato", "youtube"],
+    "Meta": ["facebook", "instagram", "whatsapp", "meta", "audience network"],
+    "Amazon": ["amazon", "aws"],
+    "Microsoft": ["microsoft", "bing", "skype", "linkedin"],
+    "Twitter": ["twitter", "mopub"],
+    "Yandex": ["yandex"],
+    "Unity": ["unity"],
+    "Yahoo": ["yahoo", "flurry"],
+    "Alibaba": ["alibaba", "alipay", "taobao", "umeng", "aliyun"],
+    "Tencent": ["tencent", "wechat", "qq"],
+    "ByteDance": ["bytedance", "tiktok", "pangle"],
+    "AppsFlyer": ["appsflyer"],
+    "Adjust": ["adjust"],
+    "Kochava": ["kochava"],
+    "Branch": ["branch"],
+    "InMobi": ["inmobi"],
+    "AppLovin": ["applovin", "max"]
+}

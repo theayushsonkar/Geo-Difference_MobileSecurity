@@ -1,0 +1,45 @@
+import sys, traceback
+from pathlib import Path
+ROOT = Path(".").resolve()
+sys.path.insert(0, str(ROOT))
+
+from pcap.pcap_parser import parse_pcap
+from pcap.connection_builder import ConnectionBuilder
+from pcap.network_context import NetworkContext
+from pcap.matchers.pii_matcher import PIIMatcher
+from pcap.matchers.dns_resolver_matcher import DNSResolverMatcher
+from pcap.matchers.tracker_matcher import TrackerMatcher
+from knowledge_base.dataset_manager import DatasetManager
+
+import logging
+logging.basicConfig(level=logging.WARNING)
+
+manager = DatasetManager()
+geo_mapper = manager.load_geolite()
+tracker_facts = manager.load_network_trackers()
+tracker_matcher = TrackerMatcher(tracker_facts)
+dns_facts = manager.load_dns_resolvers()
+dns_dict = {r.ip_address: r.__dict__ for r in dns_facts}
+dns_matcher = DNSResolverMatcher(dns_dict)
+pii_patterns = manager.load_pii_patterns()
+pii_matcher = PIIMatcher(pii_patterns)
+
+ctx = NetworkContext(
+    tracker_matcher=tracker_matcher,
+    geo_mapper=geo_mapper,
+    dns_resolver_matcher=dns_matcher,
+    pii_matcher=pii_matcher,
+)
+conn_builder = ConnectionBuilder(network_context=ctx)
+
+test_pcap = Path("data/pcap/com.july.cricinfo_in.pcap")
+try:
+    events = parse_pcap(test_pcap)
+    for ev in events:
+        domain = getattr(ev, 'domain', getattr(ev, 'query_name', ''))
+        if domain:
+            tf = tracker_matcher.match(domain)
+            if tf and isinstance(tf, dict):
+                print(f"DICT FOUND for domain: {domain}, dict: {tf}")
+except Exception as e:
+    traceback.print_exc()

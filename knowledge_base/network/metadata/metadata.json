@@ -1,0 +1,17 @@
+{
+    "trackers": {
+        "datasets": {
+            "Exodus": {
+                "version": "1.0",
+                "download_url": "https://reports.exodus-privacy.eu.org/api/trackers"
+            },
+            "EasyPrivacy": {
+                "version": "202607171607",
+                "download_url": "https://easylist.to/easylist/easyprivacy.txt"
+            }
+        },
+        "builder_version": "2.0",
+        "generation_timestamp": "2026-07-17T16:40:17Z",
+        "license": "MIT"
+    }
+}

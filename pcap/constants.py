@@ -192,10 +192,7 @@ PII_PATTERNS: dict[str, list[str]] = {
     ],
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
-# HIGH RISK COUNTRIES (data sovereignty perspective for India)
-# ─────────────────────────────────────────────────────────────────────────────
-HIGH_RISK_COUNTRIES: set[str] = {"CN", "RU", "IR", "KP"}
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHINESE CLOUD PROVIDERS (ASN org names to match)

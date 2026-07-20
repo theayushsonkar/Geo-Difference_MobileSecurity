@@ -1,0 +1,20 @@
+pattern_name,category,regex,source_reference,source_dataset,confidence
+Android ID,Hardware,\b[0-9a-fA-F]{16}\b,Android Developer Docs,Android Docs,HIGH
+Bearer Token,Authentication,\bBearer\s+[A-Za-z0-9\-\._~\+\/]+\b,RFC 6750,Android Docs,HIGH
+Bitcoin Address,Financial,"\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b",Presidio,Presidio,MEDIUM
+Credit Card,Financial,\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})\b,Presidio,Presidio,MEDIUM
+Email Address,Identity,\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b,Android Docs,HIGH
+ICCID,Hardware,"\b89[0-9]{16,18}\b",ITU-T E.118,Android Docs,HIGH
+IMEI,Hardware,\b(?:[0-9]{15})\b,3GPP TS 23.003,Android Docs,HIGH
+IMSI,Hardware,"\b(?:[0-9]{14,15})\b",ITU-T E.212,Android Docs,HIGH
+IPv4,Network,\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b,RFC 791,Android Docs,HIGH
+JWT Token,Authentication,\beyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b,RFC 7519,Android Docs,HIGH
+Latitude,Location,"\b(?:lat|latitude)=(-?\d{1,2}\.\d+)\b",WGS 84,Android Docs,HIGH
+Longitude,Location,"\b(?:lon|lng|longitude)=(-?\d{1,3}\.\d+)\b",WGS 84,Android Docs,HIGH
+MAC Address,Hardware,\b(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})\b,IEEE 802,Android Docs,HIGH
+Phone Number,Identity,"\b\+(?:[0-9]\s?){6,14}[0-9]\b",ITU-T E.164,Android Docs,HIGH
+SSID,Network,\b(?:ssid)=([^&]+)\b,IEEE 802.11,Android Docs,HIGH
+Session ID,Authentication,\b(?:session_id|sessionId|sid)=([A-Za-z0-9_-]+)\b,OWASP,Android Docs,HIGH
+UK NHS,Identity,\b[0-9]{3}\s?[0-9]{3}\s?[0-9]{4}\b,Presidio,Presidio,MEDIUM
+US SSN,Identity,\b(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}\b,Presidio,Presidio,MEDIUM
+UUID,Hardware,\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b,RFC 4122,Android Docs,HIGH

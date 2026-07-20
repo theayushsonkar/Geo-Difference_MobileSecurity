@@ -165,7 +165,6 @@ Aggregates the three fact tables into a single `AppSummary` row covering 13 metr
 | Tracker statistics | `tracker_domain_count`, `tracker_vendor_count`, `tracker_category_count`, `top_tracker_vendor` |
 | DNS statistics | `dns_query_count`, `hardcoded_dns_detected`, `doh_detected`, `avg_dns_response_count` |
 | Anti-analysis | `anti_analysis_detected`, `anti_analysis_domain_count` |
-| Geographic risk | `high_risk_country_domain_count`, `high_risk_country_pct` (based on `HIGH_RISK_COUNTRIES = {CN, RU, IR, KP}`) |
 | Cloud exposure | `aws_domain_count`, `google_cloud_domain_count`, `alibaba_domain_count`, `tencent_domain_count` |
 
 Country concentration metrics exclude `PRIVATE`, `LOCAL`, and `UNKNOWN` codes, ensuring that carrier NAT hops and local DNS resolvers do not inflate the top-country percentage.
@@ -205,7 +204,7 @@ One row per unique 6-tuple bucket `(sample_id, session_id, domain, dst_ip, dst_p
 | `payload_bytes_total` | Total L4 payload bytes |
 | `first_seen` / `last_seen` | Unix timestamps |
 | `tracker_matched`, `sdk_name`, `canonical_vendor`, `sdk_category` | Tracker identity |
-| `ip_country_code`, `ip_country_name`, `ip_asn`, `ip_asn_org` | GeoIP enrichment |
+| `geo_country_code`, `geo_country_name`, `asn_number`, `asn_org` | GeoLite2 enrichment |
 | `is_tls`, `is_quic`, `is_dns`, `is_http` | Protocol evidence flags |
 | `is_nonstandard_port`, `is_hardcoded_dns`, `is_anti_analysis_probe` | Security flags |
 

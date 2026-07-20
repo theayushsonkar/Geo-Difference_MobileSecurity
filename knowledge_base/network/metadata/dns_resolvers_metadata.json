@@ -1,0 +1,15 @@
+{
+    "version": "2.0",
+    "build_timestamp": 1784315401,
+    "build_duration_sec": 0.05,
+    "total_resolvers": 614,
+    "providers": 14,
+    "dnscrypt": {
+        "version": "v3",
+        "source_url": "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+    },
+    "override": {
+        "version": "1.0",
+        "sha256": "3eb504ea35d308b465256cf9b94e2ec45d143678c1c1797a6cb9a6593c29ba2a"
+    }
+}

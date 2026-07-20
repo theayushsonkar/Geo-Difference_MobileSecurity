@@ -1,0 +1,11 @@
+{
+    "rows_dnscrypt": 923,
+    "rows_override": 36,
+    "duplicates_removed": 321,
+    "conflicts_resolved": 24,
+    "final_resolver_count": 614,
+    "provider_count": 14,
+    "num_community": 505,
+    "num_high": 36,
+    "num_medium": 578
+}

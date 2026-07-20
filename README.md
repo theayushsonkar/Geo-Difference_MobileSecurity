@@ -1,221 +1,174 @@
-# Geo-Difference Mobile Security Research Pipeline
+# Geo-Difference Mobile Security Research System
 
-This repository contains the end-to-end research pipeline for the **Geo-Difference Mobile Security** project. The pipeline is designed to study regional differences in Android applications across three main dimensions:
-1. **Static Manifest Configurations** (Permissions, components, cleartext traffic policies, security configurations).
-2. **Vulnerability Landscapes (CVE)** (Embedded libraries and their associated public vulnerabilities).
-3. **Dynamic Network Behavior (PCAP)** (Active network hosts, tracker endpoints, DNS query patterns, and country-hosting distributions).
+> **Status:** Production-Ready & Frozen for Final Data Collection.  
+> **Documentation:** See [`Tracker.md`](Tracker.md) for full project roadmap and task status.
+
+## Abstract
+
+This repository contains the end-to-end static and dynamic analysis pipeline for the **Geo-Difference Mobile Security** project. The system is designed to perform large-scale, automated security and privacy audits of Android applications to study regional disparities across three primary dimensions:
+
+1. **Static Manifest & Code Configurations**: Declarations of permissions, components, custom network security configurations (NSC), and hardcoded privacy API flows.
+2. **Vulnerability Landscapes**: Discovery of embedded third-party SDKs and resolution of their versions against the National Vulnerability Database (NVD).
+3. **Dynamic Network Behavior**: Automated PCAP capture and deep packet inspection (DPI) to measure tracking telemetry, PII leakage, geographic server hosting, and DNS resolution paths.
 
 ---
 
 ## 1. Architectural Blueprint
 
-The pipeline is split into three phases: **Ingestion**, **Static Analysis (Manifest & CVE)**, and **Dynamic Analysis (PCAP Collection & Aggregation)**.
+The pipeline operates in three distinct phases: **Ingestion**, **Static Analysis**, and **Dynamic Analysis**.
 
-```text
-                                  +-----------------------+
-                                  |      scrapper.py      |  <-- Geographically target top apps
-                                  +-----------+-----------+
-                                              |
-                                              ▼
-                                  +-----------------------+
-                                  |   download_apks.py    |  <-- Fetch APKs/Split-APKs
-                                  +-----------+-----------+
-                                              |
-                                              ▼
-                                  +-----------------------+
-                                  |  normalize_packages.py|  <-- Standardize local names
-                                  +-----------+-----------+
-                                              |
-                                              ▼
-                                  +-----------------------+
-                                  |    decode_apks.py     |  <-- Run Apktool to extract raw XML/Smali
-                                  +-----------+-----------+
-                                              |
-                                              ▼
-                                  +-----------------------+
-                                  | build_sample_index.py |  <-- Register hashes & country metadata
-                                  +-----------+-----------+
-                                              |
-                       +----------------------+----------------------+
-                       |                                             |
-                       ▼                                             ▼
-          +-------------------------+                   +-------------------------+
-          |    scan_manifest.py     |                   |    collect_pcap.py      |
-          |   (manifest_scanner)    |                   | (ADB + PCAPdroid + UI)  |
-          +------------+------------+                   +------------+------------+
-                       |                                             |
-                       ▼                                             ▼
-          +-------------------------+                   +-------------------------+
-          |      cve/main.py        |                   |  run_pcap_analysis.py   |
-          |  (NVD Vulnerability)    |                   |       (pcap/*)          |
-          +------------+------------+                   +------------+------------+
-                       |                                             |
-                       +----------------------+----------------------+
-                                              |
-                                              ▼
-                                  +-----------------------+
-                                  |   Downstream Pandas   |  <-- Join all facts on sample_id
-                                  | & SciPy Data Analysis |      & package_name
-                                  +-----------------------+
+```mermaid
+flowchart TD
+    %% Styling
+    classDef phase fill:#f0f6ff,stroke:#0366d6,stroke-width:2px,color:#0366d6,font-weight:bold
+    classDef output fill:#e6ffed,stroke:#28a745,color:#24292e,font-weight:bold
+
+    subgraph Phase_A [Phase A — Ingestion]
+        direction TB
+        A1[Scraper] --> A2[APKeep Downloader]
+        A2 --> A3[XAPK Normalizer]
+        A3 --> A4[Apktool Decoder]
+        A4 --> A5[Index Builder]
+    end
+    class Phase_A phase
+    A5 -->|sample_index.csv| O1([Master Registry])
+    class O1 output
+
+    subgraph Phase_B [Phase B — Static Analysis]
+        direction TB
+        B1[Manifest Scanner] --> B1a(Privacy / Secret / Geo Matchers)
+        B2[SDK Detection] --> B2a(LibScan + Fallback)
+        B2a --> B3(CVE Version Constraint Resolution)
+    end
+    class Phase_B phase
+
+    O1 --> B1
+    O1 --> B2
+    B1a --> O2([Static Datasets])
+    B3 --> O3([Vulnerability Datasets])
+    class O2,O3 output
+
+    subgraph Phase_C [Phase C — Dynamic Analysis]
+        direction TB
+        C1[ADB Monkey UI Automation] --> C2(PCAPdroid Capture)
+        C2 --> C3[Network Traffic Parser]
+        C3 --> C4(Network Knowledge Base)
+        C4 -->|Tracker, GeoIP, DNS, PII| C5(Connection Builder)
+    end
+    class Phase_C phase
+
+    O1 --> C1
+    C5 --> O4([Network Datasets])
+    class O4 output
 ```
 
 ---
 
-## 2. Phase-by-Phase Process & Logic
+## 2. Core Modules & Knowledge Bases
 
-### Phase A: Ingestion & Environment Setup
+The system is powered by deterministic Knowledge Bases (`knowledge_base/`) that separate offline intelligence gathering from runtime scanning. See [Knowledge Base README](knowledge_base/docs/README.md) for full architectural details.
 
-#### 1. Target Scraping (`scrapper.py`)
-*   **Logic:** Queries Google Play Store across specified target country codes (e.g., `in`, `us`, `de`, `ru`) and categories to list the top free apps.
-*   **Output:** Generates `output/top_apps_full.csv` containing metadata (release date, price, categories, ranking).
-*   **Subsequent step:** `pipeline/prepare_india_package_list.py` parses this master list to generate localized text files of target package IDs (e.g., `data/package_lists/india_packages.txt`).
+### 🔬 Static Analysis Knowledge Base
+Evaluates decompiled Smali bytecode and `AndroidManifest.xml` via `MatcherFactory`.
+*   **Privacy APIs:** Aho-Corasick automaton tracking 9,300+ Android and GMS APIs (built from Axplorer + PScout).
+*   **Hardcoded Secrets:** 700+ regex patterns adapted from TruffleHog.
+*   **Geo-Logic Sinks:** FlowDroid rules tracking implicit location-gathering behavior.
 
-#### 2. APK Downloader (`pipeline/download_apks.py`)
-*   **Logic:** Connects to Play Store/APKeep services, downloads the APK binaries (supporting single APKs and split APK bundles).
-*   **Output:** Files saved under `apks/<package_name>/*.apk`.
+### 🌐 PCAP Network Knowledge Base
+Enriches raw 6-tuple network connections dynamically via `NetworkContext`.
+*   **Tracker Detection:** Longest-suffix domain matcher with 47,000+ rules from Exodus Privacy and EasyPrivacy.
+*   **GeoIP Attribution:** Binary IP-to-country and IP-to-ASN resolution via MaxMind GeoLite2.
+*   **DNS Resolver Mapping:** O(1) IP resolution to 14 canonical DNS providers using dnscrypt-resolvers.
+*   **PII Detection:** Regex + validator engine (Luhn, E.164, RFC standards) tracking IMEI, IPv4, UUID, and Location leaks in HTTP headers, URLs, and DNS names.
 
-#### 3. Normalization (`pipeline/normalize_packages.py`)
-*   **Logic:** Cleans package structures, ensures filenames match their package IDs, and verifies that no corrupted files exist before decompression.
-
-#### 4. Decompilation/Decoding (`pipeline/decode_apks.py`)
-*   **Logic:** Runs `apktool` on all APKs inside `apks/` to reconstruct their layout, extract human-readable `AndroidManifest.xml`, resources, and Smali bytecode files.
-*   **Output:** Extracted folders are saved to `decoded/<package_name>_decoded/`.
-
-#### 5. Sample Index Building (`pipeline/build_sample_index.py`)
-*   **Logic:** Indexes decoded and downloaded directories, computes SHA256 hashes of the files, and links each file structure to its targeted country market.
-*   **Output:** Creates the master project database `sample_index.csv` in the root folder. All subsequent analysis steps join their outputs against this index using the unique `sample_id` key (format: `{package_name}_{country_code}`).
-
----
-
-### Phase B: Static Analysis Stage
-
-#### 6. Manifest Scanner (`scan_manifest.py` invoking `manifest_scanner/`)
-*   **Logic:** Inspects `AndroidManifest.xml` statically.
-    *   **Components:** Extracts list of Activities, Services, Receivers, and Providers. Flags if components are `exported`. For Android 12+ (SDK 31+), it validates if `android:exported` is explicitly configured.
-    *   **Cleartext Policy:** Extracts `android:usesCleartextTraffic` configurations to track if cleartext HTTP is allowed.
-    *   **Network Security Config:** Parses the XML references pointing to custom network policies to identify if user-installed certificates or cleartext domains are allowed.
-*   **Output:** Structured CSV tables in `output/manifest/` tracking permissions, components, and policy rules.
-
-#### 7. CVE Matching Stage (`cve/main.py`)
-*   **Logic:** Matches physical libraries discovered in the app's DEX files against known CVE records:
-    *   Loads vulnerability records from the National Vulnerability Database (NVD) via `nvd_loader.py`.
-    *   Determines library package namespaces and versions.
-    *   Runs the matcher (`matcher.py`) to map identified versions to corresponding CVE codes.
-*   **Output:** Tabular reports of matching CVEs, CVSS scores, and vector configurations.
-
----
-
-### Phase C: Dynamic Analysis Stage
-
-#### 8. Automated Capture Collection (`collect_pcap.py`)
-*   **Logic:** Installs, captures, and cleans up apps on an Android device:
-    *   Installs APK/split-APKs from `apks/<package_name>/` using ADB.
-    *   Sends an intent to **PCAPdroid** to start capturing network packets. The capture is filtered *specifically* to the target app's package name so no background system traffic is recorded.
-    *   Launches the app and runs the Android **Monkey UI exerciser** to simulate random user taps, scrolls, and key presses for a set duration to trigger network requests.
-    *   Force-stops the target app, stops the PCAPdroid capture, pulls the `.pcap` capture file to `data/pcap/{sample_id}.pcap` on the host PC, and uninstalls the app from the device.
-*   **Key Parameters:**
-    *   `--capture-time`: Duration to capture traffic (default: 60s).
-    *   `--monkey-events`: Amount of random UI actions to inject (default: 500).
-
-#### 9. Traffic Analysis & Geolocation (`run_pcap_analysis.py` invoking `pcap/`)
-*   **Logic:** Converts raw packet files (`.pcap`/`.pcapng`) into tabular datasets:
-    *   `pcap_parser.py`: Uses `dpkt` to parse packets. Resolves domains using DNS queries, HTTP Host headers, and TLS ClientHello Server Name Indication (SNI) extensions.
-    *   `tracker_matcher.py`: Suffix-matches hostnames against tracker rules and resolves them to parent canonical vendor entities (e.g., `Google`, `Unity`).
-    *   `geoip.py`: Queries IP geolocations, ASN numbers, and hosting organizations. Implements single-caching to prevent rate-limit blocks and dual-state inconsistency.
-    *   `connection_builder.py`: Aggregates packets into logical sessions grouped by 6-tuple: `(sample_id, session_id, domain, dst_ip, dst_port, protocol)`.
-    *   `app_summary.py`: Compiles aggregates. Computes country-hosting concentrations **excluding private/local network ranges** (`10.x.x.x`, `192.168.x.x`, `172.16.x.x`, or `PRI`) to prevent routing hops from corrupting results.
+### 🛡️ Vulnerability Matching (CVE)
+Resolves canonical SDK strings output by LibScan against 25 years of NIST NVD data, mapping version numbers directly to CVE IDs via CPE constraint resolution.
 
 ---
 
 ## 3. Data Schema & Core Identifiers
 
-### Primary Keys & Join Paths
-*   **`sample_id`**: Master key (e.g., `com.bgfa_in`). Format is `{package_name}_{country_code}`.
-*   **`package_name`**: Standard package identifier (e.g., `com.bgfa`).
+All generated output datasets use a universal primary key, enabling relational joins across static and dynamic findings for cross-country statistical analysis.
 
-Any researcher or analytical engine can join static features (Manifest component counts, CVE risks) and dynamic features (tracker counts, TLS encryption percentages, top-country hosting) using simple Pandas joins:
+*   **`sample_id`**: Master key format `{package_name}_{country_code}` (e.g., `com.whatsapp_in`).
+*   **`package_name`**: Application identifier.
+
+### Sample Analysis Join
 ```python
 import pandas as pd
 
-manifest_df = pd.read_csv("output/manifest_features.csv")
+# Load structural configurations
+manifest_df = pd.read_csv("output/manifest_apps.csv")
+# Load vulnerability vectors
+cve_df = pd.read_csv("output/cve/app_cve_summary.csv")
+# Load runtime network behaviors
 pcap_summary_df = pd.read_csv("output/pcap/pcap_app_summary.csv")
 
-# Join on sample_id
-merged_dataset = pd.merge(manifest_df, pcap_summary_df, on="sample_id")
+# Join on universal key for country-level analysis
+merged_dataset = manifest_df.merge(cve_df, on="sample_id").merge(pcap_summary_df, on="sample_id")
 ```
 
 ---
 
-## 4. End-to-End Command Execution Guide
+## 4. End-to-End Execution Guide
 
-From the root project directory:
+From the root project directory, run the pipeline stages sequentially:
 
-### Step 1: Prep Package List
+### Phase A: Environment & App Prep
 ```powershell
+# 1. Target generation
 python pipeline/prepare_india_package_list.py
-```
 
-### Step 2: Download APK Binaries
-```powershell
-python pipeline/download_apks.py --packages data/package_lists/india_packages.txt --source google-play --limit 5
-```
+# 2. Authenticated retrieval
+python pipeline/download_apks.py --packages data/package_lists/india_packages.txt --source google-play
 
-### Step 3: Normalize Local Layouts
-```powershell
+# 3. File structure normalization
 python pipeline/normalize_packages.py
-```
 
-### Step 4: Decompile/Decode APK Files
-```powershell
+# 4. Decompilation (Apktool)
 python pipeline/decode_apks.py
-```
 
-### Step 5: Build Master Index
-```powershell
+# 5. Registry instantiation
 python pipeline/build_sample_index.py --app-store google-play
 ```
 
-### Step 6: Scan Application Manifests
+### Phase B: Static Processing
 ```powershell
+# 6. Manifest & Smali Code Scanning
 python scan_manifest.py --input-dir decoded/ --output-dir output/manifest/ --sample-index sample_index.csv
-```
 
-### Step 7: Run CVE Vulnerability Analysis
-```powershell
+# 7. Vulnerability Resolution
 python cve/main.py --input-dir decoded/ --output-dir output/cve/ --sample-index sample_index.csv
 ```
 
-### Step 8: Capture Live Traffic on Connected Device
+### Phase C: Dynamic Processing
 ```powershell
-# Interactive mode (checks with you before processing each app)
+# 8. Interactive Capture (Requires connected ADB device)
 python collect_pcap.py --capture-time 60 --monkey-events 500
 
-# Automated mode (runs all apps, skips already captured, non-interactive)
-python collect_pcap.py --auto --skip-captured --capture-time 60 --monkey-events 500
-```
-
-### Step 9: Parse Captured PCAPs
-```powershell
+# 9. Headless Packet Analysis & Enrichment
 python run_pcap_analysis.py --input-dir data/pcap --output-dir output/pcap --sample-index sample_index.csv
 ```
 
 ---
 
-## 5. Repository Layout
+## 5. Repository Structure
 
-**Production code:**
-- `cve/`
-- `manifest_scanner/`
-- `sdk_detection/`
-- `pcap/`
-- `pipeline/`
-- `knowledge_base/`
+This repository strictly separates production engines from validation scripts and historical research artifacts.
 
-**Developer tools:**
-- `tools/`
+| Path | Purpose |
+|------|---------|
+| **`cve/`** | NVD JSON feed parser and CPE version-constraint matcher. |
+| **`manifest_scanner/`** | Manifest XML parser and Smali bytecode analyzer. |
+| **`sdk_detection/`** | LibScan runner, FallbackDetector, and Canonicalizer. |
+| **`pcap/`** | DPI packet parser, connection builder, and NetworkContext engine. |
+| **`pipeline/`** | Pre-processing scripts (download, normalize, decode, index). |
+| **`knowledge_base/`** | Centralized, immutable intelligence definitions (Static + PCAP). |
+| **`data/`** | NVD feeds, MaxMind MMDBs, raw PCAPs, and static lists. |
+| **`tools/`** | Validation, audit, and benchmark scripts (non-production). |
+| **`research_archive/`** | Historical reports generated during Knowledge Base creation. |
+| **`docs/`** | Architecture guides, module documentation, and constraint outlines. |
 
-**Historical artifacts:**
-- `research_archive/`
+---
 
-**Documentation:**
-- `docs/`
+> For detailed limitation outlines on the deterministic Knowledge Bases, refer to [`docs/KB_LIMITATIONS.md`](docs/KB_LIMITATIONS.md).

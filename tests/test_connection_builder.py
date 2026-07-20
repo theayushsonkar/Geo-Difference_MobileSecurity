@@ -16,8 +16,10 @@ workspace_dir = Path(r"d:\New folder\Geo-Difference_MobileSecurity")
 sys.path.append(str(workspace_dir))
 
 from pcap.pcap_parser import parse_pcap
-from pcap.geoip import GeoMapper
 from pcap.connection_builder import ConnectionBuilder
+from pcap.network_context import NetworkContext
+from pcap.schemas import GeoFact, ASNFact
+from unittest.mock import MagicMock
 
 pcap_path = workspace_dir / "data" / "pcap" / "arrow_escape.pcap"
 
@@ -29,9 +31,13 @@ events = parse_pcap(pcap_path)
 print("\n" + "="*60)
 print("Step 2: Initializing GeoMapper and ConnectionBuilder")
 print("="*60)
-# Initialize GeoMapper. Since data/geoip/ is empty, it will fall back to ip-api.com
-geo_mapper = GeoMapper()
-builder = ConnectionBuilder(geo_mapper)
+# Mock GeoMapper
+geo_mapper_mock = MagicMock()
+geo_mapper_mock.lookup_geo.return_value = GeoFact(ip="8.8.8.8", country_code="US", country_name="United States", continent="NA")
+geo_mapper_mock.lookup_asn.return_value = ASNFact(ip="8.8.8.8", asn="15169", organization="Google LLC", organization_type="")
+
+network_context = NetworkContext(geo_mapper=geo_mapper_mock)
+builder = ConnectionBuilder(network_context=network_context)
 
 print("\n" + "="*60)
 print("Step 3: Building Connection, DNS, and Geo Records")
@@ -57,7 +63,7 @@ for idx, (dom, count) in enumerate(domain_counts.most_common(20), 1):
 # Top 20 countries
 country_counts = Counter()
 for c in result.connections:
-    cc = c.ip_country_code or "Unknown"
+    cc = c.geo_fact.country_code if c.geo_fact else "Unknown"
     country_counts[cc] += c.connection_count
 print("\nTop 20 Countries (by connection count):")
 for idx, (cc, count) in enumerate(country_counts.most_common(20), 1):
@@ -66,7 +72,7 @@ for idx, (cc, count) in enumerate(country_counts.most_common(20), 1):
 # Top 20 ASNs
 asn_counts = Counter()
 for c in result.connections:
-    asn = c.ip_asn_org or "Unknown"
+    asn = c.asn_fact.organization if c.asn_fact else "Unknown"
     asn_counts[asn] += c.connection_count
 print("\nTop 20 ASNs (by connection count):")
 for idx, (asn, count) in enumerate(asn_counts.most_common(20), 1):
@@ -113,8 +119,8 @@ is_deduped = len(geo_pairs) == len(set(geo_pairs))
 has_trackers = any(r.tracker_matched for r in result.connections)
 
 # ASN/Country check
-has_asn = any(r.ip_asn != "" for r in result.connections if r.ip_country_code != "PRIVATE")
-has_country = any(r.ip_country_code != "" for r in result.connections if r.ip_country_code != "PRIVATE")
+has_country = any(r.geo_fact and r.geo_fact.country_code != "" and r.geo_fact.country_code != "PRIVATE" for r in result.connections)
+has_asn = any(r.asn_fact and r.asn_fact.asn != "" for r in result.connections if r.geo_fact and r.geo_fact.country_code != "PRIVATE")
 
 # Anti-analysis
 has_anti = any(r.is_anti_analysis_probe for r in result.connections)
@@ -131,5 +137,3 @@ print(f"6. Are country fields populated? {'YES' if has_country else 'NO'}")
 print(f"7. Are anti-analysis probes detected? {'YES' if has_anti else 'NO'}")
 print(f"8. Are nonstandard ports detected? {'YES' if has_nonstd else 'NO'}")
 
-# Clean up mapper
-geo_mapper.close()

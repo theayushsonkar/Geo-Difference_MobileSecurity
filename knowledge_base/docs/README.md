@@ -10,6 +10,44 @@ The `knowledge_base` module is the detection intelligence layer of a large-scale
 
 ---
 
+## Table of Contents
+
+### Part I — Static Analysis Knowledge Base
+
+1. [Architectural Overview](#1-architectural-overview)
+2. [The Canonical Data Model](#2-the-canonical-data-model)
+3. [Dataset Sources and Import Pipeline](#3-dataset-sources-and-import-pipeline)
+   - 3.1 [Axplorer](#31-axplorer)
+   - 3.2 [PScout](#32-pscout)
+   - 3.3 [Google Play Services (GMS)](#33-google-play-services-gms)
+   - 3.4 [TruffleHog Secret Patterns](#34-trufflehog-secret-patterns)
+   - 3.5 [FlowDroid Geo-Logic Rules](#35-flowdroid-geo-logic-rules)
+4. [Database Merge Pipeline](#4-database-merge-pipeline)
+5. [Runtime Detection Engine](#5-runtime-detection-engine)
+   - 5.1 [MatcherFactory and CacheManager](#51-matcherfactory-and-cachemanager)
+   - 5.2 [Knowledge Enrichment Engine](#52-knowledge-enrichment-engine)
+   - 5.3 [Privacy Matcher — Aho-Corasick](#53-privacy-matcher--aho-corasick)
+   - 5.4 [Secret Matcher — Compiled Regex](#54-secret-matcher--compiled-regex)
+   - 5.5 [Geo Matcher — Rule-Based Regex](#55-geo-matcher--rule-based-regex)
+6. [Schema Layer](#6-schema-layer)
+7. [Canonical Database Summary](#7-canonical-database-summary)
+8. [End-to-End Runtime Flow](#8-end-to-end-runtime-flow)
+9. [References](#9-references)
+
+### Part II — PCAP Network Knowledge Base
+
+10. [PCAP KB Architectural Overview](#10-pcap-kb-architectural-overview)
+11. [Shared Infrastructure](#11-shared-infrastructure)
+12. [Tracker Knowledge Base](#12-tracker-knowledge-base)
+13. [GeoLite2 Knowledge Base](#13-geolite2-knowledge-base)
+14. [DNS Resolver Knowledge Base](#14-dns-resolver-knowledge-base)
+15. [PII Detection Knowledge Base](#15-pii-detection-knowledge-base)
+16. [PCAP KB Canonical Database Summary](#16-pcap-kb-canonical-database-summary)
+17. [PCAP End-to-End Runtime Flow](#17-pcap-end-to-end-runtime-flow)
+18. [PCAP References](#18-pcap-references)
+
+---
+
 ## 1. Architectural Overview
 
 The module enforces a strict data flow boundary:
@@ -525,3 +563,378 @@ scan_manifest.py
 - Au, K. W. Y., et al. (2012). PScout: Analyzing the Android permission specification. *Proceedings of CCS 2012*.
 - Backes, M., et al. (2016). Demystifying the Semantics of Personal Data. *Proceedings of CCS 2016* (Axplorer).
 - Trufflesecurity. (2023). TruffleHog: Find leaked credentials. https://github.com/trufflesecurity/trufflehog
+
+---
+---
+
+# Part II — PCAP Network Knowledge Base
+
+## 10. PCAP KB Architectural Overview
+
+The PCAP Network Knowledge Base is the dynamic enrichment intelligence layer of the pipeline, operating on **live captured network traffic** (PCAP files) from Android applications. Where the Static Analysis KB produces findings from decompiled bytecode, the PCAP KB enriches raw connection-level facts extracted by `pcap_parser.py` and assembled into `ConnectionRecord` objects by `ConnectionBuilder`.
+
+The PCAP KB is composed of **four independent, deterministic enrichment modules**, each following the same build-time / runtime separation enforced by the Static Analysis KB:
+
+```
+┌─────────────────────────────────────────────────────┐
+│                OFFLINE BUILD PHASE                  │
+│                                                     │
+│  Exodus + EasyPrivacy ──► trackers.csv              │
+│  dnscrypt-resolvers   ──► dns_resolvers.csv         │
+│    + public_dns.csv                                 │
+│  MaxMind GeoLite2     ──► (binary .mmdb files)      │
+│  pii_rules.csv        ──► pii_patterns.csv          │
+│    + presidio_rules.csv                             │
+└───────────────────────────┬─────────────────────────┘
+                            │  Frozen Processed Datasets
+                            │
+┌───────────────────────────▼─────────────────────────┐
+│                 RUNTIME ENGINE                      │
+│                                                     │
+│  NetworkContext                                     │
+│    └─► TrackerMatcher    (suffix-trie)              │
+│    └─► GeoMapper         (MaxMind reader)           │
+│    └─► DNSResolverMatcher (IP dict lookup)          │
+│    └─► PIIMatcher        (master regex + validator) │
+│                                                     │
+│  Input:  PacketEvent stream from pcap_parser.py     │
+│  Output: ConnectionRecord with enriched Fact fields │
+└─────────────────────────────────────────────────────┘
+```
+
+The runtime engine **never reads raw upstream sources at scan time**. All enrichment operates exclusively on the frozen processed datasets produced during the offline build phase, ensuring reproducibility across all PCAP scans.
+
+---
+
+## 11. Shared Infrastructure
+
+All four PCAP KB modules share a common infrastructure defined in `knowledge_base/network/`:
+
+### DatasetManager (`knowledge_base/dataset_manager.py`)
+
+The single entry point for loading any processed KB dataset into the runtime. All four matchers are instantiated via `DatasetManager` methods:
+
+| Method | Returns | Used By |
+|---|---|---|
+| `load_network_trackers()` | `List[TrackerFact]` | `TrackerMatcher` |
+| `load_geolite()` | `GeoMapper` | `ConnectionBuilder` |
+| `load_dns_resolvers()` | `List[DNSResolverFact]` | `DNSResolverMatcher` |
+| `load_pii_patterns()` | `List[dict]` | `PIIMatcher` |
+
+### NetworkContext (`pcap/network_context.py`)
+
+A lightweight dependency-injection container that holds all four matcher instances and is passed to `ConnectionBuilder` at construction time. This decouples the matcher lifecycle from any individual PCAP scan.
+
+```python
+ctx = NetworkContext(
+    tracker_matcher      = TrackerMatcher(tracker_facts),
+    geo_mapper           = manager.load_geolite(),
+    dns_resolver_matcher = DNSResolverMatcher(resolver_dict),
+    pii_matcher          = PIIMatcher(pii_patterns),
+)
+conn_builder = ConnectionBuilder(network_context=ctx)
+```
+
+### SuffixMatcher (`pcap/matchers/suffix_matcher.py`)
+
+A generic, type-parameterized **longest-suffix trie** used as the base class for `TrackerMatcher` and `DNSResolverMatcher`. The trie stores reversed domain labels and walks the tree label-by-label, recording the deepest matching value. This produces correct longest-suffix semantics with O(L) lookup per domain, where L is the number of domain labels.
+
+---
+
+## 12. Tracker Knowledge Base
+
+### 12.1 Dataset Sources
+
+| Dataset | Type | Records | Provides |
+|---|---|---|---|
+| **Exodus Privacy** | Tracker catalog (API + domain suffix) | Curated | `vendor`, `canonical_vendor`, `category` |
+| **EasyPrivacy** | Domain blocklist | ~47,000 | Domain suffix only (no vendor metadata) |
+
+**Source files:** `knowledge_base/raw/tracker/exodus.json`, `knowledge_base/raw/tracker/easyprivacy.txt`
+
+### 12.2 Build Pipeline
+
+**Importer:** `knowledge_base/network/importers/tracker_importer.py` — `TrackerImporter`
+
+**Builder:** `knowledge_base/network/builders/tracker_builder.py` — `TrackerBuilder`
+
+**Build mechanics:**
+1. **Exodus import:** Each tracker entry in `exodus.json` supplies a list of network signatures (domain suffixes). For each signature, a `TrackerFact` is created carrying `vendor`, `canonical_vendor`, `category`, and `source_dataset = "Exodus"`.
+2. **Canonical vendor mapping:** Raw Exodus vendor names are normalized through `canonical_tracker_map.json`, which collapses variant spellings (e.g., `"Google Firebase Analytics"`, `"Google Firebase"`) to a single canonical vendor (e.g., `"Google"`).
+3. **EasyPrivacy import:** Each non-comment domain rule from `easyprivacy.txt` produces a `TrackerFact` with `vendor = ""`, `category = ""`, and `source_dataset = "EasyPrivacy"`. These entries correctly identify tracking behavior without vendor attribution.
+4. **Merge and deduplication:** Exodus records are loaded first; EasyPrivacy records are merged second. Duplicate domain suffixes retain the Exodus record (which carries richer metadata) and append the EasyPrivacy source tag.
+5. **Output:** `knowledge_base/network/processed/trackers.csv` — **47,217 domain-suffix rules**.
+
+**Output schema:**
+
+```
+domain_suffix, vendor, canonical_vendor, category, source_dataset, source_version
+```
+
+### 12.3 Runtime — TrackerMatcher
+
+**Matcher:** `pcap/matchers/tracker_matcher.py` — `TrackerMatcher(SuffixMatcher[TrackerFact])`
+
+**Algorithm:** Longest-suffix trie lookup with an `@functools.lru_cache(maxsize=8192)` on `match()` for repeated domain lookups across connections within the same scan session.
+
+**Match semantics:** A domain is considered a tracker match whenever `tracker_fact is not None`, regardless of whether the `vendor` field is populated. EasyPrivacy-only matches carry no vendor metadata but still correctly indicate tracking behavior.
+
+**Populated fields on `ConnectionRecord`:**
+- `tracker_fact: TrackerFact` — the matched KB entry
+- `tracker_matched: bool` — set to `True` for downstream `AppSummary` aggregation
+- `canonical_vendor: str` — propagated for vendor distribution metrics
+- `sdk_category: str` — propagated for category distribution metrics
+
+### 12.4 Validation Results (211 PCAPs, 32,793 connections)
+
+| Metric | Value |
+|---|---|
+| Domain-suffix rules | 47,217 |
+| Tracker coverage | **45.8%** of observed domains |
+| Unique vendors matched | 41 |
+| Unique categories matched | 5 |
+| Top vendors | Google, Meta, AppLovin, Mintegral, InMobi |
+| Top categories | Advertising, Analytics, Crash Reporting |
+
+---
+
+## 13. GeoLite2 Knowledge Base
+
+### 13.1 Dataset Source
+
+| Dataset | Type | Provides |
+|---|---|---|
+| **MaxMind GeoLite2-City** | Binary MMDB | `country_code`, `country_name`, `continent`, `city` |
+| **MaxMind GeoLite2-ASN** | Binary MMDB | `asn`, `organization`, `organization_type` |
+
+**Source files:** `knowledge_base/data/geolite/GeoLite2-City.mmdb`, `knowledge_base/data/geolite/GeoLite2-ASN.mmdb`
+
+GeoLite2 databases are distributed under the MaxMind End User License Agreement and are not redistributed in the repository. They must be downloaded separately from the MaxMind developer portal.
+
+### 13.2 Build Phase
+
+The GeoLite2 databases require no offline build step. The binary MMDB files are used directly at runtime via the `maxminddb` Python library. There is no intermediate CSV processing layer.
+
+### 13.3 Runtime — GeoMapper
+
+**Mapper:** `pcap/matchers/geo_mapper.py` — `GeoMapper`
+
+**Algorithm:** Two independent `maxminddb.open_database()` handles, one for City and one for ASN. Each IP lookup performs a binary tree traversal of the MMDB structure in O(log N) time.
+
+**RFC1918 short-circuit:** Private network ranges (`10.x.x.x`, `192.168.x.x`, `172.16–31.x.x`) are detected before the MMDB query and returned as `GeoFact(country_code="PRIVATE")` to avoid spurious lookups.
+
+**Populated fields on `ConnectionRecord`:**
+- `geo_fact: GeoFact` — `country_code`, `country_name`, `continent`
+- `asn_fact: ASNFact` — `asn`, `organization`, `organization_type`
+
+### 13.4 Validation Results (211 PCAPs, 32,793 connections)
+
+| Metric | Value |
+|---|---|
+| Unique destination IPs | 1,584 |
+| GeoIP resolved | 1,584 |
+| GeoIP coverage | **100.0%** |
+| Unique countries observed | 21 |
+| Unique ASNs observed | 79 |
+| Top organizations | Google LLC, Amazon, BHARTI Airtel, Cloudflare, Meta |
+
+---
+
+## 14. DNS Resolver Knowledge Base
+
+### 14.1 Dataset Sources
+
+| Dataset | Type | Records | Role |
+|---|---|---|---|
+| **dnscrypt-resolvers** | Official resolver list (CSV/JSON) | Primary | Full resolver catalog with DoH/DoT/DNSCrypt metadata |
+| **public_dns.csv** | Hand-curated override layer | Secondary | Confirms and overrides well-known IPs (Google, Cloudflare variants, etc.) |
+
+**Source files:** `knowledge_base/raw/dns/dnscrypt-resolvers/`, `knowledge_base/raw/dns/public_dns.csv`
+
+### 14.2 Build Pipeline
+
+**Importer:** `knowledge_base/network/importers/dns_resolver_importer.py` — `DNSResolverImporter`
+
+**Builder:** `knowledge_base/network/builders/dns_resolver_builder.py` — `DNSResolverBuilder`
+
+**Build mechanics:**
+1. **dnscrypt-resolvers import:** Resolver entries are parsed from the official `public-resolvers.md` file. Each entry yields `ip_address`, `provider`, `supports_doh`, `supports_dot`, `supports_dnscrypt`, and `confidence = "MEDIUM"`.
+2. **Canonical provider mapping:** Raw provider names are collapsed through `canonical_dns_provider_map.json` to 14 canonical providers (e.g., `"Google"`, `"Cloudflare"`, `"Quad9"`) plus a catch-all `"Community"` bucket for independent operators.
+3. **public_dns.csv override:** Entries in the override layer are loaded last with `confidence = "HIGH"` and take precedence over primary-source entries for the same IP address.
+4. **Merge and deduplication:** IP address is the deduplication key. The override layer can correct provider names, confidence levels, and capability flags without altering the primary source data.
+5. **Output:** `knowledge_base/network/processed/dns_resolvers.csv` — **614 resolver entries**.
+
+**Output schema:**
+
+```
+ip_address, provider, canonical_provider, resolver_name,
+provider_country, supports_doh, supports_dot, source_dataset,
+source_version, confidence
+```
+
+### 14.3 Runtime — DNSResolverMatcher
+
+**Matcher:** `pcap/matchers/dns_resolver_matcher.py` — `DNSResolverMatcher`
+
+**Algorithm:** O(1) Python dict lookup keyed on `ip_address` string. The entire resolver dataset is loaded into a flat dictionary at startup.
+
+**Populated fields on `DNSRecord`:**
+- `dns_resolver_fact: DNSResolverFact` — `canonical_provider`, `supports_doh`, `supports_dot`, `confidence`
+
+### 14.4 Validation Results (211 PCAPs, 10,587 DNS queries)
+
+| Metric | Value |
+|---|---|
+| Resolver entries | 614 |
+| Canonical providers | 14 (+ Community) |
+| DNS coverage | **0.1%** |
+| Dominant resolver | `10.215.173.2` (local DHCP forwarder, 99.9% of queries) |
+
+> **Note:** The near-zero coverage is an expected consequence of the emulator capture environment, not a Knowledge Base defect. See `docs/KB_LIMITATIONS.md` for a full explanation.
+
+---
+
+## 15. PII Detection Knowledge Base
+
+### 15.1 Dataset Sources
+
+| Dataset | Type | Patterns | Confidence | Role |
+|---|---|---|---|---|
+| **pii_rules.csv** | Android-specific rules (RFC/IEEE sourced) | 15 | HIGH | Primary detection rules |
+| **presidio_rules.csv** | Microsoft Presidio recognizers | 4 | MEDIUM | Industry-standard supplement |
+
+**Source files:** `knowledge_base/raw/pii/pii_rules.csv`, `knowledge_base/raw/pii/presidio_rules.csv`
+
+### 15.2 Build Pipeline
+
+**Importer:** `knowledge_base/network/importers/pii_importer.py` — `PIIImporter`
+
+**Builder:** `knowledge_base/network/builders/pii_builder.py` — `PIIBuilder`
+
+**Build mechanics:**
+1. **Presidio import:** Rules from `presidio_rules.csv` are loaded first with `confidence = "MEDIUM"` and `source_dataset = "Presidio"`.
+2. **Android-specific import:** Rules from `pii_rules.csv` are merged second with `confidence = "HIGH"`. Where a `pattern_name` exists in both datasets (e.g., `Email Address`), the Android-specific HIGH-confidence rule overwrites the Presidio MEDIUM-confidence entry.
+3. **Regex validation:** All regex patterns are individually compiled with `re.compile()` during build. Patterns failing compilation are rejected, preventing a malformed rule from crashing the runtime engine.
+4. **Output:** `knowledge_base/network/processed/pii_patterns.csv` — **19 total patterns** (15 HIGH + 4 MEDIUM).
+
+**Output schema:**
+
+```
+pattern_name, category, regex, source_reference, source_dataset, confidence
+```
+
+### 15.3 Runtime — PIIMatcher and Validators
+
+**Matcher:** `pcap/matchers/pii_matcher.py` — `PIIMatcher`
+
+**Algorithm:** A **single-pass master regex** is compiled at startup by joining all named-group patterns:
+```python
+master = "|".join(f"(?P<{name}>{regex})" for name, regex in patterns)
+```
+This yields O(N) complexity over the text, with only one regex engine pass regardless of the number of patterns.
+
+**Validator Registry:** `pcap/matchers/pii_validators.py` implements deterministic post-match validators that are applied after a regex match to eliminate false positives:
+
+| Pattern | Validator | Algorithm |
+|---|---|---|
+| IMEI | `validate_luhn` | Luhn Mod-10 checksum |
+| ICCID | `validate_luhn` | Luhn Mod-10 checksum |
+| Credit Card | `validate_luhn` | Luhn Mod-10 checksum |
+| Phone Number | `validate_e164` | E.164 bounds check + `+` prefix |
+| Email Address | `validate_email` | RFC structural check |
+| UUID | `validate_uuid` | `uuid.UUID()` native parser |
+| IPv4 | `validate_ipv4` | `ipaddress` octet range check |
+| Latitude | `validate_latitude` | Bounds: −90.0 to +90.0 |
+| Longitude | `validate_longitude` | Bounds: −180.0 to +180.0 |
+
+Only matches that pass their validator are promoted to `PIIFact` objects. Matches with no registered validator are promoted directly.
+
+**Inspected fields per connection:**
+- HTTP URL path
+- HTTP header values
+- HTTP request/response body (plaintext only)
+- DNS query names
+
+TLS-encrypted payloads are never decrypted or inspected.
+
+**Populated fields on `ConnectionRecord`:**
+- `pii_facts: List[PIIFact]` — each with `pattern_name`, `category`, `matched_value`, `source_location`, `confidence`, `source_dataset`
+
+### 15.4 PII Categories
+
+| Category | Patterns |
+|---|---|
+| Identity | Email Address, Phone Number, IMSI, US SSN, UK NHS |
+| Hardware | IMEI, ICCID, Android ID, UUID, MAC Address |
+| Authentication | Bearer Token, JWT Token, Session ID |
+| Location | Latitude, Longitude, SSID |
+| Network | IPv4 |
+| Financial | Credit Card, Bitcoin Address |
+
+### 15.5 Validation Results (211 PCAPs, 32,793 connections)
+
+| Metric | Value |
+|---|---|
+| Total patterns | 19 (15 HIGH + 4 MEDIUM) |
+| Total PII matches | 10 |
+| PCAPs with PII | 4 |
+| Top patterns detected | IPv4 (6), Android ID (1), UUID (1), Bearer Token (1) |
+
+---
+
+## 16. PCAP KB Canonical Database Summary
+
+| File | Location | Produced By | Consumed By | Records |
+|---|---|---|---|---|
+| `trackers.csv` | `network/processed/` | `tracker_builder.py` | `TrackerMatcher` | 47,217 |
+| `dns_resolvers.csv` | `network/processed/` | `dns_resolver_builder.py` | `DNSResolverMatcher` | 614 |
+| `pii_patterns.csv` | `network/processed/` | `pii_builder.py` | `PIIMatcher` | 19 |
+| `GeoLite2-City.mmdb` | `data/geolite/` | MaxMind (external) | `GeoMapper` | — |
+| `GeoLite2-ASN.mmdb` | `data/geolite/` | MaxMind (external) | `GeoMapper` | — |
+| `canonical_tracker_map.json` | `network/metadata/` | Hand-curated | `tracker_builder.py` | — |
+| `canonical_dns_provider_map.json` | `network/metadata/` | Hand-curated | `dns_resolver_builder.py` | — |
+
+---
+
+## 17. PCAP End-to-End Runtime Flow
+
+```
+run_pcap_analysis.py
+    └─► DatasetManager()
+            ├─► load_network_trackers()   →  TrackerMatcher     (47,217 suffix rules)
+            ├─► load_geolite()            →  GeoMapper          (City + ASN MMDB)
+            ├─► load_dns_resolvers()      →  DNSResolverMatcher (614 IP entries)
+            └─► load_pii_patterns()       →  PIIMatcher         (19 patterns, 9 validators)
+
+    NetworkContext(tracker_matcher, geo_mapper, dns_resolver_matcher, pii_matcher)
+    ConnectionBuilder(network_context=ctx)
+
+    For each PCAP file:
+        parse_pcap(pcap_path) → List[PacketEvent]
+        conn_builder.build(events) →
+            For each unique (domain, dst_ip, dst_port, protocol) flow:
+                ├─► TrackerMatcher.match(domain)         → tracker_fact
+                ├─► GeoMapper.lookup_geo(dst_ip)         → geo_fact
+                ├─► GeoMapper.lookup_asn(dst_ip)         → asn_fact
+                ├─► DNSResolverMatcher.match(resolver_ip)→ dns_resolver_fact
+                └─► PIIMatcher.search(url, headers, body)→ List[PIIFact]
+
+            → ConnectionRecord (all facts attached)
+
+        AppSummaryBuilder.build(connections, dns_records) → AppSummary
+```
+
+---
+
+## 18. PCAP References
+
+- Exodus Privacy. (2023). Exodus — Tracker analysis platform. https://exodus-privacy.eu.org
+- EasyList Authors. (2023). EasyPrivacy — Tracking protection filter list. https://easylist.to
+- Frank Denis et al. (2023). DNSCrypt public resolver list. https://github.com/DNSCrypt/dnscrypt-resolvers
+- MaxMind. (2023). GeoLite2 Free Geolocation Data. https://dev.maxmind.com/geoip/geolite2-free-geolocation-data
+- Microsoft. (2023). Presidio — Data Protection and De-identification SDK. https://github.com/microsoft/presidio
+- ITU-T E.164. (2010). The international public telecommunication numbering plan.
+- 3GPP TS 23.003. (2023). Numbering, addressing and identification (IMEI, IMSI, ICCID).
+- RFC 4122. (2005). A Universally Unique IDentifier (UUID) URN Namespace.
+- RFC 6750. (2012). The OAuth 2.0 Authorization Framework: Bearer Token Usage.
+- RFC 7519. (2015). JSON Web Token (JWT).

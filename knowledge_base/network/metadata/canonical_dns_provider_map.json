@@ -1,0 +1,15 @@
+{
+    "Google": ["google"],
+    "Cloudflare": ["cloudflare"],
+    "Quad9": ["quad9"],
+    "Cisco": ["cisco", "opendns"],
+    "Alibaba": ["alibaba", "alidns"],
+    "Tencent": ["tencent", "dnspod"],
+    "AdGuard": ["adguard"],
+    "NextDNS": ["nextdns"],
+    "CleanBrowsing": ["cleanbrowsing"],
+    "Neustar": ["neustar"],
+    "Yandex": ["yandex"],
+    "Level3": ["level3"],
+    "Control D": ["control d", "controld"]
+}

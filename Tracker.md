@@ -1,12 +1,12 @@
-# 🎯 Project Tracker — Geo-Difference Mobile Security
+# Project Tracker — Geo-Difference Mobile Security
 
 > [!NOTE]
-> **Last Updated:** 17th July 2026  
+> **Last Updated:** 20th July 2026  
 > **Status Legend:** ✅ Complete · 🔄 In Progress · ⏳ Pending
 
 ---
 
-## 📈 1. Overall Progress
+## 1. Overall Progress
 
 | Phase | Module | Description | Status | Reference |
 |-------|--------|-------------|--------|-----------|
@@ -27,9 +27,13 @@
 | **B** | CVE Matching | Maps detected SDK version strings to NVD CVE records via CPE version constraint resolution | ✅ | [CVE Overview](cve/CVE_Analysis_Overview.md) |
 | **C** | ADB Automation | Automated APK install, Monkey UI exerciser (500 events), force-stop and uninstall per sample | ✅ | [PCAP README](pcap/README.md) |
 | **C** | PCAP Collection | PCAPdroid captures per-app traffic (60s) filtered to target package; pulled via ADB to `data/pcap/` | ✅ | [PCAP README](pcap/README.md) |
-| **C** | Packet Parsing | `pcap_parser.py` decodes raw frames via dpkt; extracts DNS, TLS SNI, HTTP Host, QUIC per packet | 🔄 | [PCAP README](pcap/README.md) |
-| **C** | Connection Aggregation | `connection_builder.py` aggregates `RawEvent` streams into 6-tuple `ConnectionRecord` fact tables | 🔄 | [PCAP README](pcap/README.md) |
-| **C** | GeoIP Attribution | `GeoMapper` resolves destination IPs to country code + ASN; single in-process LRU cache | 🔄 | [PCAP README](pcap/README.md) |
+| **C** | Packet Parsing | `pcap_parser.py` decodes raw frames via dpkt; extracts DNS, TLS SNI, HTTP Host, QUIC per packet | ✅ | [PCAP README](pcap/README.md) |
+| **C** | Connection Aggregation | `connection_builder.py` aggregates `RawEvent` streams into 6-tuple `ConnectionRecord` fact tables | ✅ | [PCAP README](pcap/README.md) |
+| **C** | GeoIP Attribution | `GeoMapper` resolves destination IPs to country code + ASN via MaxMind GeoLite2; 100% IP coverage | ✅ | [KB README §13](knowledge_base/docs/README.md) |
+| **C** | Tracker KB Integration | `TrackerMatcher` (47,217 suffix rules; Exodus + EasyPrivacy) injected into `NetworkContext`; 45.8% coverage | ✅ | [KB README §12](knowledge_base/docs/README.md) |
+| **C** | DNS Resolver KB | `DNSResolverMatcher` maps resolver IPs to 14 canonical providers (dnscrypt-resolvers + override layer) | ✅ | [KB README §14](knowledge_base/docs/README.md) |
+| **C** | PII Detection KB | `PIIMatcher` with 19 patterns + 9 deterministic validators (Luhn, E.164, RFC UUID, etc.) | ✅ | [KB README §15](knowledge_base/docs/README.md) |
+| **C** | PCAP KB Limitations | Documented inherent constraints of all four enrichment modules for thesis scope | ✅ | [KB Limitations](docs/KB_LIMITATIONS.md) |
 | **C** | HTTPS Interception (Burp) | Payload decryption requires custom CA cert injection into Android root certificate store | 🔄 | *(No file yet — see §7)* |
 | **D** | Dataset Integration | Merge all output CSVs into one unified dataset joined on `sample_id` | ⏳ | — |
 | **D** | Statistical Analysis | Cross-country SDK, tracker, CVE and network endpoint comparison | ⏳ | — |
@@ -38,7 +42,7 @@
 
 ---
 
-## 🏛️ 2. Repository Architecture
+## 2. Repository Architecture
 
 ```text
 Geo-Difference_MobileSecurity/
@@ -47,9 +51,10 @@ Geo-Difference_MobileSecurity/
 │   ├── cve/                 NVD CVE loader + version-constraint matcher
 │   ├── manifest_scanner/    Manifest XML parser + Smali static analysis engine
 │   ├── sdk_detection/       LibScan runner + fallback + canonicalization + enrichment
-│   ├── pcap/                Packet parser + connection builder + GeoIP + app summary
+│   ├── pcap/                Packet parser + connection builder + NetworkContext + AppSummary
 │   ├── pipeline/            APK scraping → download → normalize → decode → index
-│   └── knowledge_base/      Frozen Aho-Corasick automata + privacy rule databases
+│   └── knowledge_base/      Static KB (Aho-Corasick automata + privacy rules)
+│                            + Network KB (Tracker · GeoLite2 · DNS · PII matchers)
 │
 ├── 🗄️ Data & Dependencies
 │   ├── data/                NVD feeds (2002–2026), GeoIP, package lists, raw PCAPs
@@ -73,9 +78,9 @@ Geo-Difference_MobileSecurity/
 | `cve/` | Loads 25 years of NVD ZIP feeds; tokenizes SDK names; resolves CPE version constraints to CVE IDs | [CVE Overview](cve/CVE_Analysis_Overview.md) |
 | `manifest_scanner/` | Parses `AndroidManifest.xml`; scans Smali via unified `MatcherFactory` (PrivacyMatcher, SecretMatcher, GeoMatcher) | [Manifest README](manifest_scanner/README.md) |
 | `sdk_detection/` | 4-stage pipeline: LibScan → FallbackDetector → Canonicalizer → TrackerEnricher → MetadataLoader | [SDK README](sdk_detection/README.md) |
-| `pcap/` | Parses raw `.pcap` via dpkt into `RawEvent`; builds 6-tuple `ConnectionRecord`; computes per-app `AppSummary` | [PCAP README](pcap/README.md) |
+| `pcap/` | Parses raw `.pcap` via dpkt into `RawEvent`; builds 6-tuple `ConnectionRecord`; enriches via `NetworkContext`; computes per-app `AppSummary` | [PCAP README](pcap/README.md) |
 | `pipeline/` | Corpus curation → apkeep download → XAPK normalization → Apktool decode → SHA-256 sample index | [Pipeline README](pipeline/README.md) |
-| `knowledge_base/` | Synthesizes Axplorer, PScout, FlowDroid, TruffleHog, Exodus, GMS into frozen automata + lookup tables | [KB README](knowledge_base/README.md) |
+| `knowledge_base/` | **Static KB:** Axplorer, PScout, FlowDroid, TruffleHog, Exodus, GMS → frozen automata + lookup tables. **Network KB:** Tracker (47,217 rules) · GeoLite2 (100% coverage) · DNS (614 resolvers, 14 providers) · PII (19 patterns, 9 validators) | [KB README](knowledge_base/docs/README.md) |
 | `data/` | `nvd/` (static, versioned), `package_lists/` (dynamic), `pcap/` (dynamic, gitignored) | [Data README](data/README.md) |
 | `tools/validation/` | Developer scripts for auditing and benchmarking; must never be imported by production code | — |
 | `research_archive/` | Read-only historical reports from knowledge base build phase (Axplorer, Exodus, TruffleHog imports) | [Archive README](research_archive/README.md) |
@@ -86,7 +91,7 @@ Geo-Difference_MobileSecurity/
 
 ---
 
-## 📊 3. Generated Output Datasets
+## 3. Generated Output Datasets
 
 | # | Output File | What It Contains | Schema Details |
 |---|-------------|-----------------|----------------|
@@ -100,14 +105,14 @@ Geo-Difference_MobileSecurity/
 | **8** | `sdk_cve_matches.csv` | CVE-ID → SDK version matches with CVSS score and vector string | [CVE Overview](cve/CVE_Analysis_Overview.md) |
 | **9** | `cve_coverage_report.csv` | SDKs evaluated but not matched (coverage audit trail) | [CVE Overview](cve/CVE_Analysis_Overview.md) |
 | **10** | `app_cve_summary.csv` | Per-app CVE count, max CVSS, critical/high/medium breakdown | [CVE Overview](cve/CVE_Analysis_Overview.md) |
-| **11** | `pcap_connections.csv` | 6-tuple connection records: `(sample_id, session_id, domain, dst_ip, port, protocol)` + GeoIP + tracker | [PCAP README](pcap/README.md) |
-| **12** | `pcap_dns.csv` | DNS queries/responses, resolver IPs, hardcoded-resolver and DoH flags | [PCAP README](pcap/README.md) |
+| **11** | `pcap_connections.csv` | 6-tuple connection records: `(sample_id, session_id, domain, dst_ip, port, protocol)` + GeoIP + tracker + PII facts | [PCAP README](pcap/README.md) |
+| **12** | `pcap_dns.csv` | DNS queries/responses, resolver IPs, canonical DNS provider, DoH/DoT flags | [KB README §14](knowledge_base/docs/README.md) |
 | **13** | `pcap_domain_geo.csv` | Domain → IP → country + ASN resolution table | [PCAP README](pcap/README.md) |
-| **14** | `pcap_app_summary.csv` | Per-app aggregate: unique countries, trackers, TLS ratio, top ASN, hardcoded DNS flag | [PCAP README](pcap/README.md) |
+| **14** | `pcap_app_summary.csv` | Per-app aggregate: unique countries, tracker vendors/categories, TLS ratio, top ASN, DNS provider, PII match count | [PCAP README](pcap/README.md) |
 
 ---
 
-## 🛠️ 4. External Datasets & Tools
+## 4. External Datasets & Tools
 
 | Dataset / Tool | What It Does in This Project | Status | Reference |
 |----------------|------------------------------|--------|-----------|
@@ -124,12 +129,15 @@ Geo-Difference_MobileSecurity/
 | **TruffleHog Patterns** | 700+ compiled regex detectors for hardcoded API keys, tokens, credentials (from open-source ruleset) | ✅ | [TruffleHog Report](research_archive/knowledge_base/trufflehog_import_report.md) |
 | **Google Play Services AARs** | Android framework binaries used as baseline SDK signature references in LibScout DB | ✅ | [GMS Report](research_archive/knowledge_base/gms_validation_report.md) |
 | **PCAPdroid** | On-device Android app; captures per-app traffic filtered by UID; exports raw `.pcap` files | ✅ | [PCAP README](pcap/README.md) |
-| **MaxMind GeoLite2** | IP-to-country + ASN database used by `GeoMapper`; single in-process LRU cache | ✅ | [External Datasets](docs/external_datasets_and_tools.md) |
+| **MaxMind GeoLite2** | IP-to-country + ASN database used by `GeoMapper`; 100% resolution across 1,584 destination IPs in validation | ✅ | [KB README §13](knowledge_base/docs/README.md) |
+| **EasyPrivacy** | Domain-level tracker blocklist (~47,000 rules); merged with Exodus into unified `TrackerMatcher` | ✅ | [KB README §12](knowledge_base/docs/README.md) |
+| **dnscrypt-resolvers** | Official public DNS resolver list with DoH/DoT/DNSCrypt metadata; 614 entries, 14 canonical providers | ✅ | [KB README §14](knowledge_base/docs/README.md) |
+| **Microsoft Presidio** | Industry-standard PII recognizer patterns (4 rules at MEDIUM confidence); merged as secondary PII source | ✅ | [KB README §15](knowledge_base/docs/README.md) |
 | **Burp Suite** | HTTPS proxy for TLS interception; requires custom CA cert injection into Android trust store | 🔄 | *(No file yet — see §7)* |
 
 ---
 
-## ⚙️ 5. Pipeline Workflow
+## 5. Pipeline Workflow
 
 ```mermaid
 flowchart TD
@@ -183,14 +191,24 @@ flowchart TD
         direction TB
         C1[collect_pcap.py] -->|ADB Monkey| C2(PCAPdroid Capture)
         C2 -->|Output: data/pcap/| C3[run_pcap_analysis.py]
-        C3 --> C3a(pcap_parser)
-        C3 --> C3b(connection_builder)
-        C3 --> C3c(geoip + summary)
+        
+        C3 --> C3a(pcap_parser.py)
+        C3 --> C3b(NetworkContext)
+        
+        C3b -.-> C3c(TrackerMatcher)
+        C3b -.-> C3d(GeoMapper)
+        C3b -.-> C3e(DNSResolverMatcher)
+        C3b -.-> C3f(PIIMatcher)
+        
+        C3a -->|Raw Events| C3g(ConnectionBuilder)
+        C3b -->|Dependency Injection| C3g
+        
+        C3g -->|Connections + DNS| C3h(AppSummaryBuilder)
     end
     class Phase_C phase
 
     O1 --> C1
-    C3c --> O4([pcap_connections.csv, etc.])
+    C3h --> O4([pcap_connections.csv, pcap_app_summary.csv, etc.])
     class O4 output
 
     %% Phase D
@@ -209,7 +227,7 @@ flowchart TD
 
 ---
 
-## 🎛️ 6. Design Decisions & Hardcoded Configuration
+## 6. Design Decisions & Hardcoded Configuration
 
 | Parameter | Value | Source / Rationale |
 |-----------|-------|-------------------|
@@ -228,14 +246,13 @@ flowchart TD
 
 ---
 
-## 🚧 7. Remaining Tasks
+## 7. Remaining Tasks
 
 ### 🔄 In Progress
 
 | Task | Blocker / Notes |
 |------|----------------|
 | **HTTPS traffic decryption (Burp Suite)** | Requires custom CA cert injection into Android root store; PCAPdroid captures only raw encrypted packets |
-| **Network Traffic Analysis finalization** | Individual PCAP CSVs generated; final JOIN + country-level aggregation pending |
 
 ### ⏳ Pending — Data Processing
 
@@ -243,7 +260,7 @@ flowchart TD
 |------|
 | Merge `manifest_apps.csv`, `manifest_sdks.csv`, `manifest_permissions.csv`, `pcap_app_summary.csv`, `app_cve_summary.csv` on `sample_id` |
 | Validate merged dataset: check for missing `sample_id`, duplicates and null CVSSs |
-| Feature engineering: derive ratios (tracker_pct, tls_pct, high_risk_country_pct) |
+| Feature engineering: derive ratios (tracker_pct, tls_pct) |
 
 ### ⏳ Pending — Statistical Analysis
 
@@ -260,12 +277,12 @@ flowchart TD
 
 | Figure | Type |
 |--------|------|
-| Tracker prevalence by country | 📊 Grouped bar chart |
-| Permission usage heatmap | 🗺️ Matrix heatmap (permission × country) |
-| Network hosting concentration | 🌍 Choropleth / geographic map |
-| CVE severity breakdown | 🚥 Stacked bar chart (Critical/High/Medium/Low) |
-| TLS vs. cleartext ratio | 🥧 Grouped bar or pie per country |
-| Top SDK vendors by market | 📉 Treemap or ranked bar |
+| Tracker prevalence by country | Grouped bar chart |
+| Permission usage heatmap | Matrix heatmap (permission × country) |
+| Network hosting concentration | Choropleth / geographic map |
+| CVE severity breakdown | Stacked bar chart (Critical/High/Medium/Low) |
+| TLS vs. cleartext ratio | Grouped bar or pie per country |
+| Top SDK vendors by market | Treemap or ranked bar |
 
 ### ⏳ Pending — Documentation
 
@@ -278,7 +295,7 @@ flowchart TD
 
 ---
 
-## 🗄️ 8. Research Archive
+## 8. Research Archive
 
 Historical validation reports generated during the knowledge base build phase:
 
@@ -303,7 +320,7 @@ Historical validation reports generated during the knowledge base build phase:
 
 ---
 
-## 📌 9. Current Status Summary
+## 9. Current Status Summary
 
 | Component | Detail | Status |
 |-----------|--------|--------|
@@ -316,7 +333,11 @@ Historical validation reports generated during the knowledge base build phase:
 | **Geo-Logic Detection** | FlowDroid source/sink scanning | ✅ Complete |
 | **CVE Matching** | NVD 2002–2026 → CPE version constraint resolution | ✅ Complete |
 | **PCAP Collection** | PCAPdroid per-app 60s capture via ADB | ✅ Complete |
-| **Network Traffic Analysis** | DNS + TLS SNI + GeoIP + tracker parsing | 🔄 In Progress |
+| **Tracker KB** | 47,217 suffix rules (Exodus + EasyPrivacy); 45.8% domain coverage across 211 PCAPs | ✅ Complete |
+| **GeoLite2 KB** | MaxMind City + ASN; 100% IP resolution; 21 countries, 79 ASNs observed | ✅ Complete |
+| **DNS Resolver KB** | 614 entries; 14 canonical providers; dnscrypt-resolvers + override layer | ✅ Complete |
+| **PII Detection KB** | 19 patterns (15 HIGH + 4 MEDIUM); 9 deterministic validators | ✅ Complete |
+| **KB Limitations Doc** | Scope boundaries for all 4 PCAP KBs documented for thesis | ✅ Complete |
 | **HTTPS Traffic Interception** | Burp Suite CA injection + payload decryption | 🔄 In Progress |
 | **Repository Freeze & Docs** | Clean structure, linked docs, CONTRIBUTING.md | ✅ Complete |
 | **Dataset Integration** | Unified CSV merge on `sample_id` | ⏳ Pending |

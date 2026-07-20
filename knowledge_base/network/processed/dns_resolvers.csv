@@ -1,0 +1,615 @@
+ip_address,provider,canonical_provider,resolver_name,provider_country,supports_doh,supports_dot,supports_dnscrypt,source_dataset,source_version,confidence
+1.0.0.1,Cloudflare,Cloudflare,Cloudflare DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+1.0.0.2,Cloudflare,Cloudflare,Cloudflare Security,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+1.0.0.3,Cloudflare,Cloudflare,Cloudflare Family,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+1.1.1.1,Cloudflare,Cloudflare,Cloudflare DNS,US,true,true,false,PublicDNS,1.0,HIGH
+1.1.1.2,Cloudflare,Cloudflare,Cloudflare Security,US,true,true,false,PublicDNS,1.0,HIGH
+1.1.1.3,Cloudflare,Cloudflare,Cloudflare Family,US,true,true,false,PublicDNS,1.0,HIGH
+1.12.12.12,Tencent Cloud DNSPod for users in China,Tencent,dnspod,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+1.12.34.56,Tencent Cloud DNSPod for users in China,Tencent,dnspod,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+1.71.20.37,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+102.209.21.176,cipherdns-ct1-doh-za,Community,cipherdns-ct1-doh-za,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+102.214.10.82,cipherdns-jb1-doh-za,Community,cipherdns-jb1-doh-za,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+102.216.79.237,dnscry.pt-capetown-ipv4,Community,dnscry.pt-capetown-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+102.222.106.96,dnscry.pt-doh-ebenecity-ipv4,Community,dnscry.pt-doh-ebenecity-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.108.228.15,dnscry.pt-doh-melbourne-ipv4,Community,dnscry.pt-doh-melbourne-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.114.162.65,dnscry.pt-doh-saltlakecity-ipv4,Community,dnscry.pt-doh-saltlakecity-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.124.106.233,dnscry.pt-doh-portland-ipv4,Community,dnscry.pt-doh-portland-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.131.189.191,dnscry.pt-doh-taipeh-ipv4,Community,dnscry.pt-doh-taipeh-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.144.177.57,dnscry.pt-doh-toronto02-ipv4,Community,dnscry.pt-doh-toronto02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.174.51.71,dnscry.pt-dhaka-ipv4,Community,dnscry.pt-dhaka-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+103.179.44.73,dnscry.pt-doh-singapore02-ipv4,Community,dnscry.pt-doh-singapore02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.179.45.6,dnscry.pt-doh-tokyo02-ipv4,Community,dnscry.pt-doh-tokyo02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.199.16.93,dnscry.pt-doh-hanoi-ipv4,Community,dnscry.pt-doh-hanoi-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.2.57.5,Internet Initiative Japan in Tokyo,Community,iij,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.249.238.124,ADFilter,Community,adfilter-adl,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.38.250.55,dnscry.pt-bangkok-ipv4,Community,dnscry.pt-bangkok-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+103.38.251.60,dnscry.pt-doh-manila-ipv4,Community,dnscry.pt-doh-manila-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+103.99.133.110,dnscry.pt-doh-islamabad-ipv4,Community,dnscry.pt-doh-islamabad-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.156.154.11,dnscry.pt-doh-losangeles-ipv4,Community,dnscry.pt-doh-losangeles-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.16.132.229,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.16.133.229,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.16.248.249,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.16.249.249,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.200.67.194,dnscry.pt-doh-losangeles02-ipv4,Community,dnscry.pt-doh-losangeles02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.21.6.78,doh-crypto-sx,Community,doh-crypto-sx,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.21.65.60,id-gmail,Community,doh.tiarap.org,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.225.129.106,dnscry.pt-doh-jacksonville-ipv4,Community,dnscry.pt-doh-jacksonville-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.234.231.239,dnscry.pt-doh-ottoville-ipv4,Community,dnscry.pt-doh-ottoville-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+104.36.86.181,dnscry.pt-doh-spokane-ipv4,Community,dnscry.pt-doh-spokane-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+107.182.173.83,dnscry.pt-doh-ogden-ipv4,Community,dnscry.pt-doh-ogden-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+112.213.32.219,ADFilter,Community,adfilter-syd,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+113.142.83.132,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+116.202.176.26,LibreOps,Community,libredns,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+118.91.184.89,dnscry.pt-doh-dusseldorf03-ipv4,Community,dnscry.pt-doh-dusseldorf03-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+119.29.29.29,Tencent,Tencent,DNSPod,CN,true,true,false,PublicDNS,1.0,HIGH
+120.53.53.53,Tencent Cloud DNSPod for users in China,Tencent,dnspod,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+120.55.203.44,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+123.184.198.22,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+128.127.104.108,CryptoStorm,Community,cs-swe,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+128.254.207.50,dnscry.pt-doh-miami-ipv4,Community,dnscry.pt-doh-miami-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+130.195.212.211,CryptoStorm,Community,cs-ga,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+130.59.31.248,SWITCH,Community,switch,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+130.59.31.251,SWITCH,Community,switch,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+135.181.193.222,dnsforfamily-no-safe-search,Community,dnsforfamily-no-safe-search,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+138.199.149.249,dnsforge.de-nofilter,Community,dnsforge.de-nofilter,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+139.129.137.137,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+143.20.12.32,dnscry.pt-doh-lisbon-ipv4,Community,dnscry.pt-doh-lisbon-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+146.112.41.2,Cisco OpenDNS,Cisco,cisco-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+146.112.41.4,Cisco OpenDNS,Cisco,cisco-sandbox,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+146.70.154.67,CryptoStorm,Community,cs-nyc,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+146.70.240.203,CryptoStorm,Community,cs-fl,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+146.70.31.43,CryptoStorm,Community,cs-tokyo,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+146.70.66.227,CryptoStorm,Community,cs-ro,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+146.70.82.3,CryptoStorm,Community,cs-de,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+147.189.136.183,dnscry.pt-doh-montreal-ipv4,Community,dnscry.pt-doh-montreal-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+147.189.140.136,dnscry.pt-doh-flint-ipv4,Community,dnscry.pt-doh-flint-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.112.10,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-nofilter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+149.112.112.11,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-filter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+149.112.112.112,Quad9,Quad9,Quad9,CH,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+149.112.112.12,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-nofilter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+149.112.112.9,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-filter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+149.112.121.10,the Canadian Internet Registration Authority,Community,cira-private,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.121.20,the Canadian Internet Registration Authority,Community,cira-protected,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.121.30,the Canadian Internet Registration Authority,Community,cira-family,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.122.10,the Canadian Internet Registration Authority,Community,cira-private,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.122.20,the Canadian Internet Registration Authority,Community,cira-protected,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.112.122.30,the Canadian Internet Registration Authority,Community,cira-family,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+149.28.101.119,plan9dns-fl,Community,plan9dns-fl,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+151.243.222.94,dnscry.pt-doh-jakarta-ipv4,Community,dnscry.pt-doh-jakarta-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+151.245.106.181,dnscry.pt-doh-seoul02-ipv4,Community,dnscry.pt-doh-seoul02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+154.16.159.22,dnscry.pt-philadelphia-ipv4,Community,dnscry.pt-philadelphia-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+156.154.70.1,Neustar,Neustar,Neustar UltraDNS,US,false,false,false,PublicDNS,1.0,HIGH
+156.154.71.1,Neustar,Neustar,Neustar UltraDNS,US,false,false,false,PublicDNS,1.0,HIGH
+157.20.105.115,dnscry.pt-doh-singapore-ipv4,Community,dnscry.pt-doh-singapore-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+157.20.27.79,dnscry.pt-mumbai02-ipv4,Community,dnscry.pt-mumbai02-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+158.64.1.29,RESTENA,Community,restena-doh-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+160.119.233.245,dnscry.pt-capetown02-ipv4,Community,dnscry.pt-capetown02-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+160.119.234.156,dnscry.pt-doh-johannesburg02-ipv4,Community,dnscry.pt-doh-johannesburg02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+160.191.182.216,dnscry.pt-bengaluru-ipv4,Community,dnscry.pt-bengaluru-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+160.251.168.25,saldns03-conoha-ipv4,Community,saldns03-conoha-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+160.251.214.172,saldns02-conoha-ipv4,Community,saldns02-conoha-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+162.159.36.1,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+162.159.46.1,Cloudflare,Cloudflare,cloudflare,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+162.254.86.13,dnscry.pt-doh-vilnius-ipv4,Community,dnscry.pt-doh-vilnius-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+163.172.180.125,sfw.scaleway-fr,Community,sfw.scaleway-fr,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+163.172.34.56,CryptoStorm,Community,cs-fr,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+163.44.124.204,saldns01-conoha-ipv4,Community,saldns01-conoha-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+165.140.117.248,dnscry.pt-doh-tampa-ipv4,Community,dnscry.pt-doh-tampa-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+165.99.131.95,dnscry.pt-doh-hochiminhcity-ipv4,Community,dnscry.pt-doh-hochiminhcity-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+167.235.236.107,dnsforfamily-doh,Community,dnsforfamily-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+167.88.48.18,dnscry.pt-doh-fremont02-ipv4,Community,dnscry.pt-doh-fremont02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+167.88.51.245,dnscry.pt-doh-ikeja-ipv4,Community,dnscry.pt-doh-ikeja-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+169.239.128.124,dnscry.pt-doh-johannesburg-ipv4,Community,dnscry.pt-doh-johannesburg-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+170.249.237.154,dnscry.pt-atlanta-ipv4,Community,dnscry.pt-atlanta-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+172.104.93.80,jp.tiar.app-doh,Community,jp.tiar.app-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+172.67.134.157,doh-crypto-sx,Community,doh-crypto-sx,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+172.93.167.214,dnscry.pt-doh-toronto-ipv4,Community,dnscry.pt-doh-toronto-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+173.249.205.198,dnscry.pt-doh-phoenix-ipv4,Community,dnscry.pt-doh-phoenix-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+174.138.29.175,id-gmail,Community,doh.tiar.app-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+175.45.182.179,dnscry.pt-adelaide-ipv4,Community,dnscry.pt-adelaide-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+176.111.219.126,dnscry.pt-doh-portedwards-ipv4,Community,dnscry.pt-doh-portedwards-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+176.111.223.167,dnscry.pt-doh-santaclara-ipv4,Community,dnscry.pt-doh-santaclara-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+176.113.74.19,CryptoStorm,Community,cs-montreal,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+176.123.10.105,dnscry.pt-chisinau-ipv4,Community,dnscry.pt-chisinau-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+176.123.4.231,CryptoStorm,Community,cs-md,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+176.9.1.117,dnsforge.de,Community,dnsforge.de,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+176.9.93.198,dnsforge.de,Community,dnsforge.de,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+178.105.16.6,La Contre-Voie,Community,la-contre-voie,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+179.61.223.47,CryptoStorm,Community,cs-ore,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+180.149.44.22,dnscry.pt-baku-ipv4,Community,dnscry.pt-baku-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+182.40.70.12,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.106.96.210,dnscry.pt-doh-sanjose-ipv4,Community,dnscry.pt-doh-sanjose-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.107.80.84,CryptoStorm,Community,cs-nl,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.111.188.46,dnscrypt.ca-ipv4,Community,dnscrypt.ca-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.126.255.30,dnscry.pt-doh-kyiv02-ipv4,Community,dnscry.pt-doh-kyiv02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.150.99.255,Freifunk Munich with nodes in Germany,Community,doh.ffmuc.net,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.165.44.164,dnscry.pt-doh-grandrapids-ipv4,Community,dnscry.pt-doh-grandrapids-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.194.53.22,dnscry.pt-doh-tallinn-ipv4,Community,dnscry.pt-doh-tallinn-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.194.94.71,"CIRCL, the Computer Incident Response Center Luxembourg",Community,circl-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.195.236.16,the searx,Community,searx-se-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.207.125.100,dnscry.pt-doh-oradea-ipv4,Community,dnscry.pt-doh-oradea-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.222.222.222,xTom,Community,dns.sb,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.228.168.10,CleanBrowsing,CleanBrowsing,cleanbrowsing-adult,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.228.168.168,CleanBrowsing,CleanBrowsing,cleanbrowsing-adult-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.228.168.9,CleanBrowsing,CleanBrowsing,CleanBrowsing,US,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+185.228.169.9,CleanBrowsing,CleanBrowsing,CleanBrowsing,US,true,true,false,PublicDNS,1.0,HIGH
+185.231.100.106,dnscry.pt-doh-stockholm02-ipv4,Community,dnscry.pt-doh-stockholm02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.250.250.61,DNSBunker,Community,dnsbunker,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.43.135.1,CZ,Community,nic.cz,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.66.143.178,serbica,Community,serbica,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.71.138.138,Wikimedia DNS,Community,wikimedia,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.75.243.80,dnscry.pt-doh-tirana-ipv4,Community,dnscry.pt-doh-tirana-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.93.221.167,dnscry.pt-bucharest-ipv4,Community,dnscry.pt-bucharest-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+185.95.218.42,Digitale Gesellschaft,Community,dns.digitale-gesellschaft.ch,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.95.218.43,Digitale Gesellschaft,Community,dns.digitale-gesellschaft.ch,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+185.99.133.112,dnscry.pt-auckland-ipv4,Community,dnscry.pt-auckland-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+188.132.192.168,dnscry.pt-doh-istanbul-ipv4,Community,dnscry.pt-doh-istanbul-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+190.211.255.227,CryptoStorm,Community,cs-ch,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+192.121.119.19,dnscry.pt-copenhagen-ipv4,Community,dnscry.pt-copenhagen-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+192.121.170.151,dnscry.pt-brussels-ipv4,Community,dnscry.pt-brussels-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+192.71.218.121,dnscry.pt-doh-hafnarfjordur-ipv4,Community,dnscry.pt-doh-hafnarfjordur-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+193.17.47.1,CZ,Community,nic.cz,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+193.201.185.146,dnscry.pt-budapest-ipv4,Community,dnscry.pt-budapest-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+193.201.188.48,ksol.io-ns2-dnscrypt-ipv4,Community,ksol.io-ns2-dnscrypt-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+193.42.246.108,dnscry.pt-berkeleysprings-ipv4,Community,dnscry.pt-berkeleysprings-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+193.70.85.11,bortzmeyer,Community,bortzmeyer,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.0.5.3,dns4all-ipv4,Community,dns4all-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.0.5.64,dns4all-ipv4,Community,dns4all-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.135.119.158,dnscry.pt-doh-tbilisi-ipv4,Community,dnscry.pt-doh-tbilisi-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.164.194.216,dct-de,Community,dct-de,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.2,Mullvad,Community,mullvad-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.3,Mullvad,Community,mullvad-adblock-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.4,Mullvad,Community,mullvad-base-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.5,Mullvad,Community,mullvad-extend-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.6,Mullvad,Community,mullvad-family-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.242.2.9,Mullvad,Community,mullvad-all-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.26.213.15,dnscry.pt-doh-dublin-ipv4,Community,dnscry.pt-doh-dublin-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.32.107.48,dnscry.pt-doh-sandefjord-ipv4,Community,dnscry.pt-doh-sandefjord-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+194.39.205.10,dnscry.pt-doh-munich-ipv4,Community,dnscry.pt-doh-munich-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+195.114.14.74,dnscry.pt-doh-sydney02-ipv4,Community,dnscry.pt-doh-sydney02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+195.12.48.171,CryptoStorm,Community,cs-manchester,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+195.123.212.200,dnscry.pt-doh-riga-ipv4,Community,dnscry.pt-doh-riga-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+195.123.245.19,dnscry.pt-doh-prague-ipv4,Community,dnscry.pt-doh-prague-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+195.206.104.203,CryptoStorm,Community,cs-la,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+195.242.212.131,CryptoStorm,Community,cs-il,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+195.3.221.162,dnscry.pt-doh-warsaw-ipv4,Community,dnscry.pt-doh-warsaw-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+195.72.60.66,dnscry.pt-doh-stockholm-ipv4,Community,dnscry.pt-doh-stockholm-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+196.240.79.163,CryptoStorm,Community,cs-vancouver,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+196.46.50.93,dnscry.pt-doh-ebenecity02-ipv4,Community,dnscry.pt-doh-ebenecity02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+198.140.141.46,dnscry.pt-amsterdam-ipv4,Community,dnscry.pt-amsterdam-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+198.7.58.227,CryptoStorm,Community,cs-dc,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+199.119.137.74,dnscry.pt-doh-newyork-ipv4,Community,dnscry.pt-doh-newyork-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:148f:fffe::1,CZ,Community,nic.cz-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:148f:ffff::1,CZ,Community,nic.cz-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:19f0:5:3bd7:5400:4ff:fe05:da83,plan9dns-nj.ipv6,Community,plan9dns-nj.ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:19f0:9002:de4:5400:4ff:fe08:7de3,plan9dns-fl-doh-ipv6,Community,plan9dns-fl-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:19f0:b400:1d8c:5400:4ff:fe11:b15a,plan9dns-mx-doh-ipv6,Community,plan9dns-mx-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:1b40:5000:a2::53,cs-london6,Community,cs-london6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:41d0:302:2200::180,bortzmeyer-ipv6,Community,bortzmeyer-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:470:1f11:2bb::b23,dnscry.pt-doh-portedwards-ipv6,Community,dnscry.pt-doh-portedwards-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:470:1f23:139::b:b,dnscry.pt-doh-ebenecity02-ipv6,Community,dnscry.pt-doh-ebenecity02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:4860:4860::8844,Google,Google,Google Public DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2001:4860:4860::8888,Google,Google,Google Public DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2001:4ba0:ffed:76::53,cs-dus6,Community,cs-dus6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:550:5a00:5eb::db5:face,dnscry.pt-doh-durham-ipv6,Community,dnscry.pt-doh-durham-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:620:0:ff::2,SWITCH,Community,switch-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:620:0:ff::3,SWITCH,Community,switch-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:678:6d4:5023::53,cs-md6,Community,cs-md6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:678:6d4:5080::3dea:109,dnscry.pt-chisinau-ipv6,Community,dnscry.pt-chisinau-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:678:8::3,dns4all-ipv6,Community,dns4all-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:678:8::64,dns4all-ipv6,Community,dns4all-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:678:e68:f000::,doh.ffmuc.net-v6,Community,doh.ffmuc.net-v6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:678:ed0:f000::,doh.ffmuc.net-v6,Community,doh.ffmuc.net-v6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:67c:1401:2120::1,artikel10-doh-ipv6,Community,artikel10-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:67c:28a4::,uncensoreddns-ipv6,Community,uncensoreddns-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:67c:bec:b:43a:1aff:feb1:eb5d,dnscry.pt-copenhagen-ipv6,Community,dnscry.pt-copenhagen-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:8b0::2022,Andrews & Arnold,Community,a-and-a-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:8b0::2023,Andrews & Arnold,Community,a-and-a-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:910:800::12,fdn-ipv6,Community,fdn-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:910:800::40,fdn-ipv6,Community,fdn-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:a18:1::29,RESTENA,Community,restena-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:24:a1::53,cs-milan6,Community,cs-milan6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:26:61::53,cs-hungary6,Community,cs-hungary6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:27:103::53,cs-belgium6,Community,cs-belgium6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:29:a1::53,cs-austria6,Community,cs-austria6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:33:77::53,cs-czech6,Community,cs-czech6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:35:17::53,cs-barcelona6,Community,cs-barcelona6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:36:61::53,cs-berlin6,Community,cs-berlin6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:38:94::53,cs-norway6,Community,cs-norway6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:40:df::53,cs-tokyo6,Community,cs-tokyo6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:7d:47::53,cs-serbia6,Community,cs-serbia6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:84:4d::53,cs-sydney6,Community,cs-sydney6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:ac8:8b:61::53,cs-manchester6,Community,cs-manchester6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:bc8:1640:1ce2:dc00:ff:fe28:5b17,scaleway-ams-ipv6,Community,scaleway-ams-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:bc8:32d7:200c::53,cs-fr6,Community,cs-fr6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:bc8:710:5818:dc00:ff:fe5b:3f63,scaleway-fr-ipv6,Community,scaleway-fr-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:df1:801:a022::c4:a,dnscry.pt-doh-hongkong-ipv6,Community,dnscry.pt-doh-hongkong-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:df1:88c0:200::14,dnscry.pt-bangkok-ipv6,Community,dnscry.pt-bangkok-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:df1:8f40:51::a,dnscry.pt-dhaka-ipv6,Community,dnscry.pt-dhaka-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2001:df2:d40:29::2,dnscry.pt-doh-islamabad-ipv6,Community,dnscry.pt-doh-islamabad-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2001:df4:1840:9f::a,dnscry.pt-doh-johor-ipv6,Community,dnscry.pt-doh-johor-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+202.61.236.67,dnscry.pt-doh-nuremberg-ipv4,Community,dnscry.pt-doh-nuremberg-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+203.29.240.249,dnscry.pt-doh-perth-ipv4,Community,dnscry.pt-doh-perth-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+203.29.241.76,ADFilter,Community,adfilter-per,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+207.246.87.96,plan9dns-nj,Community,plan9dns-nj,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+208.67.220.123,Cisco OpenDNS,Cisco,cisco-familyshield,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+208.67.220.220,Cisco,Cisco,Cisco OpenDNS,US,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+208.67.222.222,Cisco,Cisco,Cisco OpenDNS,US,true,true,false,PublicDNS,1.0,HIGH
+209.135.170.51,dnscry.pt-doh-houston-ipv4,Community,dnscry.pt-doh-houston-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+209.182.225.103,dnscry.pt-doh-seattle-ipv4,Community,dnscry.pt-doh-seattle-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+209.58.147.36,CryptoStorm,Community,cs-tx,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+212.47.228.136,scaleway-fr,Community,scaleway-fr,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+213.196.191.96,ibksturm,Community,ibksturm,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+216.120.201.105,dnscry.pt-denver-ipv4,Community,dnscry.pt-denver-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+216.238.80.219,plan9dns-mx,Community,plan9dns-mx,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+216.245.140.20,dnscry.pt-doh-manchester-ipv4,Community,dnscry.pt-doh-manchester-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+216.250.97.148,dnscry.pt-doh-hongkong02-ipv4,Community,dnscry.pt-doh-hongkong02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+216.73.159.26,dnscry.pt-doh-valdivia-ipv4,Community,dnscry.pt-doh-valdivia-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+217.12.221.61,dnscry.pt-doh-kyiv-ipv4,Community,dnscry.pt-doh-kyiv-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+217.138.219.219,CryptoStorm,Community,cs-milan,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+217.138.220.243,CryptoStorm,Community,cs-czech,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+217.169.20.22,Andrews & Arnold,Community,a-and-a,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+217.169.20.23,Andrews & Arnold,Community,a-and-a,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+217.197.91.153,artikel10-doh-ipv4,Community,artikel10-doh-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+223.5.5.5,Alibaba,Alibaba,AliDNS,CN,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+223.6.6.6,Alibaba,Alibaba,AliDNS,CN,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+23.129.180.195,dnscry.pt-allendale-ipv4,Community,dnscry.pt-allendale-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+23.133.64.121,dnscry.pt-calgary-ipv4,Community,dnscry.pt-calgary-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+23.137.249.26,dnscry.pt-amsterdam03-ipv4,Community,dnscry.pt-amsterdam03-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+23.137.253.24,dnscry.pt-allentown-ipv4,Community,dnscry.pt-allentown-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+23.150.40.121,dnscry.pt-doh-kansascity-ipv4,Community,dnscry.pt-doh-kansascity-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+23.154.81.92,dnscry.pt-doh-vancouver-ipv4,Community,dnscry.pt-doh-vancouver-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+23.168.136.144,dnscry.pt-doh-indianapolis-ipv4,Community,dnscry.pt-doh-indianapolis-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+23.184.48.19,dnscry.pt-doh-libertylake-ipv4,Community,dnscry.pt-doh-libertylake-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+23.191.80.43,dnscry.pt-doh-halifax-ipv4,Community,dnscry.pt-doh-halifax-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+23.230.253.98,dnscry.pt-dallas-ipv4,Community,dnscry.pt-dallas-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2400:3200::1,Alibaba,Alibaba,AliDNS,CN,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2400:3200:baba::1,Alibaba,Alibaba,AliDNS,CN,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2400:8902::f03c:91ff:feda:c514,jp.tiar.app-doh-ipv6,Community,jp.tiar.app-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2400:d760:0:343::1,dnscry.pt-doh-hochiminhcity-ipv6,Community,dnscry.pt-doh-hochiminhcity-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2401:4520:1122::a,dnscry.pt-doh-singapore02-ipv6,Community,dnscry.pt-doh-singapore02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2401:4520:301e::a,dnscry.pt-doh-tokyo02-ipv6,Community,dnscry.pt-doh-tokyo02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2401:8360:a2:4::a,dnscry.pt-doh-london-ipv6,Community,dnscry.pt-doh-london-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2401:8360:a3:e::a,dnscry.pt-doh-redditch-ipv6,Community,dnscry.pt-doh-redditch-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2401:d4e0:1:f7fd::53,dnscry.pt-bengaluru-ipv6,Community,dnscry.pt-bengaluru-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2401:f2e0:0:102::14,dnscry.pt-doh-manila-ipv6,Community,dnscry.pt-doh-manila-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2402:7340:5000:6200::a,dnscry.pt-doh-sydney02-ipv6,Community,dnscry.pt-doh-sydney02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2402:7340:8000::5,dnscry.pt-doh-melbourne-ipv6,Community,dnscry.pt-doh-melbourne-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2402:d0c0:16:a1e6:0:b893:bf7:dd,dnscry.pt-doh-portland-ipv6,Community,dnscry.pt-doh-portland-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2402:d0c0:18:c8ff:0:b893:bf7:dd,dnscry.pt-doh-saltlakecity-ipv6,Community,dnscry.pt-doh-saltlakecity-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2402:d0c0:22:6cd0:4:4:4:5b81,dnscry.pt-doh-paris-ipv6,Community,dnscry.pt-doh-paris-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2403:cfc0:1004::b5b:47ff,dnscry.pt-doh-taipeh-ipv6,Community,dnscry.pt-doh-taipeh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2404:9400:1:0:216:3eff:fef6:7194,dnscry.pt-brisbane-ipv6,Community,dnscry.pt-brisbane-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2404:9400:41a9:4800::1,ADFilter,Community,adfilter-per-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2404:9400:4:0:216:3eff:fee6:a762,dnscry.pt-doh-perth-ipv6,Community,dnscry.pt-doh-perth-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2404:9400:68f1:100::53,dnscry.pt-adelaide-ipv6,Community,dnscry.pt-adelaide-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2404:9400:6903:2100::1,ADFilter,Community,adfilter-adl-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2404:fbc0:0:11c8::a324,dnscry.pt-doh-hanoi-ipv6,Community,dnscry.pt-doh-hanoi-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2406:4300:bae:6b08::1,dnscry.pt-doh-hongkong03-ipv6,Community,dnscry.pt-doh-hongkong03-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2406:ef80:1:2173::b5f,dnscry.pt-doh-hongkong02-ipv6,Community,dnscry.pt-doh-hongkong02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2406:ef80:5:48a9::1,dnscry.pt-doh-seoul02-ipv6,Community,dnscry.pt-doh-seoul02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2407:6ac0:3:5:1234:4321:89:1,dnscry.pt-doh-jakarta-ipv6,Community,dnscry.pt-doh-jakarta-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2600:1901:0:5a82::,Safe Surfer,Community,safesurfer-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2600:4c00:80:8::a,dnscry.pt-atlanta-ipv6,Community,dnscry.pt-atlanta-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:2b7:d01:c295::b:18,dnscry.pt-doh-kansascity-ipv6,Community,dnscry.pt-doh-kansascity-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f7a3:0:5200::a,dnscry.pt-allendale-ipv6,Community,dnscry.pt-allendale-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:f7f8:2:c::a,dnscry.pt-doh-newyork-ipv6,Community,dnscry.pt-doh-newyork-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f7f8:6:a::a,dnscry.pt-doh-miami-ipv6,Community,dnscry.pt-doh-miami-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f7f8:7:d::a,dnscry.pt-doh-losangeles-ipv6,Community,dnscry.pt-doh-losangeles-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f953:6:25::a,dnscry.pt-doh-ottoville-ipv6,Community,dnscry.pt-doh-ottoville-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f964:1:24::a,dnscry.pt-doh-grandrapids-ipv6,Community,dnscry.pt-doh-grandrapids-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f9bd:80:11::a,dnscry.pt-doh-indianapolis-ipv6,Community,dnscry.pt-doh-indianapolis-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:f9f3:0:2::193,dnscry.pt-doh-houston-ipv6,Community,dnscry.pt-doh-houston-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fa08:5::75,dnscry.pt-doh-mumbai02-ipv6,Community,dnscry.pt-doh-mumbai02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fb94:1:39::a,dnscry.pt-dallas-ipv6,Community,dnscry.pt-dallas-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:fc1c:fa0:29::1,dnscry.pt-doh-halifax-ipv6,Community,dnscry.pt-doh-halifax-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fc24:12:9873::ab1,dnscry.pt-amsterdam03-ipv6,Community,dnscry.pt-amsterdam03-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:fc24:19:74b0:5285::12,dnscry.pt-allentown-ipv6,Community,dnscry.pt-allentown-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:fc24:20:48::a,dnscry.pt-doh-libertylake-ipv6,Community,dnscry.pt-doh-libertylake-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fcc0:2222:9d2e::53,dnscry.pt-doh-tampa-ipv6,Community,dnscry.pt-doh-tampa-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fea7:e0c:e:bff:6:70:194c,dnscry.pt-chicago-ipv6,Community,dnscry.pt-chicago-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:fed2:7198:7af1::1,dnscry.pt-doh-fremont02-ipv6,Community,dnscry.pt-doh-fremont02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fed2:fa0:4a::1,dnscry.pt-doh-toronto02-ipv6,Community,dnscry.pt-doh-toronto02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fed2:fb0:6d::1,dnscry.pt-doh-vancouver-ipv6,Community,dnscry.pt-doh-vancouver-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2602:fed2:fe0:283::1,dnscry.pt-calgary-ipv6,Community,dnscry.pt-calgary-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2602:ff75:7:b79::b4b4,dnscry.pt-doh-losangeles02-ipv6,Community,dnscry.pt-doh-losangeles02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2603:1030:7:7::3b,Safe Surfer,Community,safesurfer-doh-secondary-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2604:9a00:2010:a0bb:6::53,cs-dc6,Community,cs-dc6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2604:bf00:210:12::2,dnscry.pt-philadelphia-ipv6,Community,dnscry.pt-philadelphia-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2605:6c80:5:d::53,cs-ore6,Community,cs-ore6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:3030::ac43:ad3b,jp.tiarap.org-ipv6,Community,jp.tiarap.org-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:3034::6815:413c,doh.tiarap.org-ipv6,Community,doh.tiarap.org-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:3036::ac43:869d,doh-crypto-sx-ipv6,Community,doh-crypto-sx-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:3037::6815:64e,doh-crypto-sx-ipv6,Community,doh-crypto-sx-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:4700::1001,Cloudflare,Cloudflare,Cloudflare DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2606:4700:4700::1002,Cloudflare,Cloudflare,cloudflare-security-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:4700::1003,Cloudflare,Cloudflare,cloudflare-family-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:4700::1111,Cloudflare,Cloudflare,Cloudflare DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+2606:4700:4700::1112,Cloudflare,Cloudflare,cloudflare-security-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700:4700::1113,Cloudflare,Cloudflare,cloudflare-family-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700::6810:84e5,Cloudflare,Cloudflare,cloudflare-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700::6810:85e5,Cloudflare,Cloudflare,cloudflare-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700::6810:f8f9,Cloudflare,Cloudflare,cloudflare-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:4700::6810:f9f9,Cloudflare,Cloudflare,cloudflare-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:6080:2001:1099::a,dnscry.pt-doh-toronto-ipv6,Community,dnscry.pt-doh-toronto-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:65c0:10:20e:1621:d963:131c:bd4c,dnscry.pt-doh-lasvegas-ipv6,Community,dnscry.pt-doh-lasvegas-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:65c0:40:4:5f3:54c4:8d10:9b98,dnscry.pt-detroit-ipv6,Community,dnscry.pt-detroit-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2606:6680:29:1::5859:a37b,dnscry.pt-doh-flint-ipv6,Community,dnscry.pt-doh-flint-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:6680:35:1::506d:8ce2,dnscry.pt-doh-santaclara-ipv6,Community,dnscry.pt-doh-santaclara-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:6680:37:1::c984:4ba3,dnscry.pt-berkeleysprings-ipv6,Community,dnscry.pt-berkeleysprings-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2606:6680:45:1::f78c:9b0,dnscry.pt-doh-montreal-ipv6,Community,dnscry.pt-doh-montreal-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:6680:53:1::846a:bd79,dnscry.pt-doh-taos-ipv6,Community,dnscry.pt-doh-taos-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:9880:2100:a006:3::53,cs-tx6,Community,cs-tx6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2606:a8c0:3:202::a,dnscry.pt-doh-spokane-ipv6,Community,dnscry.pt-doh-spokane-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:fc40:4002:d::a,dnscry.pt-doh-tokyo-ipv6,Community,dnscry.pt-doh-tokyo-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2606:fc40:4003:f::a,dnscry.pt-doh-singapore-ipv6,Community,dnscry.pt-doh-singapore-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:9000:700:1030::a,dnscry.pt-doh-phoenix-ipv6,Community,dnscry.pt-doh-phoenix-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:a680:4:f003::ec32,dnscry.pt-doh-jacksonville-ipv6,Community,dnscry.pt-doh-jacksonville-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:a680:6:f016::3a25,dnscry.pt-denver-ipv6,Community,dnscry.pt-denver-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2607:a680:9:f005::86e7,dnscry.pt-doh-seattle-ipv6,Community,dnscry.pt-doh-seattle-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:f2d8:401b:1045::a,dnscry.pt-doh-ogden-ipv6,Community,dnscry.pt-doh-ogden-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:f358:1a:e::8aa2:9333,dnscry.pt-doh-sanjose-ipv6,Community,dnscry.pt-doh-sanjose-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2607:f5b2:1:a00b:b::53,cs-sea6,Community,cs-sea6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:0:ccc::2,Cisco OpenDNS,Cisco,cisco-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BB::10,the Canadian Internet Registration Authority,Community,cira-private-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BB::20,the Canadian Internet Registration Authority,Community,cira-protected-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BB::30,the Canadian Internet Registration Authority,Community,cira-family-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BC::10,the Canadian Internet Registration Authority,Community,cira-private-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BC::20,the Canadian Internet Registration Authority,Community,cira-protected-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:10A:80BC::30,the Canadian Internet Registration Authority,Community,cira-family-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:119:35::35,Cisco,Cisco,Cisco OpenDNS,US,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+2620:119:53::53,Cisco,Cisco,Cisco OpenDNS,US,true,true,false,PublicDNS,1.0,HIGH
+2620:119:fc::2,Cisco OpenDNS,Cisco,cisco-ipv6-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::10,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-nofilter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::11,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-filter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::12,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-nofilter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::9,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-filter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::fe,Quad9,Quad9,Quad9,CH,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+2620:fe::fe:10,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-nofilter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::fe:11,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-filter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::fe:12,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-nofilter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2620:fe::fe:9,Quad9 Foundation,Quad9,quad9-dnscrypt-ip6-filter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a00:1768:6001:8::53,cs-nl6,Community,cs-nl6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a00:5980:94::71,circl-doh-ipv6,Community,circl-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a00:7142:1:1::53,cs-swe6,Community,cs-swe6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a00:7c83:0:12:14d0:f5b6:4ec:a,dnscry.pt-doh-naaldwijk-ipv6,Community,dnscry.pt-doh-naaldwijk-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:3a0:53:53::,uncensoreddns-dk-ipv6,Community,uncensoreddns-dk-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:13b:3407::face,dns.digitalsize.net-ipv6,Community,dns.digitalsize.net-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:141:316d::117,dnsforge.de-ipv6,Community,dnsforge.de-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:151:34aa::198,dnsforge.de-ipv6,Community,dnsforge.de-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:1c17:4df8::1,dnsforfamily-v6,Community,dnsforfamily-v6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:c013:aae9::194,dnsforge.de-nofilter-ipv6,Community,dnsforge.de-nofilter-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f8:c17:7aa5::249,dnsforge.de-nofilter-ipv6,Community,dnsforge.de-nofilter-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:4f9:c011:b84e::1,dnscry.pt-doh-tuusula-ipv6,Community,dnscry.pt-doh-tuusula-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:6ee0:1::241:1,ksol.io-ns2-dnscrypt-ipv6,Community,ksol.io-ns2-dnscrypt-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a01:6ee0:1::ffff:bae,dnscry.pt-budapest-ipv6,Community,dnscry.pt-budapest-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a01:8740:1:863::3b8c,dnscry.pt-doh-sofia-ipv6,Community,dnscry.pt-doh-sofia-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:e281:ac01:fd0d::1,dnscry.pt-doh-ikeja-ipv6,Community,dnscry.pt-doh-ikeja-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a01:f500:2:1500::a,dnscry.pt-doh-kyiv02-ipv6,Community,dnscry.pt-doh-kyiv02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:180:6:1::8b4,dnscry.pt-doh-jena-ipv6,Community,dnscry.pt-doh-jena-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:27ac::1249,dnscry.pt-doh-riga-ipv6,Community,dnscry.pt-doh-riga-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:27ad::201,dnscry.pt-doh-kyiv-ipv6,Community,dnscry.pt-doh-kyiv-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:27ae:8000::2a1,dnscry.pt-doh-milan-ipv6,Community,dnscry.pt-doh-milan-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:29b8:8001:4::a,dnscry.pt-doh-zurich-ipv6,Community,dnscry.pt-doh-zurich-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:29b8:dc01:2220::53,cs-ch6,Community,cs-ch6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a02:5740:24:45::53,cs-vancouver6,Community,cs-vancouver6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a02:6b8:0:1::feed:bad,Yandex,Yandex,yandex-safe-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:6b8:0:1::feed:ff,Yandex,Yandex,yandex-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:6b8::feed:bad,Yandex,Yandex,yandex-safe-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a02:6b8::feed:ff,Yandex,Yandex,yandex-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:4000:5c:51:24b9:51ff:fe80:f3a7,dnscry.pt-doh-nuremberg-ipv6,Community,dnscry.pt-doh-nuremberg-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:5840:123:8::a,dnscry.pt-doh-newcastle-ipv6,Community,dnscry.pt-doh-newcastle-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:125::88,dnscry.pt-doh-seoul-ipv6,Community,dnscry.pt-doh-seoul-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:195::91,dnscry.pt-baku-ipv6,Community,dnscry.pt-baku-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:1e7::39,dnscry.pt-doh-telaviv-ipv6,Community,dnscry.pt-doh-telaviv-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:545::11a,dnscry.pt-doh-queretaro-ipv6,Community,dnscry.pt-doh-queretaro-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:555::72,dnscry.pt-doh-lima02-ipv6,Community,dnscry.pt-doh-lima02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:5f1:2903::539,dnscry.pt-doh-yerevan-ipv6,Community,dnscry.pt-doh-yerevan-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:90c0:85::102,dnscry.pt-doh-luxembourg-ipv6,Community,dnscry.pt-doh-luxembourg-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:94e0:271f::5b1,dnscry.pt-doh-sandefjord-ipv6,Community,dnscry.pt-doh-sandefjord-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:94e3:222b::1032,dnscry.pt-amsterdam-ipv6,Community,dnscry.pt-amsterdam-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a03:c7c0:52:2641:180::13,dnscry.pt-doh-madrid-ipv6,Community,dnscry.pt-doh-madrid-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:cfc0:8000:26::c303:dda2,dnscry.pt-doh-warsaw-ipv6,Community,dnscry.pt-doh-warsaw-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:d780:0:196::3:56af,dnscry.pt-doh-hudiksvall-ipv6,Community,dnscry.pt-doh-hudiksvall-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:e340:3:3::1,dnscry.pt-doh-moscow-ipv6,Community,dnscry.pt-doh-moscow-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a03:f80:32:52d9::1,dnscry.pt-brussels-ipv6,Community,dnscry.pt-brussels-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a03:f80:354:36a1::1,dnscry.pt-doh-hafnarfjordur-ipv6,Community,dnscry.pt-doh-hafnarfjordur-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a04:6f00:4::17a,dnscry.pt-doh-tallinn-ipv6,Community,dnscry.pt-doh-tallinn-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:5502::5906:97f8:2d0e:1,dnscry.pt-bratislava-ipv6,Community,dnscry.pt-bratislava-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a05:901:6:1048::,dnscry.pt-doh-molln-ipv6,Community,dnscry.pt-doh-molln-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:9403::999,dnscry.pt-doh-prague-ipv6,Community,dnscry.pt-doh-prague-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:9404::899,dnscry.pt-doh-gdansk-ipv6,Community,dnscry.pt-doh-gdansk-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:9406::ae1,dnscry.pt-doh-geneva-ipv6,Community,dnscry.pt-doh-geneva-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:fc84::42,dns.digitale-gesellschaft.ch-ipv6,Community,dns.digitale-gesellschaft.ch-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a05:fc84::43,dns.digitale-gesellschaft.ch-ipv6,Community,dns.digitale-gesellschaft.ch-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a06:1280:bee1:2::ee12:208,dnscry.pt-auckland-ipv6,Community,dnscry.pt-auckland-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a06:1700:1:3a::cba,dnscry.pt-doh-helsinki-ipv6,Community,dnscry.pt-doh-helsinki-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a06:3040::ec4:53,cs-pt6,Community,cs-pt6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a06:a006:d1d1::116,dnscry.pt-doh-valdivia-ipv6,Community,dnscry.pt-doh-valdivia-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a06:de00:401:227::2,dnscry.pt-doh-dusseldorf02-ipv6,Community,dnscry.pt-doh-dusseldorf02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a06:de04:10:1212::,dnscry.pt-bremen-ipv6,Community,dnscry.pt-bremen-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a06:e881:7000::b853:495,dnscry.pt-doh-marseille-ipv6,Community,dnscry.pt-doh-marseille-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:a8c0::,NextDNS,NextDNS,nextdns-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:d884:100::344,dnscry.pt-doh-frankfurt02-ipv6,Community,dnscry.pt-doh-frankfurt02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e043:1:5d::1,dnscry.pt-doh-stockholm-ipv6,Community,dnscry.pt-doh-stockholm-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::2,Mullvad,Community,mullvad-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::3,Mullvad,Community,mullvad-adblock-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::4,Mullvad,Community,mullvad-base-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::5,Mullvad,Community,mullvad-extend-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::6,Mullvad,Community,mullvad-family-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:e340::9,Mullvad,Community,mullvad-all-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a07:efc0:1001:a5ce::b4b4,dnscry.pt-amsterdam02-ipv6,Community,dnscry.pt-amsterdam02-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a09:b280:fe01:e::a,the searx,Community,searx-se-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a09:cd46:f:429e::5,dnscry.pt-doh-dublin-ipv6,Community,dnscry.pt-doh-dublin-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0a:51c1:a:ea::,DNSBunker,Community,dnsbunker-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0a:8dc0:6058::a,dnscry.pt-doh-manchester-ipv6,Community,dnscry.pt-doh-manchester-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0a:8dc0:a067::a,dnscry.pt-ashburn-ipv6,Community,dnscry.pt-ashburn-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0c:5700:3133:650:96d5:99ff:fe8b:74f4,dnscry.pt-doh-stockholm02-ipv6,Community,dnscry.pt-doh-stockholm02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0c:8fc0:1749:66:18::16,dnscry.pt-doh-munich-ipv6,Community,dnscry.pt-doh-munich-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0c:9f00:2:d928:6f0a:b4e2::,dnscry.pt-doh-timisoara-ipv6,Community,dnscry.pt-doh-timisoara-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:1::,CleanBrowsing,CleanBrowsing,cleanbrowsing-family-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:1::1,CleanBrowsing,CleanBrowsing,cleanbrowsing-adult-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:1::2,CleanBrowsing,CleanBrowsing,cleanbrowsing-security-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:2::,CleanBrowsing,CleanBrowsing,cleanbrowsing-family-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:2::1,CleanBrowsing,CleanBrowsing,cleanbrowsing-adult-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:2a00:2::2,CleanBrowsing,CleanBrowsing,cleanbrowsing-security-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:13:71::53,cs-poland6,Community,cs-poland6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:142:11::53,cs-finland6,Community,cs-finland6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:144:1::53,cs-il6,Community,cs-il6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:145:5::53,cs-ga6,Community,cs-ga6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:19:5::53,cs-montreal6,Community,cs-montreal6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:1d:9::53,cs-de6,Community,cs-de6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:1f:7::53,cs-singapore6,Community,cs-singapore6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:24:54::53,cs-nyc6,Community,cs-nyc6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:3:19::53,cs-nv6,Community,cs-nv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:4f:5::53,cs-la6,Community,cs-la6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:5600:6:123::53,cs-fl6,Community,cs-fl6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:8144:0:f6:2915:af:0:18,dnscry.pt-doh-oradea-ipv6,Community,dnscry.pt-doh-oradea-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0d:9ec2:0:f03d::c49e,dnscry.pt-bucharest-ipv6,Community,dnscry.pt-bucharest-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:d8c0:0:f043::6927,dnscry.pt-coventry-ipv6,Community,dnscry.pt-coventry-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2a0d:d900:110::,dnscry.pt-doh-dusseldorf03-ipv6,Community,dnscry.pt-doh-dusseldorf03-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0d:f302:110:6517::1,dnscry.pt-doh-vienna-ipv6,Community,dnscry.pt-doh-vienna-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0e:6a80:3:669::,dnscry.pt-doh-frankfurt-ipv6,Community,dnscry.pt-doh-frankfurt-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0f:6284:4300:101::12a5,dnscry.pt-doh-dusseldorf-ipv6,Community,dnscry.pt-doh-dusseldorf-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0f:c442:8000::32,dnscry.pt-doh-lisbon-ipv6,Community,dnscry.pt-doh-lisbon-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a0f:c444::98,dnscry.pt-doh-lisbon02-ipv6,Community,dnscry.pt-doh-lisbon02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::1:ff,AdGuard,AdGuard,adguard-dns-unfiltered-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::2:ff,AdGuard,AdGuard,adguard-dns-unfiltered-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::ad1:ff,AdGuard,AdGuard,adguard-dns-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::ad2:ff,AdGuard,AdGuard,adguard-dns-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::bad1:ff,AdGuard,AdGuard,adguard-dns-family-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:50c0::bad2:ff,AdGuard,AdGuard,adguard-dns-family-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a10:ca80::a,dnscry.pt-doh-eygelshoven-ipv6,Community,dnscry.pt-doh-eygelshoven-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a11:2646:1:2::4,Olilo (AS212683),Community,olilo-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a11:2646:1:2::5,Olilo (AS212683),Community,olilo-doh-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a12:6fc3:8000::19,dnscry.pt-doh-thessaloniki-ipv6,Community,dnscry.pt-doh-thessaloniki-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a12:e340:300::1768:a95f,dnscry.pt-doh-tbilisi-ipv6,Community,dnscry.pt-doh-tbilisi-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a12:e342:300::daca:63ea,dnscry.pt-doh-istanbul-ipv6,Community,dnscry.pt-doh-istanbul-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a13:1001::86:54:11:1,the DNS4EU consortium led by Whalebone,Community,dns4eu-protective-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a13:1001::86:54:11:100,the DNS4EU consortium led by Whalebone,Community,dns4eu-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a13:9401:0:1::3d58:1,dnscry.pt-doh-vilnius-ipv6,Community,dnscry.pt-doh-vilnius-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2a13:9403::7a6a:5306:1e35:1,dnscry.pt-doh-tirana-ipv6,Community,dnscry.pt-doh-tirana-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2c0f:e8f8:2000:233::4254:c5b2,dnscry.pt-doh-ebenecity-ipv6,Community,dnscry.pt-doh-ebenecity-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2c0f:ef18:9fff:1:bff::a,dnscry.pt-capetown-ipv6,Community,dnscry.pt-capetown-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2c0f:f030:1000:233::245,dnscry.pt-capetown02-ipv6,Community,dnscry.pt-capetown02-ipv6,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+2c0f:f030:6080:1::156,dnscry.pt-doh-johannesburg02-ipv6,Community,dnscry.pt-doh-johannesburg02-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+2c0f:f530::d00:188,dnscry.pt-doh-johannesburg-ipv6,Community,dnscry.pt-doh-johannesburg-ipv6,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+35.227.226.142,Safe Surfer,Community,safesurfer-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+37.114.58.115,dnscry.pt-doh-dusseldorf02-ipv4,Community,dnscry.pt-doh-dusseldorf02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+37.120.142.115,CryptoStorm,Community,cs-barcelona,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.151.11,CryptoStorm,Community,cs-singapore,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.193.219,CryptoStorm,Community,cs-serbia,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.211.91,CryptoStorm,Community,cs-poland,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.217.75,CryptoStorm,Community,cs-berlin,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.234.251,CryptoStorm,Community,cs-sydney,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.120.236.11,CryptoStorm,Community,cs-belgium,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+37.228.129.160,dnscry.pt-doh-helsinki-ipv4,Community,dnscry.pt-doh-helsinki-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+38.45.64.117,dnscry.pt-doh-durham-ipv4,Community,dnscry.pt-doh-durham-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+39.103.26.204,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+4.150.168.57,Safe Surfer,Community,safesurfer-doh-secondary-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+4.2.2.1,Level3,Level3,Level3,US,false,false,false,PublicDNS,1.0,HIGH
+4.2.2.2,Level3,Level3,Level3,US,false,false,false,PublicDNS,1.0,HIGH
+43.224.180.137,dnscry.pt-brisbane-ipv4,Community,dnscry.pt-brisbane-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+45.11.45.11,xTom,Community,dns.sb,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.123.188.129,dnscry.pt-doh-hongkong03-ipv4,Community,dnscry.pt-doh-hongkong03-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.134.48.25,dnscry.pt-doh-timisoara-ipv4,Community,dnscry.pt-doh-timisoara-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.140.164.127,dnscry.pt-doh-marseille-ipv4,Community,dnscry.pt-doh-marseille-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.147.51.123,dnscry.pt-doh-frankfurt02-ipv4,Community,dnscry.pt-doh-frankfurt02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.147.98.223,dct-fr,Community,dct-fr,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+45.155.37.165,dnscry.pt-coventry-ipv4,Community,dnscry.pt-coventry-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+45.249.91.150,dnscry.pt-doh-johor-ipv4,Community,dnscry.pt-doh-johor-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.41.204.204,dnscry.pt-chicago-ipv4,Community,dnscry.pt-chicago-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+45.67.84.132,dnscry.pt-doh-london-ipv4,Community,dnscry.pt-doh-london-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.67.85.219,dnscry.pt-doh-redditch-ipv4,Community,dnscry.pt-doh-redditch-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.67.86.123,dnscry.pt-doh-tokyo-ipv4,Community,dnscry.pt-doh-tokyo-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.80.209.55,dnscry.pt-doh-luxembourg-ipv4,Community,dnscry.pt-doh-luxembourg-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.82.120.61,dnscry.pt-doh-frankfurt-ipv4,Community,dnscry.pt-doh-frankfurt-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.86.162.110,dnscry.pt-amsterdam02-ipv4,Community,dnscry.pt-amsterdam02-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+45.90.28.0,NextDNS,NextDNS,NextDNS,US,true,true,false,PublicDNS,1.0,HIGH
+45.90.30.0,NextDNS,NextDNS,NextDNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+45.90.59.193,dnscry.pt-doh-geneva-ipv4,Community,dnscry.pt-doh-geneva-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+45.95.38.29,dnscry.pt-doh-naaldwijk-ipv4,Community,dnscry.pt-doh-naaldwijk-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+46.250.226.242,blahdns-sg-doh,Community,blahdns-sg-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+47.108.0.63,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+47.122.8.11,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.1.66.255,Freifunk Munich with nodes in Germany,Community,doh.ffmuc.net,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.134.118.198,dnscry.pt-doh-madrid-ipv4,Community,dnscry.pt-doh-madrid-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.175.180.171,dnscry.pt-doh-dusseldorf-ipv4,Community,dnscry.pt-doh-dusseldorf-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.182.115.74,Olilo (AS212683),Community,olilo-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.182.115.75,Olilo (AS212683),Community,olilo-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+5.188.227.13,dnscry.pt-doh-telaviv-ipv4,Community,dnscry.pt-doh-telaviv-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+51.15.122.250,scaleway-ams,Community,scaleway-ams,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+52.65.235.129,deffer-dns.au,Community,deffer-dns.au,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+63.133.223.138,dnscry.pt-doh-taos-ipv4,Community,dnscry.pt-doh-taos-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+64.120.5.251,CryptoStorm,Community,cs-sea,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+65.21.252.201,dnscry.pt-doh-tuusula-ipv4,Community,dnscry.pt-doh-tuusula-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+66.187.4.39,dnscry.pt-doh-lasvegas-ipv4,Community,dnscry.pt-doh-lasvegas-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+66.187.7.140,dnscry.pt-detroit-ipv4,Community,dnscry.pt-detroit-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+74.82.42.42,he,Community,he,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+76.76.2.11,Control D,Control D,controld-block-malware,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+77.247.127.107,dnscry.pt-ashburn-ipv4,Community,dnscry.pt-ashburn-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+77.88.8.1,Yandex,Yandex,Yandex DNS,RU,true,false,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+77.88.8.2,Yandex,Yandex,yandex-safe,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+77.88.8.8,Yandex,Yandex,Yandex DNS,RU,true,false,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+77.88.8.88,Yandex,Yandex,yandex-safe,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+78.129.248.67,CryptoStorm,Community,cs-london,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+78.46.244.143,blahdns-de-doh,Community,blahdns-de-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+78.47.64.161,dnsforfamily,Community,dnsforfamily,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+78.47.71.194,dnsforge.de-nofilter,Community,dnsforge.de-nofilter,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+79.110.53.51,CryptoStorm,Community,cs-nv,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+79.124.7.43,dnscry.pt-doh-sofia-ipv4,Community,dnscry.pt-doh-sofia-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+8.129.152.230,"Alibaba Cloud for mainland China, with domestic, Hong Kong and overseas access nodes",Alibaba,alidns-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+8.20.247.2,Comodo,Community,comodo-02,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+8.20.247.20,Comodo,Community,comodo-02,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+8.26.56.26,Comodo,Community,comodo-02,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+8.8.4.4,Google,Google,Google Public DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+8.8.8.8,Google,Google,Google Public DNS,US,true,true,false,public_dns.csv (override) + dnscrypt,v3,HIGH
+80.67.169.40,fdn,Community,fdn,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+81.7.11.246,dnscry.pt-jena-ipv4,Community,dnscry.pt-jena-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+82.118.16.121,dnscry.pt-doh-milan-ipv4,Community,dnscry.pt-doh-milan-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+82.118.21.189,dnscry.pt-doh-gdansk-ipv4,Community,dnscry.pt-doh-gdansk-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+82.165.61.52,dct-de2,Community,dct-de2,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+82.22.20.34,dnscry.pt-doh-newcastle-ipv4,Community,dnscry.pt-doh-newcastle-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+83.138.55.186,dnscry.pt-doh-vienna-ipv4,Community,dnscry.pt-doh-vienna-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+83.143.242.43,CryptoStorm,Community,cs-finland,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+83.220.169.155,comss.one,Community,comss.one,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+85.90.197.7,dnscry.pt-doh-thessaloniki-ipv4,Community,dnscry.pt-doh-thessaloniki-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+85.90.207.199,dnscry.pt-doh-yerevan-ipv4,Community,dnscry.pt-doh-yerevan-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+86.106.74.219,CryptoStorm,Community,cs-hungary,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+86.54.11.1,the DNS4EU consortium led by Whalebone,Community,dns4eu-protective,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+86.54.11.100,the DNS4EU consortium led by Whalebone,Community,dns4eu,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+87.121.99.23,dnscry.pt-doh-lima02-ipv4,Community,dnscry.pt-doh-lima02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+89.106.78.106,dnscry.pt-bremen-ipv4,Community,dnscry.pt-bremen-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+89.117.2.17,dnscry.pt-doh-paris-ipv4,Community,dnscry.pt-doh-paris-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+89.163.221.181,CryptoStorm,Community,cs-dus,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+89.223.88.74,dnscry.pt-doh-queretaro-ipv4,Community,dnscry.pt-doh-queretaro-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+89.233.43.71,uncensoreddns-dk-ipv4,Community,uncensoreddns-dk-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+9.9.9.10,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-nofilter-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+9.9.9.11,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-filter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+9.9.9.12,Quad9 Foundation,Quad9,quad9-dnscrypt-ip4-nofilter-ecs-pri,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+9.9.9.9,Quad9,Quad9,Quad9,CH,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+90.46.206.248,dorriere-fr,Community,dorriere-fr,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+91.108.80.159,dnscry.pt-doh-molln-ipv4,Community,dnscry.pt-doh-molln-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+91.205.230.224,CryptoStorm,Community,cs-pt,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+91.209.16.98,dnscry.pt-doh-lisbon02-ipv4,Community,dnscry.pt-doh-lisbon02-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+91.219.215.227,CryptoStorm,Community,cs-norway,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+91.239.100.100,uncensoreddns-ipv4,Community,uncensoreddns-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+92.38.135.128,dnscry.pt-doh-seoul-ipv4,Community,dnscry.pt-doh-seoul-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+93.183.106.222,dnscry.pt-doh-moscow-ipv4,Community,dnscry.pt-doh-moscow-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+93.95.115.21,dnscry.pt-doh-eygelshoven-ipv4,Community,dnscry.pt-doh-eygelshoven-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+94.130.135.203,dns.digitalsize.net,Community,dns.digitalsize.net,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+94.130.180.225,dnsforfamily,Community,dnsforfamily,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.140.14.14,AdGuard,AdGuard,AdGuard DNS,CY,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+94.140.14.140,AdGuard,AdGuard,adguard-dns-unfiltered,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.140.14.141,AdGuard,AdGuard,adguard-dns-unfiltered,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.140.14.15,AdGuard,AdGuard,adguard-dns-family,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.140.15.15,AdGuard,AdGuard,AdGuard DNS,CY,true,true,true,public_dns.csv (override) + dnscrypt,v3,HIGH
+94.140.15.16,AdGuard,AdGuard,adguard-dns-family,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.198.41.235,CryptoStorm,Community,cs-austria,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+94.26.35.57,dnscry.pt-doh-zurich-ipv4,Community,dnscry.pt-doh-zurich-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+95.131.202.105,dnscry.pt-bratislava-ipv4,Community,dnscry.pt-bratislava-ipv4,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+95.143.196.16,dnscry.pt-doh-hudiksvall-ipv4,Community,dnscry.pt-doh-hudiksvall-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+95.215.19.53,Njalla,Community,njalla-doh,,true,false,false,dnscrypt-resolvers,v3,MEDIUM
+95.217.11.63,NWPS,Community,nwps.fi,,false,false,true,dnscrypt-resolvers,v3,MEDIUM
+96.9.228.27,dnscry.pt-doh-hongkong-ipv4,Community,dnscry.pt-doh-hongkong-ipv4,,true,false,false,dnscrypt-resolvers,v3,MEDIUM

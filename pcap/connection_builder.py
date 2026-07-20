@@ -8,12 +8,14 @@ statistical and forensic analysis.
 
 import logging
 import ipaddress
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Optional
 import tldextract
 
 from pcap.pcap_parser import RawEvent
+from pcap.schemas import TrackerFact, GeoFact, ASNFact, DNSResolverFact, PIIFact
 from pcap.tracker_matcher import match_domain
-from pcap.geoip import GeoMapper
+from pcap.network_context import NetworkContext
 from pcap.constants import (
     HARDCODED_DNS_RESOLVERS,
     DOH_DOMAINS,
@@ -46,10 +48,6 @@ class ConnectionRecord:
     sdk_vendor_country: str
     sdk_category: str
     canonical_vendor: str
-    ip_country_code: str
-    ip_country_name: str
-    ip_asn: str
-    ip_asn_org: str
     is_quic: bool
     is_tls: bool
     is_dns: bool
@@ -57,6 +55,11 @@ class ConnectionRecord:
     is_nonstandard_port: bool
     is_hardcoded_dns: bool
     is_anti_analysis_probe: bool
+    tracker_fact: Optional[TrackerFact] = None
+    geo_fact: Optional[GeoFact] = None
+    asn_fact: Optional[ASNFact] = None
+    dns_resolver_fact: Optional['DNSResolverFact'] = None
+    pii_facts: list['PIIFact'] = field(default_factory=list)
 
 
 @dataclass
@@ -73,6 +76,7 @@ class DNSRecord:
     is_hardcoded_resolver: bool
     is_doh_resolver: bool
     is_anti_analysis_probe: bool
+    dns_resolver_fact: Optional['DNSResolverFact'] = None
 
 
 @dataclass
@@ -82,9 +86,9 @@ class DomainGeoRecord:
     dst_ip: str
     country_code: str
     country_name: str
+    continent: str
     asn: str
     asn_org: str
-    geoip_db_version: str
 
 
 @dataclass
@@ -107,8 +111,11 @@ def _is_ip_address(val: str) -> bool:
 class ConnectionBuilder:
     """Aggregates and enriches RawEvents into research-quality Connection, DNS, and Geo records."""
 
-    def __init__(self, geo_mapper: GeoMapper):
-        self.geo_mapper = geo_mapper
+    def __init__(self, geo_mapper=None, network_context: 'NetworkContext' = None):
+        self.network_context = network_context
+        # fallback for tests
+        if geo_mapper and not (network_context and network_context.geo_mapper):
+            self.network_context = NetworkContext(geo_mapper=geo_mapper, tracker_matcher=network_context.tracker_matcher if network_context else None)
 
     def build(self, events: list[RawEvent], sample_id: str, session_id: str) -> BuildResult:
         """
@@ -156,6 +163,10 @@ class ConnectionBuilder:
                     if any(":" in ip for ip in response_ips):
                         query_type = "AAAA"
 
+                dns_resolver_fact = None
+                if self.network_context and self.network_context.dns_resolver_matcher:
+                    dns_resolver_fact = self.network_context.dns_resolver_matcher.match(resolver_ip)
+
                 dns_rec = DNSRecord(
                     sample_id=sample_id,
                     session_id=session_id,
@@ -167,7 +178,8 @@ class ConnectionBuilder:
                     query_type=query_type,
                     is_hardcoded_resolver=is_hardcoded_resolver,
                     is_doh_resolver=is_doh_resolver,
-                    is_anti_analysis_probe=is_anti_analysis
+                    is_anti_analysis_probe=is_anti_analysis,
+                    dns_resolver_fact=dns_resolver_fact
                 )
                 dns_records.append(dns_rec)
 
@@ -176,19 +188,20 @@ class ConnectionBuilder:
                 geo_key = (event.domain, event.dst_ip)
                 if geo_key not in seen_geo:
                     seen_geo.add(geo_key)
-                    
-                    if event.dst_ip not in self.geo_mapper._cache:
-                        self.geo_mapper.lookup(event.dst_ip)
-                    geo = self.geo_mapper._cache[event.dst_ip]
+                    geo_fact = None
+                    asn_fact = None
+                    if self.network_context and self.network_context.geo_mapper:
+                        geo_fact = self.network_context.geo_mapper.lookup_geo(event.dst_ip)
+                        asn_fact = self.network_context.geo_mapper.lookup_asn(event.dst_ip)
 
                     geo_rec = DomainGeoRecord(
                         domain=event.domain,
                         dst_ip=event.dst_ip,
-                        country_code=geo.country_code,
-                        country_name=geo.country_name,
-                        asn=geo.asn,
-                        asn_org=geo.asn_org,
-                        geoip_db_version=self.geo_mapper.db_version
+                        country_code=geo_fact.country_code if geo_fact else "",
+                        country_name=geo_fact.country_name if geo_fact else "",
+                        continent=geo_fact.continent if geo_fact else "",
+                        asn=asn_fact.asn if asn_fact else "",
+                        asn_org=asn_fact.organization if asn_fact else ""
                     )
                     domain_geo_records.append(geo_rec)
 
@@ -223,11 +236,44 @@ class ConnectionBuilder:
                 tld = ext.suffix
                 subdomain = ext.subdomain
 
-            # Tracker matching
+            # Tracker matching (legacy + new KB)
             tracker = match_domain(domain)
+            tracker_fact = None
+            if self.network_context and self.network_context.tracker_matcher:
+                tracker_fact = self.network_context.tracker_matcher.match(domain)
 
-            # GeoIP enrichment (uses GeoMapper's own cache)
-            geo = self.geo_mapper.lookup(dst_ip)
+            # GeoIP enrichment
+            geo_fact = None
+            asn_fact = None
+            if self.network_context and self.network_context.geo_mapper:
+                geo_fact = self.network_context.geo_mapper.lookup_geo(dst_ip)
+                asn_fact = self.network_context.geo_mapper.lookup_asn(dst_ip)
+                
+            dns_resolver_fact = None
+            if self.network_context and self.network_context.dns_resolver_matcher:
+                dns_resolver_fact = self.network_context.dns_resolver_matcher.match(dst_ip)
+                
+            pii_facts = []
+            if self.network_context and self.network_context.pii_matcher:
+                for e in bucket_events:
+                    if e.domain:
+                        pii_facts.extend(self.network_context.pii_matcher.match(e.domain, "DNS Name"))
+                    if e.http_url:
+                        pii_facts.extend(self.network_context.pii_matcher.match(e.http_url, "HTTP URL"))
+                    if getattr(e, 'http_headers', None):
+                        for k, v in e.http_headers.items():
+                            pii_facts.extend(self.network_context.pii_matcher.match(k, "HTTP Header Key"))
+                            pii_facts.extend(self.network_context.pii_matcher.match(v, "HTTP Header Value"))
+                    if getattr(e, 'http_body', None):
+                        pii_facts.extend(self.network_context.pii_matcher.match(e.http_body, "HTTP Body"))
+                        
+            # Deduplicate PIIFacts within this connection
+            unique_pii = {}
+            for pf in pii_facts:
+                key = (pf.pattern_name, pf.matched_value, pf.source_location)
+                if key not in unique_pii:
+                    unique_pii[key] = pf
+            pii_facts = list(unique_pii.values())
 
             # Port/Resolver flags
             is_nonstandard_port = str(dst_port) not in STANDARD_PORTS
@@ -267,22 +313,23 @@ class ConnectionBuilder:
                 payload_bytes_total=payload_bytes_total,
                 first_seen=first_seen,
                 last_seen=last_seen,
-                tracker_matched=tracker.matched,
-                sdk_name=tracker.sdk_name,
+                tracker_matched=tracker.matched if not tracker_fact else True,
+                sdk_name=tracker.sdk_name if not tracker_fact else tracker_fact.vendor,
                 sdk_vendor_country=tracker.vendor_country,
-                sdk_category=tracker.sdk_category,
-                canonical_vendor=tracker.canonical_vendor,
-                ip_country_code=geo.country_code,
-                ip_country_name=geo.country_name,
-                ip_asn=geo.asn,
-                ip_asn_org=geo.asn_org,
+                sdk_category=tracker.sdk_category if not tracker_fact else tracker_fact.category,
+                canonical_vendor=tracker.canonical_vendor if not tracker_fact else tracker_fact.canonical_vendor,
+                geo_fact=geo_fact,
+                asn_fact=asn_fact,
                 is_quic=is_quic,
                 is_tls=is_tls,
                 is_dns=is_dns,
                 is_http=is_http,
                 is_nonstandard_port=is_nonstandard_port,
                 is_hardcoded_dns=is_hardcoded_dns,
-                is_anti_analysis_probe=is_anti_analysis_probe
+                is_anti_analysis_probe=is_anti_analysis_probe,
+                tracker_fact=tracker_fact,
+                dns_resolver_fact=dns_resolver_fact,
+                pii_facts=pii_facts
             )
             connections.append(conn_rec)
 
@@ -291,9 +338,9 @@ class ConnectionBuilder:
         unique_ips = len({k[3] for k in buckets.keys()})
         logger.info(
             "ConnectionBuilder completed: connections=%d, dns=%d, domain_geo=%d. "
-            "Unique domains: %d, Unique destination IPs: %d. Geo lookups cached: %d.",
+            "Unique domains: %d, Unique destination IPs: %d.",
             len(connections), len(dns_records), len(domain_geo_records),
-            unique_domains, unique_ips, len(self.geo_mapper._cache)
+            unique_domains, unique_ips
         )
 
         return BuildResult(

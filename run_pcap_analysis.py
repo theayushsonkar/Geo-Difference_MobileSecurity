@@ -32,9 +32,10 @@ workspace_dir = Path(__file__).resolve().parent
 sys.path.append(str(workspace_dir))
 
 from pcap.pcap_parser import parse_pcap
-from pcap.geoip import GeoMapper
 from pcap.connection_builder import ConnectionBuilder
 from pcap.app_summary import AppSummaryBuilder
+from knowledge_base.dataset_manager import DatasetManager
+from pcap.network_context import NetworkContext
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -149,10 +150,10 @@ def map_connection(conn, run_id: str, geoip_version: str, pcap_filename: str,
         "payload_bytes_total": conn.payload_bytes_total,    # Fix 2
         "first_seen": first_dt,
         "last_seen": last_dt,
-        "ip_country_code": conn.ip_country_code,
-        "ip_country_name": conn.ip_country_name,
-        "ip_asn": conn.ip_asn,
-        "ip_asn_org": conn.ip_asn_org,
+        "geo_country_code": conn.geo_fact.country_code if conn.geo_fact else "",
+        "geo_country_name": conn.geo_fact.country_name if conn.geo_fact else "",
+        "asn_number": conn.asn_fact.asn if conn.asn_fact else "",
+        "asn_org": conn.asn_fact.organization if conn.asn_fact else "",
         "sdk_name": conn.sdk_name,
         "sdk_vendor_country": conn.sdk_vendor_country,
         "sdk_category": conn.sdk_category,
@@ -234,14 +235,13 @@ def map_summary(summary, run_id: str, tracker_db_version: str, geoip_version: st
         "nonstandard_port_connection_count": summary.nonstandard_port_connection_count,
         "nonstandard_port_domain_count": summary.nonstandard_port_domain_count,
         # Country
-        "country_top1_code": summary.country_top1_code,
-        "country_top1_pct": summary.country_top1_pct,
-        "country_top3_pct": summary.country_top3_pct,
-        "high_risk_country_domain_count": summary.high_risk_country_domain_count,
-        "high_risk_country_pct": summary.high_risk_country_pct,
+        "unique_destination_countries": summary.unique_destination_countries,
         # ASN
-        "top_asn": summary.top_asn,
-        "top_asn_pct": summary.top_asn_pct,
+        "unique_destination_asns": summary.unique_destination_asns,
+        "destination_country_distribution": json.dumps(summary.destination_country_distribution),
+        "destination_continent_distribution": json.dumps(summary.destination_continent_distribution),
+        "destination_asn_distribution": json.dumps(summary.destination_asn_distribution),
+        "top_organizations": json.dumps(summary.top_organizations),
         # Cloud
         "aws_domain_count": summary.aws_domain_count,
         "google_cloud_domain_count": summary.google_cloud_domain_count,
@@ -259,11 +259,23 @@ def map_summary(summary, run_id: str, tracker_db_version: str, geoip_version: st
         "dns_answer_count": summary.dns_answer_count,
         "avg_dns_response_count": summary.avg_dns_response_count,
         "max_dns_response_count": summary.max_dns_response_count,
+        "dns_provider_diversity": summary.dns_provider_diversity,
+        "top_dns_providers": json.dumps(summary.top_dns_providers),
+        "top_dns_provider_pct": summary.top_dns_provider_pct,
+        "doh_capable_resolver_count": summary.doh_capable_resolver_count,
+        "dot_capable_resolver_count": summary.dot_capable_resolver_count,
+        "dns_provider_distribution": json.dumps(summary.dns_provider_distribution),
         "hardcoded_dns_detected": summary.hardcoded_dns_detected,
         "doh_detected": summary.doh_detected,
         # Anti-analysis
         "anti_analysis_detected": summary.anti_analysis_detected,
         "anti_analysis_domain_count": summary.anti_analysis_domain_count,
+        # PII
+        "unique_pii_categories": summary.unique_pii_categories,
+        "unique_pii_patterns": summary.unique_pii_patterns,
+        "total_pii_matches": summary.total_pii_matches,
+        "pii_category_distribution": json.dumps(summary.pii_category_distribution),
+        "pii_pattern_distribution": json.dumps(summary.pii_pattern_distribution),
         # Metadata
         "geoip_db_version": geoip_version,
         "tracker_db_version": tracker_db_version,
@@ -301,9 +313,33 @@ def main():
     all_geo = []
     all_summaries = []
 
-    # Initialize enrichment classes
-    geo_mapper = GeoMapper()
-    conn_builder = ConnectionBuilder(geo_mapper)
+    manager = DatasetManager()
+    geo_mapper = manager.load_geolite()
+
+    # Tracker KB
+    from pcap.matchers.tracker_matcher import TrackerMatcher
+    tracker_facts = manager.load_network_trackers()
+    tracker_matcher = TrackerMatcher(tracker_facts)
+    logger.info("TrackerMatcher loaded: %d domain-suffix rules", len(tracker_facts))
+
+    # DNS Resolver KB
+    dns_resolvers = manager.load_dns_resolvers()
+    resolver_dict = {r.ip_address: r.__dict__ for r in dns_resolvers}
+    from pcap.matchers.dns_resolver_matcher import DNSResolverMatcher
+    dns_resolver_matcher = DNSResolverMatcher(resolver_dict)
+
+    # PII KB
+    from pcap.matchers.pii_matcher import PIIMatcher
+    pii_patterns = manager.load_pii_patterns()
+    pii_matcher = PIIMatcher(pii_patterns)
+
+    network_context = NetworkContext(
+        tracker_matcher=tracker_matcher,
+        geo_mapper=geo_mapper,
+        dns_resolver_matcher=dns_resolver_matcher,
+        pii_matcher=pii_matcher
+    )
+    conn_builder = ConnectionBuilder(network_context=network_context)
     summary_builder = AppSummaryBuilder()
 
     pcap_files = list(input_path.glob("*.pcap"))
@@ -345,10 +381,9 @@ def main():
                 domain_geo_records=build_result.domain_geo_records
             )
 
-            # 4. Map & Append Connection Records
             for c in build_result.connections:
                 all_conns.append(map_connection(
-                    c, run_id, geo_mapper.db_version, pcap_file.name,
+                    c, run_id, "1.0", pcap_file.name,
                     package_name, app_country_code
                 ))
 
@@ -370,7 +405,7 @@ def main():
 
             # 7. Map & Append Summary
             all_summaries.append(map_summary(
-                summary, run_id, "1.0", geo_mapper.db_version,
+                summary, run_id, "1.0", "1.0",
                 package_name, app_country_code
             ))
 
@@ -385,7 +420,7 @@ def main():
                 "error": str(e)
             })
 
-    geo_mapper.close()
+
     end_time = time.time()
     processing_time_sec = end_time - start_time
 
@@ -411,7 +446,7 @@ def main():
         "app_summaries_generated": len(all_summaries),
         "pcap_parser_version": "1.0",
         "tracker_db_version": "1.0",
-        "geoip_db_version": geo_mapper.db_version,
+        "geoip_db_version": "1.0",
         "input_directory": str(input_path.resolve()),
         "output_directory": str(output_path.resolve()),
         "processing_time_sec": float(processing_time_sec),
