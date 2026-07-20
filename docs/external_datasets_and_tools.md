@@ -1,4 +1,4 @@
-# External Datasets and Tools Used in the Static Analyzer
+# External Datasets and Tools Used in the Pipeline
 
 | Phase | Purpose | External Dataset / Tool | Official Link | How it is Used |
 | :--- | :--- | :--- | :--- | :--- |
@@ -14,6 +14,12 @@
 | **10. SDK Metadata Enrichment** | Attach SDK information | `sdk_metadata.csv` (Custom) | — | Enrich SDKs with vendor, category, country, aliases, ecosystem, CPE, etc. |
 | **11. CVE Detection** | Detect vulnerable SDKs | National Vulnerability Database (NVD) | [NVD](https://nvd.nist.gov/)<br>[NVD Data Feeds](https://nvd.nist.gov/vuln/data-feeds) | Match SDK CPE and version against NVD to identify known vulnerabilities. |
 | **12. Static Analysis Output** | Aggregate findings | Internal Matcher Framework | — | Aggregate Privacy APIs, Secrets, Geo Logic, SDKs, Trackers, and CVEs into CSV outputs. |
+| **13. PCAP Capture** | Capture per-app network traffic | PCAPdroid | [PCAPdroid](https://github.com/emanuele-f/PCAPdroid) | Installed on device via ADB; captures UID-filtered raw `.pcap` files during a 60-second automated Monkey UI session per app. |
+| **14. Packet Parsing** | Parse raw frames | `dpkt` | [PyPI](https://pypi.org/project/dpkt/) | Decodes Ethernet/IP/TCP/UDP frames to extract DNS query/response payloads and TLS ClientHello SNI extensions. |
+| **15. Network Tracker Detection** | Identify tracker domains | Exodus Privacy + EasyPrivacy | [Exodus Privacy](https://github.com/Exodus-Privacy)<br>[EasyPrivacy](https://easylist.to/) | Offline: Merge both datasets into a unified suffix trie (47,000+ rules). Runtime: `TrackerMatcher` performs longest-suffix domain lookup to identify and attribute tracker endpoints. |
+| **16. GeoIP Attribution** | Map IPs to countries and ASNs | MaxMind GeoLite2 | [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) | `GeoLite2-Country.mmdb` and `GeoLite2-ASN.mmdb` used offline to resolve destination IPs to hosting country codes and ISP organizations with an in-process LRU cache. |
+| **17. DNS Resolver Attribution** | Identify canonical DNS providers | dnscrypt-resolvers | [DNSCrypt/dnscrypt-resolvers](https://github.com/DNSCrypt/dnscrypt-resolvers) | Offline: Parse the official public resolver list to extract IPs and metadata for 14 canonical providers (Google, Cloudflare, etc.). Runtime: `DNSResolverMatcher` performs O(1) IP lookup. |
+| **18. PII Detection** | Detect personal data leaks in traffic | Custom rules + Microsoft Presidio patterns | [Microsoft Presidio](https://github.com/microsoft/presidio) | Offline: Merge 15 high-confidence custom patterns (IMEI, IPv4, UUID, location coordinates, etc.) with 4 Presidio patterns into `pii_patterns.csv`. Runtime: `PIIMatcher` applies a compiled master-regex with field-specific validators (Luhn, E.164, RFC standards) to eliminate false positives. |
 
 ## Notes
 
@@ -31,3 +37,13 @@
 -   **Exodus Privacy:** Tracker metadata (package prefixes, tracker
     categories, network signatures).
 -   **NVD:** Official CVE database used for vulnerability matching.
+-   **PCAPdroid:** On-device packet capture filtered by Android UID;
+    no root required.
+-   **MaxMind GeoLite2:** Offline IP geolocation database; no API calls
+    at runtime.
+-   **EasyPrivacy:** Domain-level tracker blocklist; vendor/category
+    metadata not guaranteed for all entries.
+-   **dnscrypt-resolvers:** Canonical public resolver registry with
+    DoH/DoT/DNSCrypt flags.
+-   **Microsoft Presidio:** Industry-standard PII recognizer patterns
+    used as a secondary, lower-confidence source.
