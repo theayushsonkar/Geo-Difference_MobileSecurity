@@ -11,11 +11,11 @@ This document outlines the known constraints and technical boundaries of the det
 ## GeoLite2 Knowledge Base
 
 - **Database Coverage:** Some IP prefixes have valid ASN information but no associated country record in the GeoLite2 databases. These resolve successfully at the ASN level while leaving the country field empty.
-- **Private Network Traffic:** Emulator-generated PCAPs contain substantial RFC1918 traffic. These addresses are intentionally classified as `PRIVATE` and may dominate geographic statistics unless filtered during analysis.
+- **Private Network Traffic:** Physical device captures on local Wi-Fi networks inherently contain substantial RFC1918 traffic (e.g., ARP, router broadcasts). These addresses are intentionally classified as `PRIVATE` and may dominate geographic statistics unless filtered during analysis.
 
 ## DNS Resolver Knowledge Base
 
-- **Capture Environment Limitation:** Android emulator networking typically forwards DNS queries through a local DHCP-assigned resolver before forwarding them upstream. Consequently, public resolver attribution from emulator PCAPs is inherently limited.
+- **Capture Environment Limitation:** Android networking on physical devices typically forwards standard DNS queries through a local DHCP-assigned Wi-Fi router before sending them upstream. Consequently, attributing these standard queries to specific public resolvers is inherently limited because the traffic appears to go to the local gateway (e.g., 192.168.1.1).
 - **Resolver Attribution:** Public DNS providers are only identified when their IP addresses are directly observable in captured traffic (e.g., hardcoded public DNS, DoH, or DoT connections).
 
 ## PII Knowledge Base
